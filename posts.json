@@ -1,0 +1,23 @@
+{
+  "_comment": "The feed on isaacpeterson.au reads this file. Add a new entry to the top of the posts array and commit. Fields: tag (short category label), title, date (YYYY-MM), url (link to the post, or null if none yet). The site sorts newest first by date.",
+  "posts": [
+    {
+      "tag": "How I built it",
+      "title": "How I prompted a career plan using Claude",
+      "date": "2026-06",
+      "url": null
+    },
+    {
+      "tag": "Process",
+      "title": "Running an LLM Council to make better decisions",
+      "date": "2026-06",
+      "url": null
+    },
+    {
+      "tag": "How I built it",
+      "title": "Building a psychosocial risk tool from scratch with no code",
+      "date": "2026-05",
+      "url": null
+    }
+  ]
+}

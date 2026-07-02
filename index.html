@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isaac Peterson</title>
+<meta name="description" content="Quiet and curious. Building tools and automation with AI, and sharing the process as I go. Workers compensation, psychosocial risk, and one-person infrastructure.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   DESIGN TOKENS — Reference these in Framer
+   ============================================================
+   Background:   #faf7f4  (warm white — use everywhere)
+   Accent:       #2c3e6b  (soft navy — primary)
+   Accent hover: #1e2d52  (navy depth)
+   Accent tint:  rgba(44,62,107,0.08)
+   Ink:          #1a1a18  (text + illustration strokes)
+   Muted:        #6b6b68  (secondary text)
+   Rule:         rgba(26,26,24,0.12)
+
+   TYPOGRAPHY
+   Display:      DM Serif Display — hero headline, section titles
+   Body:         DM Sans — all body copy, nav, buttons
+   Mono:         DM Mono — labels, metadata, tool tags
+
+   TYPE SCALE
+   Hero H1:      72px / line-height 1.1 / tracking -0.02em
+   Section H2:   40px / line-height 1.2 / tracking -0.01em
+   Card title:   20px / line-height 1.3
+   Body:         17px / line-height 1.7
+   Label/mono:   12px / line-height 1.5 / tracking 0.08em / uppercase
+
+   SPACING
+   Section padding:  120px top/bottom
+   Container max:    1200px centered
+   Card gap:         32px
+   Nav height:       64px
+
+   ILLUSTRATION
+   Single continuous line drawings only
+   No fills, no gradients, no colour
+   Stroke: #1a1a18 on #faf7f4
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #faf7f4;
+  --accent: #2c3e6b;
+  --accent-hover: #1e2d52;
+  --accent-tint: rgba(44,62,107,0.08);
+  --ink: #1a1a18;
+  --muted: #6b6b68;
+  --rule: rgba(26,26,24,0.12);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
+  z-index: 100;
+}
+
+.nav-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 48px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.nav-links li a:hover { color: var(--ink); }
+.nav-links li a:hover .nav-icon svg { stroke: var(--ink); }
+
+.nav-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.nav-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--muted);
+  stroke-width: 2.2;
+  fill: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.2s;
+}
+
+.nav-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 80px;
+}
+
+/* HERO */
+#hero {
+  display: flex;
+  align-items: center;
+  padding-top: 64px;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+  align-items: center;
+  width: 100%;
+  padding: 80px 80px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-copy { max-width: 580px; }
+
+.hero-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+}
+
+.hero-h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 64px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.hero-h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink);
+  opacity: 0.55;
+  max-width: 480px;
+}
+
+.hero-illustration {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.hero-illustration img {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  opacity: 0.92;
+  mix-blend-mode: multiply;
+}
+
+/* illustration placeholder for mockup */
+.illus-placeholder {
+  width: 340px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--rule);
+  border-radius: 4px;
+}
+
+.illus-placeholder-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+/* SECTION SHARED */
+section {
+  padding: 120px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.section-intro {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 560px;
+  margin-bottom: 64px;
+  line-height: 1.7;
+}
+
+/* BUILT */
+.tools-scroll-track {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin: 0 -80px;
+  padding: 0 80px 24px;
+  cursor: grab;
+}
+
+.tools-scroll-track::-webkit-scrollbar {
+  display: none;
+}
+
+.tools-scroll-track:active {
+  cursor: grabbing;
+}
+
+.tools-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  width: max-content;
+}
+
+.tool-card {
+  width: 340px;
+  flex-shrink: 0;
+}
+
+.tool-card {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 40px 36px;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.tool-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.tool-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-tint);
+  padding: 4px 10px;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.tool-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.tool-desc {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.tool-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.2s;
+}
+
+.tool-link:hover { gap: 12px; }
+
+.tool-link::after { content: '→'; }
+
+/* SHARING */
+.sharing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.sharing-posts { grid-column: 1 / 2; }
+.sharing-sidebar { grid-column: 2 / 3; }
+
+.post-list { display: flex; flex-direction: column; gap: 0; }
+
+.post-item {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.post-item:first-child { border-top: 1px solid var(--rule); }
+.post-item:hover { opacity: 0.7; }
+
+.post-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.post-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.post-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.post-arrow {
+  font-size: 18px;
+  color: var(--muted);
+  padding-top: 24px;
+}
+
+.sharing-sidebar-block {
+  background: var(--accent-tint);
+  padding: 40px 36px;
+  margin-bottom: 24px;
+}
+
+.sidebar-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.social-links { display: flex; flex-direction: column; gap: 12px; }
+
+.social-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: opacity 0.2s;
+}
+
+.social-link:hover { opacity: 0.6; }
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.video-placeholder {
+  background: var(--accent-tint);
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.video-coming {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ABOUT */
+#about { padding-bottom: 160px; }
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  align-items: start;
+}
+
+.about-copy p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.about-copy p:last-child { margin-bottom: 0; }
+
+.about-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-top: 8px;
+}
+
+.detail-item { }
+
+.detail-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.detail-value {
+  font-size: 16px;
+  color: var(--ink);
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 40px 0;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.footer-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.footer-social {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.footer-social a {
+  color: var(--muted);
+  display: flex;
+  transition: color 0.2s;
+}
+
+.footer-social a:hover { color: var(--accent); }
+
+/* SPEC OVERLAY — remove in Framer */
+.spec-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--accent-tint);
+  padding: 3px 8px;
+  margin-left: 12px;
+  letter-spacing: 0.06em;
+  vertical-align: middle;
+}
+
+
+/* ============================================================
+   MOBILE BREAKPOINT — 390px reference
+   ============================================================
+   FRAMER SPECS:
+   Breakpoint:       390px (mobile) / 768px (tablet) / 1440px (desktop)
+   Hero columns:     Single column on mobile — illustration hidden
+   Nav:              Bottom bar on mobile — icons + labels only, no IP wordmark
+   Hero H1:          38px / line-height 1.15 / tracking -0.02em
+   Hero subtext:     17px / line-height 1.5
+   Section padding:  64px top/bottom on mobile (vs 120px desktop)
+   Container:        24px left/right padding on mobile (vs 80px desktop)
+   Tools grid:       Single column on mobile (vs 3 col desktop)
+   Sharing grid:     Single column on mobile (vs 2 col desktop)
+   About grid:       Single column on mobile (vs 2 col desktop)
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  nav {
+    padding: 0 24px;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr !important;
+    padding: 80px 24px 48px;
+    gap: 0;
+  }
+
+  .hero-illustration {
+    display: none !important;
+  }
+
+  .hero-h1 {
+    font-size: 38px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+  }
+
+  .container {
+    padding: 0 24px;
+  }
+
+  section {
+    padding: 64px 0;
+  }
+
+  .tools-scroll-track {
+    margin: 0 -24px;
+    padding: 0 24px 20px;
+  }
+
+  .tool-card {
+    width: 280px;
+  }
+
+  .sharing-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .sharing-sidebar { grid-column: 1; }
+  .sharing-posts { grid-column: 1; }
+
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+}
+
+/* ============================================================
+   BUILT SECTION — NAVY BACKGROUND
+   ============================================================ */
+
+#built {
+  background: #2c3e6b;
+  border-top: none;
+  padding-top: 64px;
+}
+
+#built .section-eyebrow {
+  color: rgba(250,247,244,0.5);
+}
+
+#built .section-title {
+  color: #faf7f4;
+}
+
+#built .section-intro {
+  color: rgba(250,247,244,0.65);
+}
+
+#built .tool-card {
+  background: rgba(250,247,244,0.05);
+  border: 1px solid rgba(250,247,244,0.12);
+}
+
+#built .tool-card:hover {
+  background: rgba(250,247,244,0.1);
+  border-color: rgba(250,247,244,0.35);
+  transform: translateY(-2px);
+}
+
+#built .tool-tag {
+  color: #faf7f4;
+  background: rgba(250,247,244,0.12);
+}
+
+#built .tool-title {
+  color: #faf7f4;
+}
+
+#built .tool-desc {
+  color: rgba(250,247,244,0.6);
+}
+
+#built .tool-link {
+  color: rgba(250,247,244,0.85);
+}
+
+#built .tool-link:hover {
+  color: #faf7f4;
+}
+
+/* SOCIAL CARDS */
+.social-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.2s, transform 0.2s;
+  background: var(--bg);
+}
+
+.social-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.social-card-muted {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.social-card-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+
+.social-card-body {
+  flex: 1;
+}
+
+.social-card-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.social-card-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.social-card-name,
+.social-card-desc { display: block; }
+
+.sharing-sidebar-block .social-card:last-child { margin-bottom: 0; }
+
+.social-card-arrow {
+  font-size: 16px;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.social-card:hover .social-card-arrow {
+  transform: translateX(3px);
+}
+
+.hero-mid {
+  font-family: 'DM Serif Display', serif;
+  font-size: 40px;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--ink);
+  max-width: 540px;
+  margin-bottom: 20px;
+  opacity: 0.75;
+}
+
+.tool-card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  border-radius: 3px 3px 0 0;
+  margin: -40px -36px 24px;
+  width: calc(100% + 72px);
+  border-bottom: 1px solid rgba(250,247,244,0.12);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-name">IP</a>
+  <ul class="nav-links">
+
+    <li>
+      <a href="#built">
+        <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><rect width="256" height="256" fill="none"/><path d="M232,96a72,72,0,0,1-100.94,66L79,222.22c-.12.14-.26.29-.39.42a32,32,0,0,1-45.26-45.26c.14-.13.28-.27.43-.39L94,124.94a72.07,72.07,0,0,1,83.54-98.78,8,8,0,0,1,3.93,13.19L144,80l5.66,26.35L176,112l40.65-37.52a8,8,0,0,1,13.19,3.93A72.6,72.6,0,0,1,232,96Z"/></svg></span>
+        <span class="nav-label">Built</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="#sharing">
+        <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><rect width="256" height="256" fill="none"/><path d="M160,32.25V223.69a8.29,8.29,0,0,1-3.91,7.18,8,8,0,0,1-9-.56l-65.57-51A4,4,0,0,1,80,176.16V79.84a4,4,0,0,1,1.55-3.15l65.57-51a8,8,0,0,1,10,.16A8.27,8.27,0,0,1,160,32.25ZM60,80H32A16,16,0,0,0,16,96v64a16,16,0,0,0,16,16H60a4,4,0,0,0,4-4V84A4,4,0,0,0,60,80Zm126.77,20.84a8,8,0,0,0-.72,11.3,24,24,0,0,1,0,31.72,8,8,0,1,0,12,10.58,40,40,0,0,0,0-52.88A8,8,0,0,0,186.74,100.84Zm40.89-26.17a8,8,0,1,0-11.92,10.66,64,64,0,0,1,0,85.34,8,8,0,1,0,11.92,10.66,80,80,0,0,0,0-106.66Z"/></svg></span>
+        <span class="nav-label">Out loud</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="#about">
+        <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><rect width="256" height="256" fill="none"/><path d="M230.93,220a8,8,0,0,1-6.93,4H32a8,8,0,0,1-6.92-12c15.23-26.33,38.7-45.21,66.09-54.16a72,72,0,1,1,73.66,0c27.39,8.95,50.86,27.83,66.09,54.16A8,8,0,0,1,230.93,220Z"/></svg></span>
+        <span class="nav-label">Isaac</span>
+      </a>
+    </li>
+
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="hero-label">isaacpeterson.au</p>
+      <h1 class="hero-h1">Quiet and <em>curious.</em></h1>
+      <p class="hero-mid">Fascinated by generative AI and the idea that one person can do it all.</p>
+      <p class="hero-sub">This is where I figure things out in public.</p>
+    </div>
+    <div class="hero-illustration">
+      <img src="assets/hero-illustration.png" alt="Seated thinker — line illustration" style="max-width:380px; width:100%; height:auto; display:block;" />
+    </div>
+  </div>
+</section>
+
+<!-- BUILT -->
+<section id="built">
+  <div class="container">
+    <p class="section-eyebrow">Built</p>
+    <h2 class="section-title">Things I've made</h2>
+    <p class="section-intro">Things I've built and deployed. Tools, experiments, and projects, made with AI.</p>
+
+    <div class="tools-scroll-track"><div class="tools-grid">
+
+      <div class="tool-card">
+        <span class="tool-tag">Risk Model</span>
+        <img class="tool-card-img" src="assets/tool-risk-model.png" alt="Psychological Risk Model screenshot" />
+        <h3 class="tool-title">Psychological Risk Model</h3>
+        <p class="tool-desc">A conceptual model for mapping psychosocial risk across organisational, job, and individual dimensions.</p>
+        <a href="https://psychologicalriskmetre.netlify.app" class="tool-link" target="_blank">Open tool</a>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-tag">Reform Navigator</span>
+        <img class="tool-card-img" src="assets/tool-reform-navigator.png" alt="NSW Workers Compensation Reform Navigator screenshot" />
+        <h3 class="tool-title">NSW Workers Compensation Reform Navigator</h3>
+        <p class="tool-desc">An interactive guide to navigating the 2024 NSW workers compensation reforms.</p>
+        <a href="https://nsw-wc-reform-navigator.netlify.app" class="tool-link" target="_blank">Open tool</a>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-tag">Reference Hub</span>
+        <img class="tool-card-img" src="assets/tool-employer-hub.png" alt="Psychosocial Hazards Employer Hub screenshot" />
+        <h3 class="tool-title">Psychosocial Hazards Employer Hub</h3>
+        <p class="tool-desc">A national reference directory across all nine Australian jurisdictions for managing psychosocial hazards.</p>
+        <span style="font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(250,247,244,0.45);">Deploying soon</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SHARING -->
+<section id="sharing">
+  <div class="container">
+    <p class="section-eyebrow">Out loud</p>
+    <h2 class="section-title">How I'm building it</h2>
+    <p class="section-intro">Process posts, how-tos, and notes from the build. A playbook for anyone who wants to follow along.</p>
+
+    <div class="sharing-grid">
+
+      <div class="sharing-posts">
+        <!-- FRAMER SPEC: This list should be CMS-driven in Framer
+             Add new posts via Framer CMS — they appear here automatically
+             Show: tag, title, date
+             Link: to full post page or external URL
+             Recency signal: most recent post date visible so return visitors know site is alive -->
+        <!-- Posts render from posts.json — edit that file to update this list.
+             Newest first, sorted by date automatically.
+             Each entry: tag, title, date (YYYY-MM), optional url. -->
+        <div class="post-list" id="post-list"></div>
+      </div>
+
+      <div class="sharing-sidebar">
+        <div class="sharing-sidebar-block">
+          <p class="sidebar-label">Find me on</p>
+
+          <a href="https://www.linkedin.com/in/isaac-peterson-9b693722/" class="social-card" target="_blank" rel="noopener">
+            <span class="social-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </span>
+            <span class="social-card-body">
+              <span class="social-card-name">LinkedIn</span>
+              <span class="social-card-desc">Weekly posts on workers comp, psychosocial risk, and AI</span>
+            </span>
+            <span class="social-card-arrow">→</span>
+          </a>
+
+          <a href="https://github.com/3daysl8" class="social-card" target="_blank" rel="noopener">
+            <span class="social-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14 0 1.54-.01 2.79-.01 3.17 0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </span>
+            <span class="social-card-body">
+              <span class="social-card-name">GitHub</span>
+              <span class="social-card-desc">Source for the tools and this site</span>
+            </span>
+            <span class="social-card-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="video-placeholder">
+          <p class="video-coming">Video — coming soon</p>
+          <p style="font-size:14px; color: var(--muted); line-height:1.5;">Short-form video on how I build things. Coming as the channel grows.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-eyebrow">Isaac</p>
+    <h2 class="section-title">The person behind it</h2>
+
+    <div class="about-inner">
+      <div class="about-copy">
+        <!-- FRAMER SPEC: 4-5 sentences max. Personal, not credentials.
+             No job titles, no employer names, no years of experience.
+             Should feel like the person talking, not a bio. -->
+        <p>I'm a New Zealander living in Melbourne, working in personal injury by day. I've always had ideas. What changed is that everything I need to build them is now within reach.</p>
+        <p>The world is moving faster than most people can keep up with. I'd rather get in front of it than catch up later.</p>
+        <p>I just have to ask the right questions and learn as I go.</p>
+      </div>
+
+      <div class="about-detail">
+        <div class="detail-item">
+          <p class="detail-label">Based in</p>
+          <p class="detail-value">Melbourne, Australia</p>
+        </div>
+        <div class="detail-item">
+          <p class="detail-label">Originally from</p>
+          <p class="detail-value">New Zealand</p>
+        </div>
+        <div class="detail-item">
+          <p class="detail-label">Building with</p>
+          <p class="detail-value">Claude, Framer, Higgsfield, Netlify, Canva, Squarespace, GitHub</p>
+        </div>
+        <div class="detail-item">
+          <p class="detail-label">Last updated</p>
+          <p class="detail-value">June 2026</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-name">Isaac Peterson</span>
+      <span class="footer-social">
+        <a href="https://www.linkedin.com/in/isaac-peterson-9b693722/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://github.com/3daysl8" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14 0 1.54-.01 2.79-.01 3.17 0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        </a>
+      </span>
+      <span class="footer-meta">isaacpeterson.au · © 2026</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// ============================================================
+// POSTS FEED — reads posts.json from the same folder.
+// To publish a new post: add an entry to posts.json, commit,
+// Netlify redeploys. No HTML edits needed.
+// Later: n8n commits to posts.json and this updates itself.
+// ============================================================
+const FALLBACK_POSTS = [
+  { tag: "How I built it", title: "How I prompted a career plan using Claude", date: "2026-06", url: null },
+  { tag: "Process", title: "Running an LLM Council to make better decisions", date: "2026-06", url: null },
+  { tag: "How I built it", title: "Building a psychosocial risk tool from scratch with no code", date: "2026-05", url: null }
+];
+
+function formatDate(iso) {
+  const [y, m] = iso.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[parseInt(m, 10) - 1] + ' ' + y;
+}
+
+function renderPosts(posts) {
+  const list = document.getElementById('post-list');
+  if (!list) return;
+  const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+  list.innerHTML = '';
+  sorted.forEach(p => {
+    const el = document.createElement(p.url ? 'a' : 'div');
+    el.className = 'post-item';
+    if (p.url) {
+      el.href = p.url;
+      el.target = '_blank';
+      el.rel = 'noopener';
+      el.style.textDecoration = 'none';
+    }
+    el.innerHTML =
+      '<div>' +
+        '<p class="post-tag"></p>' +
+        '<p class="post-title"></p>' +
+        '<p class="post-meta"></p>' +
+      '</div>' +
+      '<span class="post-arrow">→</span>';
+    el.querySelector('.post-tag').textContent = p.tag;
+    el.querySelector('.post-title').textContent = p.title;
+    el.querySelector('.post-meta').textContent = formatDate(p.date);
+    list.appendChild(el);
+  });
+}
+
+fetch('posts.json')
+  .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
+  .then(data => renderPosts(data.posts || data))
+  .catch(() => renderPosts(FALLBACK_POSTS));
+
+// ============================================================
+// TOOLS TRACK — gentle auto-rotation.
+// Pauses on hover or touch, resumes after, loops back to start.
+// Respects reduced-motion preference.
+// ============================================================
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const autoTrack = document.querySelector('.tools-scroll-track');
+
+if (autoTrack && !reduceMotion) {
+  let paused = false;
+  let resumeTimer = null;
+
+  const pause = () => {
+    paused = true;
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => { paused = false; }, 4000);
+  };
+
+  ['mouseenter', 'touchstart', 'wheel', 'mousedown'].forEach(evt =>
+    autoTrack.addEventListener(evt, pause, { passive: true })
+  );
+
+  setInterval(() => {
+    if (paused || document.hidden) return;
+    const max = autoTrack.scrollWidth - autoTrack.clientWidth;
+    if (max <= 0) return;
+    if (autoTrack.scrollLeft >= max - 2) {
+      autoTrack.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      autoTrack.scrollLeft += 1;
+    }
+  }, 40);
+}
+
+// Drag to scroll on tools track
+const track = document.querySelector('.tools-scroll-track');
+if (track) {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  track.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+  });
+
+  track.addEventListener('mouseleave', () => { isDown = false; });
+  track.addEventListener('mouseup', () => { isDown = false; });
+  track.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.2;
+    track.scrollLeft = scrollLeft - walk;
+  });
+}
+</script>
+</body>
+</html>
