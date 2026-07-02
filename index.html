@@ -969,7 +969,7 @@ footer {
         </div>
         <div class="detail-item">
           <p class="detail-label">Building with</p>
-          <p class="detail-value">Claude, Framer, Higgsfield, Netlify, Canva, Squarespace, GitHub</p>
+          <p class="detail-value">Claude, Netlify, GitHub, n8n, Higgsfield, Canva</p>
         </div>
         <div class="detail-item">
           <p class="detail-label">Last updated</p>
@@ -1018,12 +1018,16 @@ function formatDate(iso) {
   return months[parseInt(m, 10) - 1] + ' ' + y;
 }
 
+const FEED_PAGE_SIZE = 6;
+let visibleCount = FEED_PAGE_SIZE;
+let allPosts = [];
+
 function renderPosts(posts) {
   const list = document.getElementById('post-list');
   if (!list) return;
-  const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+  allPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date));
   list.innerHTML = '';
-  sorted.forEach(p => {
+  allPosts.slice(0, visibleCount).forEach(p => {
     const el = document.createElement(p.url ? 'a' : 'div');
     el.className = 'post-item';
     if (p.url) {
@@ -1044,6 +1048,18 @@ function renderPosts(posts) {
     el.querySelector('.post-meta').textContent = formatDate(p.date);
     list.appendChild(el);
   });
+  if (allPosts.length > visibleCount) {
+    const btn = document.createElement('button');
+    btn.id = 'show-more-posts';
+    btn.type = 'button';
+    btn.textContent = 'Show more (' + (allPosts.length - visibleCount) + ')';
+    btn.style.cssText = "font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: none; border: 1px solid rgba(44,62,107,0.25); border-radius: 6px; padding: 10px 18px; margin-top: 20px; cursor: pointer;";
+    btn.addEventListener('click', () => {
+      visibleCount += FEED_PAGE_SIZE;
+      renderPosts(allPosts);
+    });
+    list.appendChild(btn);
+  }
 }
 
 fetch('posts.json')
