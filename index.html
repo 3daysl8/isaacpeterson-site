@@ -377,6 +377,25 @@ section {
   transition: opacity 0.2s;
 }
 
+/* When a post has a thumbnail, prepend an image column */
+.post-item.has-thumb {
+  grid-template-columns: 96px 1fr auto;
+}
+
+.post-thumb {
+  width: 96px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: var(--accent-tint);
+}
+
+@media (max-width: 600px) {
+  .post-item.has-thumb { grid-template-columns: 64px 1fr auto; }
+  .post-thumb { width: 64px; height: 56px; }
+}
+
 .post-item:first-child { border-top: 1px solid var(--rule); }
 .post-item:hover { opacity: 0.7; }
 
@@ -1029,14 +1048,18 @@ function renderPosts(posts) {
   list.innerHTML = '';
   allPosts.slice(0, visibleCount).forEach(p => {
     const el = document.createElement(p.url ? 'a' : 'div');
-    el.className = 'post-item';
+    el.className = 'post-item' + (p.image ? ' has-thumb' : '');
     if (p.url) {
       el.href = p.url;
       el.target = '_blank';
       el.rel = 'noopener';
       el.style.textDecoration = 'none';
     }
+    const thumb = p.image
+      ? '<img class="post-thumb" src="' + p.image + '" alt="" loading="lazy" />'
+      : '';
     el.innerHTML =
+      thumb +
       '<div>' +
         '<p class="post-tag"></p>' +
         '<p class="post-title"></p>' +
