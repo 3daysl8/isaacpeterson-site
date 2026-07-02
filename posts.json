@@ -1,11 +1,12 @@
 {
-  "_comment": "The feed on isaacpeterson.au reads this file. Add a new entry to the top of the posts array and commit. Fields: tag (short category label), title, date (YYYY-MM), url (link to the post, or null if none yet). The site sorts newest first by date.",
+  "_comment": "The feed on isaacpeterson.au reads this file. Add a new entry to the top of the posts array and commit. Fields: tag (short category label), title, date (YYYY-MM), url (link to the post, or null if none yet), image (optional path like assets/name.png, shows a thumbnail beside the post). The site sorts newest first by date.",
   "posts": [
     {
       "tag": "AI & the profession",
       "title": "Is AI going to take my job",
       "date": "2026-06",
-      "url": "https://www.linkedin.com/posts/isaac-peterson-9b693722_ive-been-wondering-if-ai-was-going-to-take-share-7476129705193132033-IWIu/"
+      "url": "https://www.linkedin.com/posts/isaac-peterson-9b693722_ive-been-wondering-if-ai-was-going-to-take-share-7476129705193132033-IWIu/",
+      "image": "assets/post-ai-job.png"
     },
     {
       "tag": "How I built it",
