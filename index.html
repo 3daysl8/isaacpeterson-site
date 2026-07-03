@@ -379,12 +379,12 @@ section {
 
 /* When a post has a thumbnail, prepend an image column */
 .post-item.has-thumb {
-  grid-template-columns: 96px 1fr auto;
+  grid-template-columns: 163px 1fr auto;
 }
 
 .post-thumb {
-  width: 96px;
-  height: 72px;
+  width: 163px;
+  height: 122px;
   object-fit: cover;
   border-radius: 8px;
   border: 1px solid var(--rule);
@@ -392,8 +392,8 @@ section {
 }
 
 @media (max-width: 600px) {
-  .post-item.has-thumb { grid-template-columns: 64px 1fr auto; }
-  .post-thumb { width: 64px; height: 56px; }
+  .post-item.has-thumb { grid-template-columns: 109px 1fr auto; }
+  .post-thumb { width: 109px; height: 95px; }
 }
 
 .post-item:first-child { border-top: 1px solid var(--rule); }
