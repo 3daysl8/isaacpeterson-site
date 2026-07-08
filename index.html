@@ -204,9 +204,10 @@ nav {
 }
 
 .hero-illustration img {
-  width: 100%;
-  max-width: 380px;
+  width: auto;
   height: auto;
+  max-width: 100%;
+  display: block;
   opacity: 0.92;
   mix-blend-mode: multiply;
 }
@@ -941,7 +942,7 @@ footer {
       <p class="hero-sub">This is where I figure things out in public.</p>
     </div>
     <div class="hero-illustration">
-      <img src="assets/hero-illustration.png" alt="Seated thinker — line illustration" style="max-width:380px; width:100%; height:auto; display:block;" />
+      <img src="assets/hero-illustration.png" alt="Seated thinker — line illustration" />
     </div>
   </div>
 </section>
@@ -1112,6 +1113,29 @@ footer {
 
 
 <script>
+// ============================================================
+// HERO ILLUSTRATION — height matched to the copy column beside it.
+// Re-runs on load, on font-swap, and on resize (skipped under the
+// 768px breakpoint where the illustration is hidden).
+// ============================================================
+function matchHeroIllustrationHeight() {
+  const copy = document.querySelector('.hero-copy');
+  const img = document.querySelector('.hero-illustration img');
+  if (!copy || !img) return;
+  if (window.innerWidth <= 768) {
+    img.style.height = '';
+    return;
+  }
+  img.style.height = copy.offsetHeight + 'px';
+  img.style.width = 'auto';
+}
+
+window.addEventListener('load', matchHeroIllustrationHeight);
+window.addEventListener('resize', matchHeroIllustrationHeight);
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(matchHeroIllustrationHeight);
+}
+
 // ============================================================
 // POSTS FEED — reads posts.json from the same folder.
 // To publish a new post: add an entry to posts.json, commit,
