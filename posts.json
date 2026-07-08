@@ -14,24 +14,6 @@
       "date": "2026-06",
       "url": "https://www.linkedin.com/posts/isaac-peterson-9b693722_ive-been-wondering-if-ai-was-going-to-take-share-7476129705193132033-IWIu/",
       "image": "assets/post-ai-job.png"
-    },
-    {
-      "tag": "How I built it",
-      "title": "How I prompted a career plan using Claude",
-      "date": "2026-06",
-      "url": null
-    },
-    {
-      "tag": "Process",
-      "title": "Running an LLM Council to make better decisions",
-      "date": "2026-06",
-      "url": null
-    },
-    {
-      "tag": "How I built it",
-      "title": "Building a psychosocial risk tool from scratch with no code",
-      "date": "2026-05",
-      "url": null
     }
   ]
 }
