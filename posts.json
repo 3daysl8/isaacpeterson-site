@@ -2,6 +2,13 @@
   "_comment": "The feed on isaacpeterson.au reads this file. Add a new entry to the top of the posts array and commit. Fields: tag (short category label), title, date (YYYY-MM), url (link to the post, or null if none yet), image (optional path like assets/name.png, shows a thumbnail beside the post). The site sorts newest first by date.",
   "posts": [
     {
+      "tag": "How I built it",
+      "title": "I Made Claude Interview Me for a Job. My Own.",
+      "date": "2026-07",
+      "url": "https://isaacpetersonau.substack.com/p/i-made-claude-interview-me-for-a",
+      "image": "assets/post-claude-interview.jpg"
+    },
+    {
       "tag": "Personal Injury",
       "title": "Trauma-informed care: what is it?",
       "date": "2026-07",
