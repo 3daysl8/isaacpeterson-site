@@ -3,6 +3,13 @@
   "posts": [
     {
       "tag": "AI & me",
+      "title": "A Development Agency Would Quote This at $100,000. I Built It in 15 Hours.",
+      "date": "2026-07",
+      "url": "https://isaacpetersonau.substack.com/p/a-development-agency-would-quote",
+      "image": "assets/post-development-agency.png"
+    },
+    {
+      "tag": "AI & me",
       "title": "The Most Dangerous AI Hallucination Looks Exactly Like a Fact",
       "date": "2026-07",
       "url": "https://isaacpetersonau.substack.com/p/the-most-dangerous-ai-hallucination",
