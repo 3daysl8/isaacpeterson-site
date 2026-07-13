@@ -102,40 +102,19 @@ nav {
 }
 
 .nav-links li a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
   text-decoration: none;
   color: var(--muted);
   transition: color 0.2s;
+  padding: 8px 0;
 }
 
 .nav-links li a:hover { color: var(--ink); }
-.nav-links li a:hover .nav-icon svg { stroke: var(--ink); }
-
-.nav-icon {
-  display: block;
-  width: 22px;
-  height: 22px;
-}
-
-.nav-icon svg {
-  width: 100%;
-  height: 100%;
-  stroke: var(--muted);
-  stroke-width: 2.2;
-  fill: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: stroke 0.2s;
-}
 
 .nav-label {
   font-family: 'DM Mono', monospace;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   line-height: 1;
 }
@@ -158,9 +137,9 @@ nav {
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 40px;
-  align-items: center;
+  align-items: end;
   width: 100%;
-  padding: 80px 80px 48px;
+  padding: 80px 80px 72px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -191,20 +170,24 @@ nav {
   color: var(--accent);
 }
 
+/* The closing line is the thesis of the site — full ink, weight, and an
+   accent rule beneath it so the eye lands here after the headline. */
 .hero-sub {
   font-family: 'DM Sans', sans-serif;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 500;
   line-height: 1.6;
   color: var(--ink);
-  opacity: 0.55;
   max-width: 480px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
 }
 
 .hero-illustration {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .hero-illustration img {
@@ -269,6 +252,36 @@ section {
 }
 
 /* BUILT */
+/* The shell owns the edge fades: navy gradients that signal more cards in
+   that direction and disappear at the ends of the track. */
+.tools-scroll-shell { position: relative; }
+
+.tools-scroll-shell::before,
+.tools-scroll-shell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 24px;
+  width: 72px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tools-scroll-shell::before {
+  left: -80px;
+  background: linear-gradient(to right, #2c3e6b, rgba(44,62,107,0));
+}
+
+.tools-scroll-shell::after {
+  right: -80px;
+  background: linear-gradient(to left, #2c3e6b, rgba(44,62,107,0));
+}
+
+.tools-scroll-shell.fade-left::before { opacity: 1; }
+.tools-scroll-shell.fade-right::after { opacity: 1; }
+
 .tools-scroll-track {
   overflow-x: auto;
   overflow-y: hidden;
@@ -277,7 +290,10 @@ section {
   margin: 0 -80px;
   padding: 0 80px 24px;
   cursor: grab;
+  scroll-snap-type: x proximity;
 }
+
+.tool-card { scroll-snap-align: start; }
 
 .tools-scroll-track::-webkit-scrollbar {
   display: none;
@@ -465,13 +481,33 @@ section {
   grid-template-columns: 163px 1fr auto;
 }
 
+/* Thumbnails come from many sources in many styles; a slight desaturation
+   plus a navy wash unifies them into one visual register. */
+.post-thumb-wrap {
+  position: relative;
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: var(--accent-tint);
+}
+
+.post-thumb-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  opacity: 0.13;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
 .post-thumb {
   width: 163px;
   height: 122px;
   object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid var(--rule);
-  background: var(--accent-tint);
+  display: block;
+  filter: saturate(0.72);
 }
 
 @media (max-width: 600px) {
@@ -616,21 +652,11 @@ section {
   flex-shrink: 0;
 }
 
-.video-placeholder {
-  background: var(--accent-tint);
-  padding: 40px 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.video-coming {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.sidebar-note {
+  font-size: 13px;
   color: var(--muted);
+  line-height: 1.5;
+  margin-top: 20px;
 }
 
 /* ABOUT */
@@ -684,8 +710,8 @@ section {
 }
 
 .about-photo {
-  width: 108px;
-  height: 108px;
+  width: 148px;
+  height: 148px;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--rule);
@@ -787,6 +813,10 @@ footer {
     letter-spacing: -0.02em;
   }
 
+  .hero-mid {
+    font-size: 21px;
+  }
+
   .hero-sub {
     font-size: 17px;
   }
@@ -803,6 +833,9 @@ footer {
     margin: 0 -24px;
     padding: 0 24px 20px;
   }
+
+  .tools-scroll-shell::before { left: -24px; width: 40px; }
+  .tools-scroll-shell::after { right: -24px; width: 40px; }
 
   .tool-card {
     width: 280px;
@@ -853,7 +886,7 @@ footer {
 }
 
 #built .section-intro {
-  color: rgba(250,247,244,0.65);
+  color: rgba(250,247,244,0.78);
 }
 
 #built .tool-card {
@@ -877,7 +910,7 @@ footer {
 }
 
 #built .tool-desc {
-  color: rgba(250,247,244,0.6);
+  color: rgba(250,247,244,0.75);
 }
 
 #built .tool-link {
@@ -961,15 +994,17 @@ footer {
   transform: translateX(3px);
 }
 
+/* Clearly subordinate to the H1: one size step down, muted, so the hero
+   reads headline → thought → thesis instead of one five-line headline. */
 .hero-mid {
   font-family: 'DM Serif Display', serif;
-  font-size: 40px;
+  font-size: 26px;
   font-style: italic;
-  line-height: 1.3;
+  line-height: 1.45;
   color: var(--ink);
-  max-width: 540px;
-  margin-bottom: 20px;
-  opacity: 0.75;
+  max-width: 460px;
+  margin-bottom: 28px;
+  opacity: 0.7;
 }
 
 .tool-card-img {
@@ -993,21 +1028,18 @@ footer {
 
     <li>
       <a href="#built">
-        <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><rect width="256" height="256" fill="none"/><path d="M232,96a72,72,0,0,1-100.94,66L79,222.22c-.12.14-.26.29-.39.42a32,32,0,0,1-45.26-45.26c.14-.13.28-.27.43-.39L94,124.94a72.07,72.07,0,0,1,83.54-98.78,8,8,0,0,1,3.93,13.19L144,80l5.66,26.35L176,112l40.65-37.52a8,8,0,0,1,13.19,3.93A72.6,72.6,0,0,1,232,96Z"/></svg></span>
         <span class="nav-label">Built</span>
       </a>
     </li>
 
     <li>
       <a href="#sharing">
-        <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><rect width="256" height="256" fill="none"/><path d="M160,32.25V223.69a8.29,8.29,0,0,1-3.91,7.18,8,8,0,0,1-9-.56l-65.57-51A4,4,0,0,1,80,176.16V79.84a4,4,0,0,1,1.55-3.15l65.57-51a8,8,0,0,1,10,.16A8.27,8.27,0,0,1,160,32.25ZM60,80H32A16,16,0,0,0,16,96v64a16,16,0,0,0,16,16H60a4,4,0,0,0,4-4V84A4,4,0,0,0,60,80Zm126.77,20.84a8,8,0,0,0-.72,11.3,24,24,0,0,1,0,31.72,8,8,0,1,0,12,10.58,40,40,0,0,0,0-52.88A8,8,0,0,0,186.74,100.84Zm40.89-26.17a8,8,0,1,0-11.92,10.66,64,64,0,0,1,0,85.34,8,8,0,1,0,11.92,10.66,80,80,0,0,0,0-106.66Z"/></svg></span>
         <span class="nav-label">Out loud</span>
       </a>
     </li>
 
     <li>
       <a href="#about">
-        <span class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><rect width="256" height="256" fill="none"/><path d="M230.93,220a8,8,0,0,1-6.93,4H32a8,8,0,0,1-6.92-12c15.23-26.33,38.7-45.21,66.09-54.16a72,72,0,1,1,73.66,0c27.39,8.95,50.86,27.83,66.09,54.16A8,8,0,0,1,230.93,220Z"/></svg></span>
         <span class="nav-label">Isaac</span>
       </a>
     </li>
@@ -1033,14 +1065,13 @@ footer {
 <!-- BUILT -->
 <section id="built">
   <div class="container">
-    <p class="section-eyebrow">Built</p>
     <h2 class="section-title">Things I've made</h2>
     <p class="section-intro">Things I've built and deployed. Tools, experiments, and projects, made with AI.</p>
 
-    <div class="tools-scroll-track"><div class="tools-grid">
+    <div class="tools-scroll-shell"><div class="tools-scroll-track"><div class="tools-grid">
 
       <div class="tool-card">
-        <span class="tool-tag">Content Hub · Demo</span>
+        <span class="tool-tag">Live demo</span>
         <img class="tool-card-img" src="assets/tool-content-hub.png" alt="Content Hub pipeline dashboard demo screenshot" />
         <h3 class="tool-title">Content Hub — Pipeline</h3>
         <p class="tool-desc">A demonstration of my AI content pipeline: research queue, drafting stages, planner, and knowledge vault. Sample data only, all actions disabled.</p>
@@ -1048,7 +1079,7 @@ footer {
       </div>
 
       <div class="tool-card">
-        <span class="tool-tag">Risk Model</span>
+        <span class="tool-tag">Interactive model</span>
         <img class="tool-card-img" src="assets/tool-risk-model.png" alt="Psychological Risk Model screenshot" />
         <h3 class="tool-title">Psychological Risk Model</h3>
         <p class="tool-desc">A conceptual model for mapping psychosocial risk across organisational, job, and individual dimensions.</p>
@@ -1056,7 +1087,7 @@ footer {
       </div>
 
       <div class="tool-card">
-        <span class="tool-tag">Reform Navigator</span>
+        <span class="tool-tag">Interactive guide</span>
         <img class="tool-card-img" src="assets/tool-reform-navigator.png" alt="NSW Workers Compensation Reform Navigator screenshot" />
         <h3 class="tool-title">NSW Workers Compensation Reform Navigator</h3>
         <p class="tool-desc">An interactive guide to navigating the 2024 NSW workers compensation reforms.</p>
@@ -1064,7 +1095,7 @@ footer {
       </div>
 
       <div class="tool-card">
-        <span class="tool-tag">Reference Hub</span>
+        <span class="tool-tag">Reference directory</span>
         <img class="tool-card-img" src="assets/tool-employer-hub.png" alt="Psychosocial Hazards Employer Hub screenshot" />
         <h3 class="tool-title">Psychosocial Hazards Employer Hub</h3>
         <p class="tool-desc">A national reference directory across all nine Australian jurisdictions for managing psychosocial hazards.</p>
@@ -1072,14 +1103,14 @@ footer {
       </div>
 
       <div class="tool-card">
-        <span class="tool-tag">Newsletter</span>
+        <span class="tool-tag">Automated newsletter</span>
         <img class="tool-card-img" src="assets/tool-hervey-bay-newsletter.jpg" alt="Hervey Bay What's On newsletter hero illustration" />
         <h3 class="tool-title">Hervey Bay What's On</h3>
         <p class="tool-desc">An automated local newsletter — researched, written, illustrated and sent by AI. Whale-season events, local history, and a crossword for Hervey Bay, QLD.</p>
         <a href="https://hervey-bay-newsletter.netlify.app" class="tool-link" target="_blank" rel="noopener">Open tool</a>
       </div>
 
-    </div>
+    </div></div></div>
   </div>
 </section>
 
@@ -1149,11 +1180,8 @@ footer {
             </span>
             <span class="social-card-arrow">→</span>
           </a>
-        </div>
 
-        <div class="video-placeholder">
-          <p class="video-coming">Video — coming soon</p>
-          <p style="font-size:14px; color: var(--muted); line-height:1.5;">Short-form video on how I build things. Coming as the channel grows.</p>
+          <p class="sidebar-note">Video on how I build things is coming as the channel grows.</p>
         </div>
       </div>
 
@@ -1164,7 +1192,6 @@ footer {
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
-    <p class="section-eyebrow">Isaac</p>
     <h2 class="section-title">The person behind it</h2>
 
     <div class="about-inner">
@@ -1340,7 +1367,7 @@ function renderPosts(posts) {
       el.style.textDecoration = 'none';
     }
     const thumb = p.image
-      ? '<img class="post-thumb" src="' + p.image + '" alt="" loading="lazy" />'
+      ? '<span class="post-thumb-wrap"><img class="post-thumb" src="' + p.image + '" alt="" loading="lazy" /></span>'
       : '';
     el.innerHTML =
       thumb +
@@ -1434,7 +1461,23 @@ window.addEventListener('resize', updateFeedFade);
 // ============================================================
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const autoTrack = document.querySelector('.tools-scroll-track');
+const trackShell = document.querySelector('.tools-scroll-shell');
 
+// Edge fades: show a navy fade on whichever side has more cards.
+function updateTrackFades() {
+  if (!autoTrack || !trackShell) return;
+  const max = autoTrack.scrollWidth - autoTrack.clientWidth;
+  trackShell.classList.toggle('fade-left', autoTrack.scrollLeft > 8);
+  trackShell.classList.toggle('fade-right', autoTrack.scrollLeft < max - 8);
+}
+if (autoTrack) {
+  autoTrack.addEventListener('scroll', updateTrackFades, { passive: true });
+  window.addEventListener('resize', updateTrackFades);
+  updateTrackFades();
+}
+
+// Auto-rotation advances one full card at a time (with snap), so the track
+// always rests on a card boundary instead of drifting to a mid-card clip.
 if (autoTrack && !reduceMotion) {
   let paused = false;
   let resumeTimer = null;
@@ -1442,7 +1485,7 @@ if (autoTrack && !reduceMotion) {
   const pause = () => {
     paused = true;
     clearTimeout(resumeTimer);
-    resumeTimer = setTimeout(() => { paused = false; }, 4000);
+    resumeTimer = setTimeout(() => { paused = false; }, 6000);
   };
 
   ['mouseenter', 'touchstart', 'wheel', 'mousedown'].forEach(evt =>
@@ -1453,12 +1496,14 @@ if (autoTrack && !reduceMotion) {
     if (paused || document.hidden) return;
     const max = autoTrack.scrollWidth - autoTrack.clientWidth;
     if (max <= 0) return;
-    if (autoTrack.scrollLeft >= max - 2) {
+    const card = autoTrack.querySelector('.tool-card');
+    const step = card ? card.offsetWidth + 24 : 364;
+    if (autoTrack.scrollLeft >= max - 8) {
       autoTrack.scrollTo({ left: 0, behavior: 'smooth' });
     } else {
-      autoTrack.scrollLeft += 1;
+      autoTrack.scrollTo({ left: Math.min(autoTrack.scrollLeft + step, max), behavior: 'smooth' });
     }
-  }, 40);
+  }, 5000);
 }
 
 // Drag to scroll on tools track
