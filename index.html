@@ -367,7 +367,85 @@ section {
 }
 
 .sharing-posts { grid-column: 1 / 2; }
-.sharing-sidebar { grid-column: 2 / 3; }
+
+.sharing-sidebar {
+  grid-column: 2 / 3;
+  position: sticky;
+  top: 32px;
+  align-self: start;
+}
+
+/* Tag filter pills — narrow the feed as the post count grows */
+.post-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.post-filter {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.post-filter:hover { color: var(--accent); border-color: var(--accent); }
+
+.post-filter.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-tint);
+}
+
+/* Contained scrollable feed — keeps the section balanced against the sidebar.
+   The bottom fade signals more content and disappears at the end of the list. */
+.post-scroll { position: relative; }
+
+.post-scroll-inner {
+  max-height: min(620px, 72vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+  padding-right: 12px;
+}
+
+.post-scroll-inner::-webkit-scrollbar { width: 6px; }
+.post-scroll-inner::-webkit-scrollbar-track { background: transparent; }
+.post-scroll-inner::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 999px; }
+.post-scroll-inner::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+.post-scroll::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 12px;
+  bottom: 0;
+  height: 72px;
+  background: linear-gradient(to bottom, rgba(250,247,244,0), var(--bg));
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.25s;
+}
+
+.post-scroll.at-end::after { opacity: 0; }
+
+.post-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  padding-top: 12px;
+}
 
 .post-list { display: flex; flex-direction: column; gap: 0; }
 
@@ -735,8 +813,9 @@ footer {
     gap: 48px;
   }
 
-  .sharing-sidebar { grid-column: 1; }
+  .sharing-sidebar { grid-column: 1; position: static; }
   .sharing-posts { grid-column: 1; }
+  .post-scroll-inner { max-height: 65vh; }
 
   .about-inner {
     grid-template-columns: 1fr;
@@ -1021,8 +1100,16 @@ footer {
              Recency signal: most recent post date visible so return visitors know site is alive -->
         <!-- Posts render from posts.json — edit that file to update this list.
              Newest first, sorted by date automatically.
-             Each entry: tag, title, date (YYYY-MM), optional url. -->
-        <div class="post-list" id="post-list"></div>
+             Each entry: tag, title, date (YYYY-MM), optional url.
+             The feed is a contained scroll area so the section stays balanced
+             with the sidebar however many posts accumulate; pills filter by tag. -->
+        <div class="post-filters" id="post-filters" aria-label="Filter posts by topic"></div>
+        <div class="post-scroll" id="post-scroll">
+          <div class="post-scroll-inner" id="post-scroll-inner" tabindex="0" role="region" aria-label="Posts, scrollable list">
+            <div class="post-list" id="post-list"></div>
+          </div>
+        </div>
+        <p class="post-count" id="post-count"></p>
         <div class="post-archive" id="post-archive"></div>
       </div>
 
@@ -1185,18 +1272,61 @@ function formatDate(iso) {
   return months[parseInt(m, 10) - 1] + ' ' + y;
 }
 
-const RECENT_COUNT = 8;
+// The feed lives in a contained scroll area (.post-scroll-inner), so full cards
+// can run much deeper before the compact archive rows take over.
+const RECENT_COUNT = 60;
 const ARCHIVE_PAGE_SIZE = 20;
 let archiveVisibleCount = ARCHIVE_PAGE_SIZE;
 let archiveOpen = false;
+let activeTag = 'All';
+let postsCache = [];
+
+// Bottom fade on the scroll area: visible while there's more to scroll,
+// gone when the list fits or the reader reaches the end.
+function updateFeedFade() {
+  const scroller = document.getElementById('post-scroll-inner');
+  const wrap = document.getElementById('post-scroll');
+  if (!scroller || !wrap) return;
+  const overflows = scroller.scrollHeight > scroller.clientHeight + 8;
+  const atEnd = scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight < 24;
+  wrap.classList.toggle('at-end', !overflows || atEnd);
+}
+
+function renderFilters(posts) {
+  const wrap = document.getElementById('post-filters');
+  if (!wrap) return;
+  const tags = [...new Set(posts.map(p => p.tag))];
+  if (tags.length < 2) { wrap.style.display = 'none'; return; }
+  wrap.innerHTML = '';
+  ['All', ...tags].forEach(tag => {
+    const b = document.createElement('button');
+    b.className = 'post-filter' + (tag === activeTag ? ' active' : '');
+    b.type = 'button';
+    b.textContent = tag;
+    b.setAttribute('aria-pressed', tag === activeTag ? 'true' : 'false');
+    b.addEventListener('click', () => {
+      activeTag = tag;
+      archiveVisibleCount = ARCHIVE_PAGE_SIZE;
+      renderFilters(postsCache);
+      renderPosts(postsCache);
+      const scroller = document.getElementById('post-scroll-inner');
+      if (scroller) scroller.scrollTop = 0;
+    });
+    wrap.appendChild(b);
+  });
+}
 
 function renderPosts(posts) {
   const list = document.getElementById('post-list');
   const archive = document.getElementById('post-archive');
   if (!list) return;
-  const allPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+  const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+  const allPosts = activeTag === 'All' ? sorted : sorted.filter(p => p.tag === activeTag);
   const recent = allPosts.slice(0, RECENT_COUNT);
   const older = allPosts.slice(RECENT_COUNT);
+
+  const count = document.getElementById('post-count');
+  if (count) count.textContent = allPosts.length + (allPosts.length === 1 ? ' post' : ' posts');
 
   // Recent feed — full cards, exactly as before
   list.innerHTML = '';
@@ -1225,6 +1355,7 @@ function renderPosts(posts) {
     el.querySelector('.post-meta').textContent = formatDate(p.date);
     list.appendChild(el);
   });
+  updateFeedFade();
 
   // Archive — compact title/date rows, grouped by year, collapsed by default
   if (!archive) return;
@@ -1289,8 +1420,12 @@ function renderPosts(posts) {
 
 fetch('posts.json')
   .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
-  .then(data => renderPosts(data.posts || data))
-  .catch(() => renderPosts(FALLBACK_POSTS));
+  .then(data => { postsCache = data.posts || data; renderFilters(postsCache); renderPosts(postsCache); })
+  .catch(() => { postsCache = FALLBACK_POSTS; renderFilters(postsCache); renderPosts(postsCache); });
+
+const feedScroller = document.getElementById('post-scroll-inner');
+if (feedScroller) feedScroller.addEventListener('scroll', updateFeedFade, { passive: true });
+window.addEventListener('resize', updateFeedFade);
 
 // ============================================================
 // TOOLS TRACK — gentle auto-rotation.
