@@ -1,0 +1,13 @@
+# ──────────────────────────────────────────────────────────────
+# Permanent download links  ·  the "front doors" for giveaways
+# ──────────────────────────────────────────────────────────────
+# Put THESE paths in posts, emails and opt-ins — never the raw file.
+# If a file is ever renamed or moved, change ONLY the target on the
+# right. Every link that uses the front door keeps working.
+#
+#   <permanent public path>          <actual file>               <status>
+
+/downloads/one-prompt-build-kit      /one-prompt-build-kit.pdf    200
+
+# Add new giveaways here as their files land, e.g.:
+# /downloads/reversible-card         /reversible-or-not-card.pdf  200
