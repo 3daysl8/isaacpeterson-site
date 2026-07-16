@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- Quiet Tools · Kit 05 — The One-Prompt Build. Print: Ctrl/Cmd+P → Save as PDF → Background graphics ON. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The One-Prompt Build Kit — printable | Isaac Peterson</title>
+<meta name="description" content="The 5 prompts behind a tool an agency would quote at $100,000, built by one non-developer in 15 hours. Founding prompt plus a review loop. Free to use and share.">
+<link rel="canonical" href="https://isaacpeterson.au/kit-one-prompt-build">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf7f4; --bg2:#f4f0eb; --border:#e0d9d0;
+    --ink:#1a1a18; --muted:#7a7268; --navy:#2c3e6b; --navy-tint:#2c3e6b1a;
+    --serif:'DM Serif Display',Georgia,serif;
+    --sans:'DM Sans',-apple-system,Segoe UI,Roboto,sans-serif;
+    --mono:'DM Mono',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.62; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  /* Top bar — matches the other kit pages; hidden when printing */
+  .kit-bar{ position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:13px 24px; }
+  .kit-back{ font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+  .kit-back:hover{ color:var(--navy); }
+  .kit-actions{ display:flex; gap:10px; align-items:center; }
+  .kit-print,.kit-dl{ font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; border-radius:8px; padding:9px 14px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:7px; transition:border-color .2s,opacity .2s; }
+  .kit-print{ background:none; color:var(--navy); border:1px solid var(--border); }
+  .kit-print:hover{ border-color:var(--navy); }
+  .kit-dl{ background:var(--navy); color:#fff; border:1px solid var(--navy); }
+  .kit-dl:hover{ opacity:.92; }
+
+  .sheet{ max-width:760px; margin:0 auto; padding:44px 40px 40px; }
+  .band{ display:flex; align-items:center; justify-content:space-between; padding-bottom:14px; border-bottom:1px solid var(--border); }
+  .brandmark{ display:flex; align-items:center; gap:11px; }
+  .mono-ip{ width:30px; height:30px; border:1.5px solid var(--navy); border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-weight:400; font-size:15px; color:var(--navy); letter-spacing:.01em; }
+  .wordmark{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+  .kitno{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--navy); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:33px; line-height:1.16; margin:30px 0 12px; letter-spacing:-.02em; }
+  .promise{ font-size:16.5px; color:var(--muted); margin:0 0 22px; max-width:60ch; }
+  .rule{ height:1px; background:var(--border); border:0; margin:0 0 26px; position:relative; }
+  .rule::before{ content:""; position:absolute; top:0; left:0; width:44px; height:3px; background:var(--navy); }
+  .body p{ margin:0 0 14px; }
+  h2{ font-family:var(--serif); font-weight:400; font-size:21px; margin:26px 0 10px; letter-spacing:-.01em; }
+  .step{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--navy); display:block; margin:24px 0 2px; }
+  ul,ol{ margin:0 0 14px; padding-left:20px; } li{ margin:0 0 6px; }
+  .callout{ background:var(--navy-tint); border-left:3px solid var(--navy); border-radius:0 8px 8px 0; padding:14px 18px; margin:18px 0; font-size:15px; break-inside:avoid; }
+  .prompt{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin:8px 0 12px; font-size:13.5px; line-height:1.6; break-inside:avoid; }
+  .prompt .plabel{ font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:7px; }
+  .prompt em{ color:var(--navy); font-style:normal; font-weight:500; }
+  .caught{ font-size:12.5px; color:var(--muted); margin:0 0 6px; }
+  .res{ background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin:12px 0 12px; break-inside:avoid; }
+  .res .plabel{ font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--navy); display:block; margin-bottom:8px; }
+  .res p{ font-size:13.5px; margin:0 0 9px; }
+  .res ul{ margin:0; padding-left:18px; } .res li{ font-size:13.5px; margin:0 0 7px; }
+  .res .url{ font-family:var(--mono); font-size:11.5px; color:var(--navy); }
+  .foot{ margin-top:34px; padding-top:16px; border-top:1px solid var(--border); font-size:12px; color:var(--muted); line-height:1.75; }
+  .foot .lock{ display:flex; align-items:center; gap:9px; margin-bottom:6px; }
+  .foot .mini-ip{ width:22px; height:22px; border:1.3px solid var(--navy); border-radius:5px; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-weight:400; font-size:11px; color:var(--navy); }
+  .foot a{ color:var(--navy); text-decoration:none; } .foot .who{ color:var(--ink); font-weight:500; }
+  @page{ size:A4; margin:16mm; } @media print{ .sheet{ padding:0; max-width:none; } .kit-bar{ display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="kit-bar">
+  <a href="skills.html" class="kit-back">← All skills</a>
+  <span class="kit-actions">
+    <button class="kit-print" onclick="window.print()">⎙&nbsp; Print</button>
+    <a class="kit-dl" href="one-prompt-build-kit.pdf" download>↓&nbsp; Download PDF</a>
+  </span>
+</div>
+
+<div class="sheet">
+  <div class="band">
+    <div class="brandmark"><div class="mono-ip">IP</div><span class="wordmark">Quiet&nbsp;Tools</span></div>
+    <span class="kitno">Kit&nbsp;05</span>
+  </div>
+
+  <h1>The One-Prompt Build Kit</h1>
+  <p class="promise">The 5 prompts behind a tool an agency would quote at $100,000, built by one non-developer in 15 hours. Copy, adapt the bracketed parts, ship.</p>
+  <hr class="rule">
+
+  <div class="body">
+    <p>Building a real tool with AI is one strong founding prompt plus a review loop. You supply
+    the expertise and the judgement. The AI supplies the research, the build, and the iteration.
+    These five prompts are the skeleton of that loop. Swap the domain, keep the structure.</p>
+
+    <div class="callout"><strong>The golden rule:</strong> specificity beats cleverness. Say <em>what</em> you're building, <em>who</em> it's for, <em>how</em> it should be structured, and <em>where</em> the facts come from.</div>
+
+    <span class="step">Prompt 1 · The founding prompt (verbatim)</span>
+    <h2>Start the whole build in one message</h2>
+    <div class="prompt"><span class="plabel">Used verbatim to start the build</span>
+    I want to build an interactive reference tool that maps the recent legislative reform changes to NSW workers compensation. The tool should display changes clearly against the claim lifecycle, from injury notification through to claim closure, so users can see exactly where each change applies and what it means in practice. Users will include injury managers, RTW coordinators, employers, self-insurers, and claims managers. I want the tool to align with the icare and SIRA audit framework so practitioners can cross-reference their obligations against what auditors will be looking at. Each reform change should show what changed, when it took effect, who it applies to, and what the practical implication is at that stage of the claim. Make it visual, easy to navigate, and interactive. Get the information from current sources. Build it so users can filter by claim stage, stakeholder type, or reform area.</div>
+    <p><strong>Why it worked:</strong> it named the <em>what</em> (an interactive tool mapping X to a lifecycle), the <em>who</em> (five real user types), the <em>structure</em> (the fields and filters), and the <em>source</em> ("current sources", which triggered live web research). Not clever. Specific.</p>
+    <div class="prompt"><span class="plabel">Your template · fill the brackets</span>
+    I want to build an interactive [tool type] that maps [your subject] against [the structure it lives in]. Users will include [3 to 5 real user types]. Each [item] should show [field 1], [field 2], [field 3], and the practical implication. Align it with [the standard your field is judged against]. Make it visual and interactive, filterable by [dimension 1], [dimension 2], and [dimension 3]. Get the information from current sources.</div>
+
+    <span class="step">Prompt 2 · The design brief</span>
+    <h2>Turn a working tool into a professional-looking one</h2>
+    <p>Once the first version works, don't fiddle with colours ad hoc. Commission a brief.</p>
+    <div class="prompt"><span class="plabel">Commission a design direction</span>
+    Act as a senior UX/UI designer reviewing this live tool as a formal audit. Assess visual hierarchy, typography, colour, spacing, and mobile layout against professional standards for a [corporate / consumer / clinical] audience. Recommend a neutral, professional design direction (palette, typography, layout rules) and produce a design brief I can implement in the next session.</div>
+    <p class="caught">In the real build this locked a corporate palette and IBM Plex Sans, and the brief became the spec for every later visual fix.</p>
+
+    <div class="res">
+      <span class="plabel">Level up the look · two design skills I run</span>
+      <p>Install these as Claude Code skills so the build doesn't come out looking AI-generic. Run the design-brief prompt above with one of them active.</p>
+      <ul>
+        <li><strong>UI/UX Pro Max</strong> — 161 colour palettes, 57 font pairings, layout and UX rules. <span class="url">github.com/nextlevelbuilder/ui-ux-pro-max-skill</span></li>
+        <li><strong>Impeccable</strong> (by Paul Bakaus) — a design language plus anti-slop commands for your AI harness. <span class="url">github.com/pbakaus/impeccable</span></li>
+      </ul>
+    </div>
+
+    <span class="step">Prompt 3 · The audit (the most valuable one)</span>
+    <h2>Make the AI attack its own work</h2>
+    <p>The best prompts weren't build prompts. They were audits. This is where polish comes from.</p>
+    <div class="prompt"><span class="plabel">Point the AI at its own output</span>
+    Run a formal audit of this tool. Assume it is flawed and find the problems. Check content accuracy, mobile layout, accessibility (ARIA, keyboard nav, colour independence), date handling, and disclaimer adequacy. Return a numbered list of findings (F-01, F-02, ...), each with the issue, why it matters, and the fix. Then implement them.</div>
+    <p class="caught">Produced a 16-point findings list, from a broken footer to an illegible filter pill.</p>
+
+    <span class="step">Prompt 4 · The risk review</span>
+    <h2>Specialist framing catches what generic review misses</h2>
+    <div class="prompt"><span class="plabel">Review in a specific expert's voice</span>
+    Review this tool as a [20-year media and publishing risk specialist / compliance lawyer / accessibility auditor]. Identify every [liability / compliance / safety] gap: missing disclaimers, absent liability limitations, no "official sources prevail" clause, unwarranted accuracy claims. List each gap and draft the exact remediating language.</div>
+    <p class="caught">Surfaced seven disclaimer gaps a generic "is this okay?" would never have found.</p>
+
+    <span class="step">Prompt 5 · The integrity check</span>
+    <h2>Ship clean: verify sources and originality</h2>
+    <div class="prompt"><span class="plabel">Two checks before launch</span>
+    Do two checks before this ships. First, a full link audit: test every external link and flag any that are dead or wrong, then replace them. Second, a plagiarism / originality review: compare all cited content against its sources and flag anything reproduced too closely, distinguishing genuine copying from unavoidable statutory language.</div>
+    <p class="caught">Caught one dead link, and confirmed one flagged phrase matched a source only because it was quoting the legislation itself.</p>
+
+    <div class="callout"><strong>The loop, in one line:</strong> founding prompt, build, review, one specific fix, repeat. You are the domain expert and the quality reviewer. The AI is the team.</div>
+
+    <p class="caught">A note on the count: the real build was 57 prompts across three sittings, done in a chat app on a phone. In Claude Code on a laptop it's very likely one session with a fraction of the back-and-forth. Read 57 as the hard-mode number. It still beat a $100,000 agency quote by two days.</p>
+  </div>
+
+  <div class="foot">
+    <div class="lock"><span class="mini-ip">IP</span>
+      <span><span class="who">Isaac Peterson</span> · <a href="https://substack.com/@isaacpetersonau">@isaacpetersonau</a></span></div>
+    From the post: "A Development Agency Would Quote This at $100,000. I Built It in 15 Hours."<br>
+    Share this freely, keep the attribution. Building something on the side?
+    <a href="https://substack.com/@isaacpetersonau">Subscribe, it's free.</a>
+  </div>
+</div>
+</body>
+</html>
