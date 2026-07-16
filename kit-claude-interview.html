@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Career Interview Kit — printable | Isaac Peterson</title>
+<meta name="description" content="A printable copy-paste kit that makes any AI chatbot interview you like a demanding hiring manager, then builds a real career plan. Free to use and share.">
+<link rel="canonical" href="https://isaacpeterson.au/kit-claude-interview">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #faf7f4; --accent: #2c3e6b; --accent-hover: #1e2d52;
+  --accent-tint: rgba(44,62,107,0.08); --ink: #1a1a18; --muted: #6b6b68;
+  --rule: rgba(26,26,24,0.12);
+}
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ACTION BAR — hidden when printing */
+.kit-bar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg); border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 32px;
+}
+.kit-back {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  transition: color 0.2s;
+}
+.kit-back:hover { color: var(--accent); }
+.kit-print {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--accent); color: #faf7f4; border: 1px solid var(--accent);
+  border-radius: 4px; padding: 9px 16px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s;
+}
+.kit-print:hover { background: var(--accent-hover); }
+
+/* SHEET */
+.kit-sheet { max-width: 720px; margin: 0 auto; padding: 56px 40px 96px; }
+
+.kit-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 16px;
+}
+.kit-title {
+  font-family: 'DM Serif Display', serif; font-size: 40px; line-height: 1.15;
+  letter-spacing: -0.02em; margin-bottom: 20px;
+}
+.kit-note {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  padding: 16px 20px; background: var(--accent-tint); border-radius: 6px;
+  margin-bottom: 32px;
+}
+.kit-note a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.kit-lede { font-size: 18px; line-height: 1.7; margin-bottom: 20px; }
+.kit-lede:last-of-type { margin-bottom: 32px; }
+
+.kit-h2 {
+  font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.25;
+  margin: 40px 0 16px;
+}
+.kit-h3 {
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+  margin: 24px 0 10px;
+}
+
+pre {
+  font-family: 'DM Mono', monospace; font-size: 14px; line-height: 1.65;
+  background: #fff; border: 1px solid var(--rule); border-left: 3px solid var(--accent);
+  border-radius: 6px; padding: 20px 22px; margin-bottom: 24px;
+  white-space: pre-wrap; word-wrap: break-word; color: var(--ink);
+}
+
+.kit-list { list-style: none; margin-bottom: 24px; }
+.kit-list li {
+  position: relative; padding-left: 22px; margin-bottom: 12px;
+  font-size: 16px; line-height: 1.6;
+}
+.kit-list li::before {
+  content: ''; position: absolute; left: 4px; top: 11px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+}
+.kit-list strong { font-weight: 500; }
+
+blockquote {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 20px;
+  margin: 28px 0; font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: 19px; line-height: 1.5; color: var(--ink);
+}
+
+.kit-foot {
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule);
+  font-size: 13px; color: var(--muted); line-height: 1.7;
+}
+.kit-foot a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.kit-foot strong { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 600px) {
+  .kit-bar { padding: 12px 20px; }
+  .kit-sheet { padding: 40px 24px 72px; }
+  .kit-title { font-size: 30px; }
+}
+
+/* PRINT — clean paper / PDF output */
+@media print {
+  :root { --bg: #fff; }
+  body { background: #fff; font-size: 12pt; }
+  .kit-bar { display: none; }
+  .kit-sheet { max-width: 100%; padding: 0; }
+  .kit-eyebrow, .kit-title, .kit-h2, .kit-h3, blockquote { color: #000; }
+  .kit-note { background: none; border: 1px solid #bbb; padding: 10px 14px; }
+  pre { background: #fff; border: 1px solid #999; border-left: 3px solid #000; page-break-inside: avoid; }
+  blockquote { border-left: 3px solid #000; }
+  a { color: #000; text-decoration: underline; border: none !important; }
+  .kit-h2, .kit-h3 { page-break-after: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="kit-bar">
+  <a href="skills.html" class="kit-back">← All skills</a>
+  <button class="kit-print" onclick="window.print()">⎙&nbsp; Print / save as PDF</button>
+</div>
+
+<main class="kit-sheet">
+  <p class="kit-eyebrow">Printable kit · Direction</p>
+  <h1 class="kit-title">The Career Interview Kit</h1>
+
+  <p class="kit-note">Prefer the one-click version? Install the <a href="https://github.com/3daysl8/think-with-ai/blob/main/skills/claude-interview/SKILL.md" target="_blank" rel="noopener">Claude skill</a> and just say "interview me." This manual kit runs the same procedure by hand in <strong>any</strong> chatbot.</p>
+
+  <p class="kit-lede">Asking Claude for career advice is the worst way to use it. You get platitudes. The best way is to make it <strong>interrogate you</strong> — like a demanding hiring manager, with you as the candidate. An hour of that gives you a real map: skills gaps, career pillars, and the actions to close them.</p>
+  <p class="kit-lede">Here's the exact prompt, plus the rules that make it work.</p>
+
+  <h2 class="kit-h2">The prompt — cast Claude as your interviewer</h2>
+  <pre>You are a senior career strategist who runs rigorous behavioral interviews.
+Interview me one question at a time. Do not give advice yet.
+Challenge my assumptions. Push for specifics. Surface skills I'm not naming.
+After the interview, build a plan covering:
+- skills gaps and the training that closes them
+- my geographic options
+- three possible career pillars, each with exit roles and a likely salary band
+- a concrete, sequenced action list
+- the network I'd need to build</pre>
+
+  <h2 class="kit-h2">Two rules that make the prompt work</h2>
+  <ul class="kit-list">
+    <li><strong>One question at a time.</strong> It should feel like a conversation, not a survey.</li>
+    <li><strong>No advice until the end.</strong> Make it earn its conclusions by interviewing first.</li>
+  </ul>
+
+  <h2 class="kit-h2">Three rules to run it well</h2>
+  <ul class="kit-list">
+    <li><strong>Don't ask "what do I like?"</strong> Ask "when was I last challenged and still won?" Transferable skills hide in those moments, not in your preferences.</li>
+    <li><strong>Force a multi-way argument.</strong> Make it defend three opposite paths from your actual profile. The friction reveals options a single answer would hide.</li>
+    <li><strong>Treat it as a brainstorm, not gospel.</strong> It's a brilliant starting point, not a decree. Take its questions to real mentors and people already doing the job.</li>
+  </ul>
+
+  <blockquote>This was never about the AI. It was about self-interrogation done well. Claude just refuses to let you answer lazily.</blockquote>
+
+  <p class="kit-foot">
+    Made by <strong>Isaac Peterson</strong> · <a href="https://substack.com/@isaacpetersonau" target="_blank" rel="noopener">@isaacpetersonau</a><br>
+    From the post: "I Made Claude Interview Me for a Job. My Own."<br>
+    Share this freely, keep the attribution. Want one steal-able AI workflow a week? <a href="https://substack.com/@isaacpetersonau" target="_blank" rel="noopener"><strong>Subscribe — it's free.</strong></a>
+  </p>
+</main>
+
+</body>
+</html>

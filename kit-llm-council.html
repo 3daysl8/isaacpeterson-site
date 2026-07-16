@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The LLM Council Kit — printable | Isaac Peterson</title>
+<meta name="description" content="A printable kit of six copy-paste prompts that run any hard decision past five AI advisors, then synthesise the debate into a single call. Free to use and share.">
+<link rel="canonical" href="https://isaacpeterson.au/kit-llm-council">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #faf7f4; --accent: #2c3e6b; --accent-hover: #1e2d52;
+  --accent-tint: rgba(44,62,107,0.08); --ink: #1a1a18; --muted: #6b6b68;
+  --rule: rgba(26,26,24,0.12);
+}
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.kit-bar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg); border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 32px;
+}
+.kit-back {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  transition: color 0.2s;
+}
+.kit-back:hover { color: var(--accent); }
+.kit-print {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--accent); color: #faf7f4; border: 1px solid var(--accent);
+  border-radius: 4px; padding: 9px 16px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s;
+}
+.kit-print:hover { background: var(--accent-hover); }
+
+.kit-sheet { max-width: 720px; margin: 0 auto; padding: 56px 40px 96px; }
+
+.kit-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 16px;
+}
+.kit-title {
+  font-family: 'DM Serif Display', serif; font-size: 40px; line-height: 1.15;
+  letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.kit-deck {
+  font-family: 'DM Serif Display', serif; font-style: italic; font-size: 20px;
+  color: var(--muted); line-height: 1.4; margin-bottom: 24px;
+}
+.kit-note {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  padding: 16px 20px; background: var(--accent-tint); border-radius: 6px;
+  margin-bottom: 32px;
+}
+.kit-note a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.kit-lede { font-size: 18px; line-height: 1.7; margin-bottom: 20px; }
+.kit-credit { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+.kit-credit a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+
+.kit-h2 {
+  font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.25;
+  margin: 40px 0 16px;
+}
+.kit-role {
+  font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent);
+  margin: 28px 0 10px;
+}
+
+pre {
+  font-family: 'DM Mono', monospace; font-size: 14px; line-height: 1.65;
+  background: #fff; border: 1px solid var(--rule); border-left: 3px solid var(--accent);
+  border-radius: 6px; padding: 20px 22px; margin-bottom: 20px;
+  white-space: pre-wrap; word-wrap: break-word; color: var(--ink);
+}
+.kit-hint { font-size: 14px; font-style: italic; color: var(--muted); margin: -8px 0 24px; }
+
+.kit-list { list-style: none; margin-bottom: 24px; }
+.kit-list li {
+  position: relative; padding-left: 22px; margin-bottom: 12px;
+  font-size: 16px; line-height: 1.6;
+}
+.kit-list li::before {
+  content: ''; position: absolute; left: 4px; top: 11px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+}
+.kit-list strong { font-weight: 500; }
+
+blockquote {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 20px;
+  margin: 28px 0; font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: 19px; line-height: 1.5; color: var(--ink);
+}
+
+.kit-foot {
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule);
+  font-size: 13px; color: var(--muted); line-height: 1.7;
+}
+.kit-foot a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.kit-foot strong { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 600px) {
+  .kit-bar { padding: 12px 20px; }
+  .kit-sheet { padding: 40px 24px 72px; }
+  .kit-title { font-size: 30px; }
+}
+
+@media print {
+  :root { --bg: #fff; }
+  body { background: #fff; font-size: 12pt; }
+  .kit-bar { display: none; }
+  .kit-sheet { max-width: 100%; padding: 0; }
+  .kit-eyebrow, .kit-title, .kit-deck, .kit-h2, .kit-role, blockquote { color: #000; }
+  .kit-note { background: none; border: 1px solid #bbb; padding: 10px 14px; }
+  pre { background: #fff; border: 1px solid #999; border-left: 3px solid #000; page-break-inside: avoid; }
+  blockquote { border-left: 3px solid #000; }
+  a { color: #000; text-decoration: underline; border: none !important; }
+  .kit-h2, .kit-role { page-break-after: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="kit-bar">
+  <a href="skills.html" class="kit-back">← All skills</a>
+  <button class="kit-print" onclick="window.print()">⎙&nbsp; Print / save as PDF</button>
+</div>
+
+<main class="kit-sheet">
+  <p class="kit-eyebrow">Printable kit · Decision</p>
+  <h1 class="kit-title">The LLM Council Kit</h1>
+  <p class="kit-deck">Six copy-paste prompts to run any hard decision past five AI advisors, then synthesise the fight.</p>
+
+  <p class="kit-note">Prefer the one-click version? Install the <a href="https://github.com/3daysl8/think-with-ai/blob/main/skills/llm-council/SKILL.md" target="_blank" rel="noopener">Claude skill</a> and just describe your decision. This manual kit runs the same procedure by hand in <strong>any</strong> chatbot.</p>
+
+  <p class="kit-lede">One AI answer is the most confident wrong advice you'll ever take. It hands you a single fluent paragraph and quietly flattens every angle you didn't think to ask about.</p>
+  <p class="kit-lede">So stop asking one AI. <strong>Convene five</strong>, each with a fixed thinking style, make them disagree, then play chairman. This kit is the whole procedure, run by hand in any chatbot. No special tools.</p>
+
+  <p class="kit-credit"><strong>Credit:</strong> the LLM Council concept comes from <strong>Andrej Karpathy</strong> (ex-Tesla AI director, OpenAI founding member) and his open-source <a href="https://github.com/karpathy/llm-council" target="_blank" rel="noopener">llm-council</a>. This is a by-hand adaptation, proof it's a skill anyone can run.</p>
+
+  <h2 class="kit-h2">How to run it</h2>
+  <p class="kit-lede">Open <strong>six</strong> fresh chats. Paste your problem statement into the first five, each prefixed with one role primer below. Then paste all five answers into the sixth, the chairman, for synthesis.</p>
+
+  <p class="kit-role">0 · Your problem statement (fill this in first)</p>
+  <pre>I'm deciding whether to [decision]. Context: [the relevant facts, numbers, constraints,
+and what "success" looks like]. What's the right call, and why?</pre>
+  <p class="kit-hint">Vague in, vague out. Give real numbers and the actual constraint.</p>
+
+  <p class="kit-role">1 · The Contrarian</p>
+  <pre>You are the Contrarian. Challenge every assumption baked into this decision. Ask what
+happens if the opposite is true. Name the risk no one else will say out loud. Do not
+reassure me and do not hedge. Your only job is to find where this goes wrong.</pre>
+
+  <p class="kit-role">2 · The First Principles Thinker</p>
+  <pre>You are the First Principles Thinker. Ignore convention, industry norms, and "how it's
+usually done." Strip this decision down to its fundamental truths. Tell me what is
+actually being decided underneath the surface question, and whether I'm even asking
+the right one.</pre>
+
+  <p class="kit-role">3 · The Expansionist</p>
+  <pre>You are the Expansionist. Do not give one answer. Give five. Reframe costs as
+opportunities. Think laterally and long-term. Show me the upside, the second-order
+benefits, and the scaling paths I haven't considered.</pre>
+
+  <p class="kit-role">4 · The Outsider</p>
+  <pre>You are the Outsider, a sharp newcomer with zero background in this field. No jargon,
+no institutional assumptions, no inherited wisdom. Looking at this completely fresh,
+how would you solve it from scratch? What is everyone on the inside missing?</pre>
+
+  <p class="kit-role">5 · The Executor</p>
+  <pre>You are the Executor. Ignore theory and philosophy. Give me the specific, measurable
+steps I can take this week with the resources I already have. End with the single
+first action.</pre>
+
+  <p class="kit-role">6 · The Chairman (synthesis)</p>
+  <pre>Below are five advisors' answers to the same decision. Do NOT average them. Do this instead:
+1. Where do they agree? (Likely the resolved part of the decision.)
+2. Where do they clash? (Show the real trade-off, and whether both can be right in sequence.)
+3. What blind spot did all five miss?
+Then give me: one synthesised recommendation, the reasoning, and the first thing to do.
+
+[Paste all five advisor responses here]</pre>
+
+  <h2 class="kit-h2">When to convene a council</h2>
+  <ul class="kit-list">
+    <li><strong>Use it for</strong> high-stakes or hard-to-reverse decisions, genuinely ambiguous calls, and emotionally loaded ones (where you're tempted to make AI confirm what you already want).</li>
+    <li><strong>Skip it for</strong> simple lookups with one right answer. A single prompt is faster.</li>
+  </ul>
+
+  <blockquote>The council is a machine for catching the answer you were about to rubber-stamp.</blockquote>
+
+  <p class="kit-foot">
+    Made by <strong>Isaac Peterson</strong> · <a href="https://substack.com/@isaacpetersonau" target="_blank" rel="noopener">@isaacpetersonau</a><br>
+    From the post: "I Put a $3,500 Handbag on Trial. Five AIs Argued the Verdict."<br>
+    Share this freely, keep the attribution. Want one steal-able AI workflow a week? <a href="https://substack.com/@isaacpetersonau" target="_blank" rel="noopener"><strong>Subscribe — it's free.</strong></a>
+  </p>
+</main>
+
+</body>
+</html>

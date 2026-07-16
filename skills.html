@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Think With AI — Free AI Skills by Isaac Peterson</title>
+<meta name="description" content="Think With AI is a trilogy of small, free, copy-anywhere AI skills that turn a single AI chat into a thinking partner that pushes back. Claude Interview and LLM Council are live. Free to use, free to share.">
+<link rel="canonical" href="https://isaacpeterson.au/skills">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Think With AI — Free AI Skills by Isaac Peterson">
+<meta property="og:description" content="A trilogy of steal-able AI skills for the three moments in any decision or build: Direction, Decision, Delivery. Free to use, free to share.">
+<meta property="og:url" content="https://isaacpeterson.au/skills">
+<meta name="author" content="Isaac Peterson">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   Shares the isaacpeterson.au design language (see index.html)
+   but uses its own structure: this is a utility page (understand
+   → choose → act), not the homepage's scroll-to-discover brochure.
+   Background #faf7f4 · Accent navy #2c3e6b · Ink #1a1a18
+   Display: DM Serif Display · Body: DM Sans · Mono: DM Mono
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #faf7f4;
+  --accent: #2c3e6b;
+  --accent-hover: #1e2d52;
+  --accent-tint: rgba(44,62,107,0.08);
+  --ink: #1a1a18;
+  --muted: #6b6b68;
+  --rule: rgba(26,26,24,0.12);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
+  z-index: 100;
+}
+.nav-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.nav-links { display: flex; gap: 48px; list-style: none; align-items: center; }
+.nav-links li a { text-decoration: none; color: var(--muted); transition: color 0.2s; padding: 8px 0; }
+.nav-links li a:hover { color: var(--ink); }
+.nav-links li a.current .nav-label { color: var(--accent); }
+.nav-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; line-height: 1;
+}
+
+/* CONTAINER */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 80px; }
+
+/* SHARED PILLS */
+.pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 11px; white-space: nowrap;
+}
+.pill.live { color: var(--accent); background: var(--accent-tint); }
+.pill.soon { color: var(--muted); background: rgba(26,26,24,0.05); }
+
+/* PAGE HERO — two columns: statement + trilogy card fills the right */
+#page-hero { padding-top: 64px; border-bottom: 1px solid var(--rule); }
+.page-hero-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 80px 80px 64px;
+  display: grid; grid-template-columns: 1fr 360px; gap: 56px;
+  align-items: center;
+}
+.page-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 24px;
+}
+.page-h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 58px; line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 20px;
+}
+.page-h1 em { font-style: italic; color: var(--accent); }
+.page-lede { font-size: 20px; line-height: 1.6; color: var(--ink); max-width: 600px; }
+.page-lede strong { font-weight: 500; }
+
+/* Trilogy card — orientation + jump nav, kills the hero dead space */
+.trilogy-card {
+  border: 1px solid var(--rule); border-radius: 8px;
+  padding: 26px 26px 12px; background: var(--bg);
+}
+.trilogy-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 6px;
+}
+.trilogy-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 16px 0; border-top: 1px solid var(--rule);
+  text-decoration: none; color: var(--ink); transition: opacity 0.2s;
+}
+.trilogy-row:hover { opacity: 0.62; }
+.trilogy-stage {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 3px;
+}
+.trilogy-name { font-family: 'DM Serif Display', serif; font-size: 19px; line-height: 1.2; }
+
+/* SECTIONS — tighter rhythm than the homepage's 120px brochure gaps */
+section { padding: 64px 0; border-top: 1px solid var(--rule); }
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 34px; line-height: 1.2; letter-spacing: -0.01em;
+  color: var(--ink); margin-bottom: 14px;
+}
+.section-intro { font-size: 17px; color: var(--muted); max-width: 640px; margin-bottom: 48px; line-height: 1.7; }
+
+/* HOW IT WORKS — three columns fill the width */
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.how-num {
+  width: 34px; height: 34px; border: 1px solid var(--accent);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent);
+  margin-bottom: 18px;
+}
+.how-title { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+.how-body { font-size: 15px; color: var(--muted); line-height: 1.6; }
+.how-body strong { color: var(--ink); font-weight: 500; }
+
+/* SKILL BLOCKS — prose left, action panel right (fills the dead column) */
+.skill-block {
+  display: grid; grid-template-columns: 1fr 320px; gap: 48px;
+  padding: 52px 0; border-top: 1px solid var(--rule); align-items: start;
+}
+.skill-block:first-of-type { border-top: none; padding-top: 8px; }
+
+.skill-stage {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.skill-title { font-family: 'DM Serif Display', serif; font-size: 30px; line-height: 1.2; color: var(--ink); margin-bottom: 10px; }
+.skill-question {
+  font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: 20px; line-height: 1.4; color: var(--muted); margin-bottom: 22px;
+}
+.skill-body { font-size: 17px; line-height: 1.7; color: var(--ink); }
+.skill-body p { margin-bottom: 16px; }
+.skill-body p:last-child { margin-bottom: 0; }
+.skill-body em { font-style: italic; }
+.skill-credit { font-size: 14px; color: var(--muted); margin-top: 18px; line-height: 1.6; }
+.skill-credit a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.skill-credit a:hover { border-color: var(--accent); }
+.skill-credit code { font-family: 'DM Mono', monospace; font-size: 13px; }
+
+/* Action panel */
+.skill-panel {
+  border: 1px solid var(--rule); border-radius: 8px;
+  padding: 26px 24px; background: var(--accent-tint);
+  position: sticky; top: 88px;
+}
+.panel-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.panel-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+}
+.panel-list { list-style: none; margin-bottom: 22px; }
+.panel-list li { position: relative; padding-left: 20px; font-size: 14px; line-height: 1.5; color: var(--ink); margin-bottom: 11px; }
+.panel-list li:last-child { margin-bottom: 0; }
+.panel-list li::before { content: ''; position: absolute; left: 3px; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.panel-actions { display: flex; flex-direction: column; gap: 10px; }
+.panel-note { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-align: center; margin-top: 14px; }
+
+/* BUTTONS */
+.btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; padding: 12px 18px; border-radius: 4px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.btn-primary { background: var(--accent); color: #faf7f4; border: 1px solid var(--accent); }
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn-ghost { background: var(--bg); color: var(--accent); border: 1px solid var(--rule); }
+.btn-ghost:hover { border-color: var(--accent); }
+.btn-disabled { background: none; color: var(--muted); border: 1px dashed var(--rule); pointer-events: none; opacity: 0.75; }
+.skill-panel .btn { width: 100%; }
+
+/* FAQ — two columns */
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
+.faq-item { padding: 26px 0; border-top: 1px solid var(--rule); }
+.faq-q { font-family: 'DM Serif Display', serif; font-size: 20px; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
+.faq-a { font-size: 15px; color: var(--muted); line-height: 1.7; }
+.faq-a a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.faq-a a:hover { border-color: var(--accent); }
+.faq-a code { font-family: 'DM Mono', monospace; font-size: 13px; background: var(--accent-tint); color: var(--accent); padding: 1px 5px; border-radius: 3px; }
+
+/* CTA */
+#cta { background: #2c3e6b; border-top: none; }
+.cta-inner { max-width: 820px; margin: 0 auto; padding: 0 80px; text-align: center; }
+.cta-title { font-family: 'DM Serif Display', serif; font-size: 32px; line-height: 1.2; color: #faf7f4; margin-bottom: 14px; }
+.cta-sub { font-size: 18px; color: rgba(250,247,244,0.8); line-height: 1.6; max-width: 560px; margin: 0 auto 30px; }
+.cta-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; background: #faf7f4; color: var(--accent);
+  padding: 14px 28px; border-radius: 4px; display: inline-block;
+  transition: transform 0.2s, background 0.2s;
+}
+.cta-btn:hover { transform: translateY(-2px); background: #fff; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--rule); padding: 40px 0; }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; }
+.footer-name { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--ink); }
+.footer-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+.footer-social { display: flex; gap: 20px; align-items: center; }
+.footer-social a { color: var(--muted); display: flex; transition: color 0.2s; }
+.footer-social a:hover { color: var(--accent); }
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+  .page-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .skill-block { grid-template-columns: 1fr; gap: 28px; }
+  .skill-panel { position: static; }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  .nav-links { gap: 24px; }
+  .container { padding: 0 24px; }
+  .page-hero-inner { padding: 72px 24px 52px; }
+  .page-h1 { font-size: 38px; }
+  .page-lede { font-size: 18px; }
+  section { padding: 52px 0; }
+  .section-title { font-size: 27px; }
+  .how-grid { grid-template-columns: 1fr; gap: 28px; }
+  .skill-title { font-size: 26px; }
+  .faq-grid { grid-template-columns: 1fr; gap: 0; }
+  .cta-inner { padding: 0 24px; }
+  .cta-title { font-size: 27px; }
+  .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-name">IP</a>
+  <ul class="nav-links">
+    <li><a href="index.html#built"><span class="nav-label">Built</span></a></li>
+    <li><a href="skills.html" class="current"><span class="nav-label">Skills</span></a></li>
+    <li><a href="index.html#sharing"><span class="nav-label">Out loud</span></a></li>
+    <li><a href="index.html#about"><span class="nav-label">Isaac</span></a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<header id="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-copy">
+      <p class="page-eyebrow">Free AI skills</p>
+      <h1 class="page-h1">Think With <em>AI</em></h1>
+      <p class="page-lede">A trilogy of small, steal-able AI skills for the three moments in any decision or build. Each one turns a single AI chat from a confident-answer machine into a <strong>thinking partner that pushes back.</strong> Free to use, free to share.</p>
+    </div>
+
+    <aside class="trilogy-card" aria-label="The three skills">
+      <p class="trilogy-label">The trilogy</p>
+      <a href="#claude-interview" class="trilogy-row">
+        <span><span class="trilogy-stage">01 · Direction</span><span class="trilogy-name">Claude Interview</span></span>
+        <span class="pill live">Live</span>
+      </a>
+      <a href="#llm-council" class="trilogy-row">
+        <span><span class="trilogy-stage">02 · Decision</span><span class="trilogy-name">LLM Council</span></span>
+        <span class="pill live">Live</span>
+      </a>
+      <a href="#lean-sensei" class="trilogy-row">
+        <span><span class="trilogy-stage">03 · Delivery</span><span class="trilogy-name">The Lean Sensei</span></span>
+        <span class="pill soon">Soon</span>
+      </a>
+    </aside>
+  </div>
+</header>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <p class="section-eyebrow">How it works</p>
+    <h2 class="section-title">Three steps, about a minute</h2>
+    <p class="section-intro">A skill is just a set of instructions you hand an AI so it works a certain way. Here's the whole flow — no account, no cost, nothing to install beyond a file.</p>
+
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <p class="how-title">Pick your moment</p>
+        <p class="how-body">Choose the skill that fits where you're stuck — finding <strong>direction</strong>, making a <strong>decision</strong>, or getting <strong>delivery</strong> right. Each is one file.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <p class="how-title">Add it — or copy the kit</p>
+        <p class="how-body">On Claude: <strong>Settings → Capabilities → Skills</strong>, upload the file or drag it into a chat. Not on Claude? Open the <strong>printable kit</strong> and paste its prompts into any chatbot.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <p class="how-title">Describe your problem</p>
+        <p class="how-body">Say what you're wrestling with in plain language. The skill triggers on its own and <strong>runs the rest.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILL DETAILS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-eyebrow">The skills</p>
+    <h2 class="section-title">Pick your moment, in detail</h2>
+    <p class="section-intro">Everything lives in one open GitHub repository under a Creative Commons licence. Install the skill into Claude, or grab the printable kit for any chatbot.</p>
+
+    <!-- Claude Interview -->
+    <article id="claude-interview" class="skill-block">
+      <div class="skill-main">
+        <p class="skill-stage">01 · Direction</p>
+        <h3 class="skill-title">🎙️ Claude Interview</h3>
+        <p class="skill-question">Who am I, what am I good at, and where should I go next?</p>
+        <div class="skill-body">
+          <p>Make the AI interrogate <em>you</em> — one question at a time, no advice until the end — like a demanding hiring manager. Then have it build a real plan from your answers.</p>
+          <p>You get back your skills gaps, three career pillars with exit roles and salary bands, a sequenced action list, and the network you'd need to build. It works because it withholds the confident summary until it has actually understood you.</p>
+        </div>
+      </div>
+      <aside class="skill-panel">
+        <div class="panel-top">
+          <span class="panel-label">Get started</span>
+          <span class="pill live">Live</span>
+        </div>
+        <ul class="panel-list">
+          <li>A rigorous, one-question-at-a-time interview</li>
+          <li>Three career pillars with salary bands</li>
+          <li>A sequenced, concrete action list</li>
+        </ul>
+        <div class="panel-actions">
+          <a class="btn btn-primary" href="https://github.com/3daysl8/think-with-ai/blob/main/skills/claude-interview/SKILL.md" target="_blank" rel="noopener">Get the skill</a>
+          <a class="btn btn-ghost" href="kit-claude-interview.html">Printable kit</a>
+        </div>
+        <p class="panel-note">Works in any chatbot</p>
+      </aside>
+    </article>
+
+    <!-- LLM Council -->
+    <article id="llm-council" class="skill-block">
+      <div class="skill-main">
+        <p class="skill-stage">02 · Decision</p>
+        <h3 class="skill-title">🏛️ LLM Council</h3>
+        <p class="skill-question">I have a direction — which path do I actually commit to?</p>
+        <div class="skill-body">
+          <p>Convene five AI advisors — the Contrarian, the First Principles Thinker, the Expansionist, the Outsider, and the Executor — to pressure-test one hard decision from five directions at once.</p>
+          <p>Then you play chairman: the skill synthesises the fight into a single call and a first action. Instead of one agreeable answer, you get a real argument you can weigh.</p>
+        </div>
+        <p class="skill-credit">Based on <a href="https://github.com/karpathy/llm-council" target="_blank" rel="noopener">Andrej Karpathy's open-source <code>llm-council</code></a>.</p>
+      </div>
+      <aside class="skill-panel">
+        <div class="panel-top">
+          <span class="panel-label">Get started</span>
+          <span class="pill live">Live</span>
+        </div>
+        <ul class="panel-list">
+          <li>Five advisors, five fixed thinking styles</li>
+          <li>A real argument, not one flat answer</li>
+          <li>One synthesised call + first action</li>
+        </ul>
+        <div class="panel-actions">
+          <a class="btn btn-primary" href="https://github.com/3daysl8/think-with-ai/blob/main/skills/llm-council/SKILL.md" target="_blank" rel="noopener">Get the skill</a>
+          <a class="btn btn-ghost" href="kit-llm-council.html">Printable kit</a>
+        </div>
+        <p class="panel-note">Works in any chatbot</p>
+      </aside>
+    </article>
+
+    <!-- Lean Sensei -->
+    <article id="lean-sensei" class="skill-block">
+      <div class="skill-main">
+        <p class="skill-stage">03 · Delivery</p>
+        <h3 class="skill-title">🥋 The Lean Sensei</h3>
+        <p class="skill-question">I'm in motion — how much rigor does this actually need?</p>
+        <div class="skill-body">
+          <p>The third skill, on delivery: a sensei that tells you how much rigor a piece of work actually needs — so you neither over-engineer a throwaway nor ship something important half-baked.</p>
+          <p>Still being written. Subscribe below and it lands in your inbox the week it's ready.</p>
+        </div>
+      </div>
+      <aside class="skill-panel">
+        <div class="panel-top">
+          <span class="panel-label">Coming next</span>
+          <span class="pill soon">Soon</span>
+        </div>
+        <ul class="panel-list">
+          <li>Right-sizes the rigor for the job</li>
+          <li>Stops over-engineering the throwaway</li>
+          <li>Completes the Direction → Decision → Delivery arc</li>
+        </ul>
+        <div class="panel-actions">
+          <a class="btn btn-primary" href="https://substack.com/@isaacpetersonau" target="_blank" rel="noopener">Get it at launch</a>
+          <span class="btn btn-disabled">In progress</span>
+        </div>
+        <p class="panel-note">Free when it ships</p>
+      </aside>
+    </article>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <p class="section-eyebrow">Questions</p>
+    <h2 class="section-title">Common questions</h2>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h3 class="faq-q">What is an AI skill?</h3>
+        <p class="faq-a">An AI skill is a small set of written instructions — usually a single Markdown file — that teaches an AI assistant a specific way of working. Instead of prompting from scratch each time, you install the skill once and the assistant follows its procedure whenever it's relevant. These are plain <code>SKILL.md</code> files you can read, edit, and share freely.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Are these skills free?</h3>
+        <p class="faq-a">Yes. All three skills are free to use, adapt, and share under a Creative Commons Attribution licence. The only ask is that you keep the attribution to the original author — and, for the LLM Council, to Andrej Karpathy, whose idea it builds on.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Do I need Claude to use them?</h3>
+        <p class="faq-a">No. Each skill ships with a printable kit — the same procedure written out to copy and paste into any chatbot, including ChatGPT, Gemini, or Perplexity. The <code>SKILL.md</code> files are optimised for Claude's Skills feature, but the thinking works anywhere.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Who made these?</h3>
+        <p class="faq-a">Isaac Peterson — a non-developer in Melbourne building tools and automations with AI and <a href="index.html#sharing">sharing the process in public</a>. The skills started as workflows in his own newsletter and were genericised so anyone can use them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-inner">
+    <h2 class="cta-title">One steal-able AI workflow a week</h2>
+    <p class="cta-sub">The skills come out of my newsletter. Subscribe to get the next one — including the Lean Sensei — the week it lands. It's free.</p>
+    <a class="cta-btn" href="https://substack.com/@isaacpetersonau" target="_blank" rel="noopener">Subscribe on Substack</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-name">Isaac Peterson</span>
+      <span class="footer-social">
+        <a href="https://github.com/3daysl8/think-with-ai" target="_blank" rel="noopener" aria-label="GitHub repository">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14 0 1.54-.01 2.79-.01 3.17 0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        </a>
+        <a href="https://isaacpetersonau.substack.com/" target="_blank" rel="noopener" aria-label="Substack">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+        </a>
+      </span>
+      <span class="footer-meta">isaacpeterson.au · © 2026</span>
+    </div>
+  </div>
+</footer>
+
+<!-- STRUCTURED DATA — helps AI answer engines cite this page -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://isaacpeterson.au/skills",
+      "url": "https://isaacpeterson.au/skills",
+      "name": "Think With AI — Free AI Skills by Isaac Peterson",
+      "description": "A trilogy of free, copy-anywhere AI skills for the three moments in any decision or build: Direction, Decision, Delivery.",
+      "author": { "@type": "Person", "name": "Isaac Peterson", "url": "https://isaacpeterson.au" }
+    },
+    {
+      "@type": "ItemList",
+      "name": "Think With AI skills",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Claude Interview",
+            "description": "An AI skill that makes the assistant interview you one question at a time, then builds a career plan with skills gaps, three pillars, and a sequenced action list.",
+            "url": "https://github.com/3daysl8/think-with-ai/tree/main/skills/claude-interview",
+            "author": { "@type": "Person", "name": "Isaac Peterson" },
+            "license": "https://creativecommons.org/licenses/by/4.0/",
+            "isAccessibleForFree": true
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "LLM Council",
+            "description": "An AI skill that convenes five AI advisors to pressure-test one hard decision, then synthesises the debate into a single call and a first action.",
+            "url": "https://github.com/3daysl8/think-with-ai/tree/main/skills/llm-council",
+            "author": { "@type": "Person", "name": "Isaac Peterson" },
+            "license": "https://creativecommons.org/licenses/by/4.0/",
+            "isAccessibleForFree": true
+          }
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an AI skill?",
+          "acceptedAnswer": { "@type": "Answer", "text": "An AI skill is a small set of written instructions — usually a single Markdown file — that teaches an AI assistant a specific way of working. You install the skill once and the assistant follows its procedure whenever it is relevant." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are these skills free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. All three Think With AI skills are free to use, adapt, and share under a Creative Commons Attribution licence. Keep the attribution to the original author, and for the LLM Council to Andrej Karpathy." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need Claude to use them?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Each skill ships with a printable kit — the same procedure written out to copy and paste into any chatbot, including ChatGPT, Gemini, or Perplexity." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</body>
+</html>
