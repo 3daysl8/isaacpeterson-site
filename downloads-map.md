@@ -9,6 +9,7 @@ promise.
 | Giveaway | Permanent link (use this everywhere) | Actual file | Referenced in |
 |---|---|---|---|
 | One-Prompt Build Kit | https://isaacpeterson.au/downloads/one-prompt-build-kit | one-prompt-build-kit.pdf | kit-one-prompt-build.html, skills.html |
+| Reversible or Not? card | https://isaacpeterson.au/downloads/reversible-card | reversible-or-not-card.pdf | "I Reviewed My Substack Workflow" post, card-reversible-or-not.html |
 
 ## When you add a giveaway
 1. Add the file to the repo.

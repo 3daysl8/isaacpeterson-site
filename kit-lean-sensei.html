@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lean Sensei Kit — printable | Isaac Peterson</title>
+<meta name="description" content="A printable kit with one copy-paste prompt that audits any plan before you build it: what to just try, what deserves real rigor, and where your attention actually goes. Free to use and share.">
+<link rel="canonical" href="https://isaacpeterson.au/kit-lean-sensei">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #faf7f4; --accent: #2c3e6b; --accent-hover: #1e2d52;
+  --accent-tint: rgba(44,62,107,0.08); --ink: #1a1a18; --muted: #6b6b68;
+  --rule: rgba(26,26,24,0.12);
+}
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.kit-bar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg); border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 32px;
+}
+.kit-back {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  transition: color 0.2s;
+}
+.kit-back:hover { color: var(--accent); }
+.kit-print {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--accent); color: #faf7f4; border: 1px solid var(--accent);
+  border-radius: 4px; padding: 9px 16px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s;
+}
+.kit-print:hover { background: var(--accent-hover); }
+
+.kit-sheet { max-width: 720px; margin: 0 auto; padding: 56px 40px 96px; }
+
+.kit-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 16px;
+}
+.kit-title {
+  font-family: 'DM Serif Display', serif; font-size: 40px; line-height: 1.15;
+  letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.kit-deck {
+  font-family: 'DM Serif Display', serif; font-style: italic; font-size: 20px;
+  color: var(--muted); line-height: 1.4; margin-bottom: 24px;
+}
+.kit-note {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  padding: 16px 20px; background: var(--accent-tint); border-radius: 6px;
+  margin-bottom: 32px;
+}
+.kit-note a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.kit-lede { font-size: 18px; line-height: 1.7; margin-bottom: 20px; }
+.kit-credit { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+.kit-credit a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+
+.kit-h2 {
+  font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.25;
+  margin: 40px 0 16px;
+}
+.kit-role {
+  font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent);
+  margin: 28px 0 10px;
+}
+
+pre {
+  font-family: 'DM Mono', monospace; font-size: 14px; line-height: 1.65;
+  background: #fff; border: 1px solid var(--rule); border-left: 3px solid var(--accent);
+  border-radius: 6px; padding: 20px 22px; margin-bottom: 20px;
+  white-space: pre-wrap; word-wrap: break-word; color: var(--ink);
+}
+.kit-hint { font-size: 14px; font-style: italic; color: var(--muted); margin: -8px 0 24px; }
+
+.kit-list { list-style: none; margin-bottom: 24px; }
+.kit-list li {
+  position: relative; padding-left: 22px; margin-bottom: 12px;
+  font-size: 16px; line-height: 1.6;
+}
+.kit-list li::before {
+  content: ''; position: absolute; left: 4px; top: 11px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+}
+.kit-list strong { font-weight: 500; }
+
+blockquote {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 20px;
+  margin: 28px 0; font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: 19px; line-height: 1.5; color: var(--ink);
+}
+
+.kit-foot {
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule);
+  font-size: 13px; color: var(--muted); line-height: 1.7;
+}
+.kit-foot a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.kit-foot strong { color: var(--ink); font-weight: 500; }
+
+@media (max-width: 600px) {
+  .kit-bar { padding: 12px 20px; }
+  .kit-sheet { padding: 40px 24px 72px; }
+  .kit-title { font-size: 30px; }
+}
+
+@media print {
+  :root { --bg: #fff; }
+  body { background: #fff; font-size: 12pt; }
+  .kit-bar { display: none; }
+  .kit-sheet { max-width: 100%; padding: 0; }
+  .kit-eyebrow, .kit-title, .kit-deck, .kit-h2, .kit-role, blockquote { color: #000; }
+  .kit-note { background: none; border: 1px solid #bbb; padding: 10px 14px; }
+  pre { background: #fff; border: 1px solid #999; border-left: 3px solid #000; page-break-inside: avoid; }
+  blockquote { border-left: 3px solid #000; }
+  a { color: #000; text-decoration: underline; border: none !important; }
+  .kit-h2, .kit-role { page-break-after: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="kit-bar">
+  <a href="skills.html" class="kit-back">← All skills</a>
+  <button class="kit-print" onclick="window.print()">⎙&nbsp; Print / save as PDF</button>
+</div>
+
+<main class="kit-sheet">
+  <p class="kit-eyebrow">Printable kit · Process</p>
+  <h1 class="kit-title">The Lean Sensei Kit</h1>
+  <p class="kit-deck">One prompt to audit any plan before you build it. What to just try, what deserves real rigor, and where your attention actually goes.</p>
+
+  <p class="kit-note">Prefer the one-click version? Install the <a href="https://github.com/3daysl8/think-with-ai/blob/main/skills/lean-sensei/SKILL.md" target="_blank" rel="noopener">Claude skill</a> and just describe your plan. This manual kit runs the same audit by hand in <strong>any</strong> chatbot.</p>
+
+  <p class="kit-lede">Every productivity writer says the same thing: eliminate waste, do it right the first time. That advice was built for a world where mistakes were expensive. Most of yours are now cheap to undo.</p>
+  <p class="kit-lede">So the first question was never "is this wasteful?" It is <strong>"is this cheap to reverse?"</strong> This kit audits a plan before you sink effort in. It sorts what to just try from what deserves care, and defends the one thing that never got cheap: <strong>your attention.</strong></p>
+
+  <p class="kit-credit"><strong>Credit:</strong> the <strong>two-way / one-way door</strong> test is <strong>Jeff Bezos's</strong> (2015 Amazon shareholder letter). The <strong>seven wastes and Lean</strong> come from the <strong>Toyota Production System</strong>. The twist is neither of theirs: cheap iteration moved the scarce resource from producing to reviewing.</p>
+
+  <h2 class="kit-h2">How to run it</h2>
+  <p class="kit-lede">Open a fresh chat. Fill in your plan first, then paste the audit prompt below. Answer its questions and it tells you what to just try, what to slow down on, and what to stop making.</p>
+
+  <p class="kit-role">0 · Your plan (fill this in first)</p>
+  <pre>I am about to build or organise [the plan, workflow, or task]. What "done" looks like
+for me is [the outcome I actually want].</pre>
+  <p class="kit-hint">Be specific about what you are about to make and why. Vague in, vague out.</p>
+
+  <p class="kit-role">1 · The Lean Sensei audit</p>
+  <pre>You are the Lean Sensei. I am about to build or organise something, and I want to know
+how much rigor it actually needs before I sink effort in. My plan is above.
+
+Audit it in this order:
+1. Spot the waste. List everything this will produce that I then have to review, check,
+   choose between, or maintain.
+2. Triage each part. Is it a two-way door (cheap to reverse, I can redo it in minutes)
+   or a one-way door (expensive or impossible to undo)?
+3. Route it. For the two-way doors, tell me to stop planning and just try, and name the
+   fastest rough test plus the signal that means "back out." For any one-way door, and
+   only there, bring the rigor: where am I overloading one step, and what is the
+   smallest safe first move?
+4. Protect my attention. Flag anything I am making only because making is cheap, that I
+   then have to sit and review. Tell me what to make less of, and the one kind of
+   review worth keeping.
+
+End with one clear next action, not a menu.</pre>
+
+  <h2 class="kit-h2">The one question to keep</h2>
+  <p class="kit-lede">Before you plan anything, ask: <strong>how expensive is this to reverse?</strong></p>
+  <ul class="kit-list">
+    <li><strong>Cheap (a two-way door)</strong> — stop planning and just try it. Sloppy and fast beats careful and slow. Pivot when it is wrong.</li>
+    <li><strong>Expensive (a one-way door)</strong> — this is your signal to slow down and do it properly. Bring the checklist. Take the extra pass.</li>
+  </ul>
+
+  <h2 class="kit-h2">When to use it</h2>
+  <ul class="kit-list">
+    <li><strong>Use it</strong> when you are about to plan, build, or "properly" set up a workflow, process, automation, or piece of work.</li>
+    <li><strong>Skip it</strong> for a simple lookup, or a high-stakes decision between options. That is the <a href="kit-llm-council.html">LLM Council's</a> job. This one audits <em>process</em>, not <em>choice</em>.</li>
+  </ul>
+
+  <blockquote>Cheap to reverse? Just try it. Expensive? Then bring the rigor. One question, not a methodology.</blockquote>
+
+  <p class="kit-foot">
+    Made by <strong>Isaac Peterson</strong> · <a href="https://substack.com/@isaacpetersonau" target="_blank" rel="noopener">@isaacpetersonau</a><br>
+    From the post: "I Reviewed My Substack Workflow. Most of It Didn't Need Fixing."<br>
+    Share this freely, keep the attribution. Want one steal-able AI workflow a week? <a href="https://substack.com/@isaacpetersonau" target="_blank" rel="noopener"><strong>Subscribe — it's free.</strong></a>
+  </p>
+</main>
+
+</body>
+</html>

@@ -7,7 +7,8 @@
 #
 #   <permanent public path>          <actual file>               <status>
 
-/downloads/one-prompt-build-kit      /one-prompt-build-kit.pdf    200
+/downloads/one-prompt-build-kit      /one-prompt-build-kit.pdf     200
+/downloads/reversible-card           /reversible-or-not-card.pdf   200
 
 # Add new giveaways here as their files land, e.g.:
-# /downloads/reversible-card         /reversible-or-not-card.pdf  200
+# /downloads/<slug>                  /<file>                       200
