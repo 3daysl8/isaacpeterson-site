@@ -8,7 +8,7 @@ promise.
 
 | Giveaway | Permanent link (use this everywhere) | Actual file | Referenced in |
 |---|---|---|---|
-| One-Prompt Build Kit | https://isaacpeterson.au/downloads/one-prompt-build-kit | one-prompt-build-kit.pdf | kit-one-prompt-build.html, skills.html |
+| One-Prompt Build Kit | https://isaacpeterson.au/downloads/one-prompt-build-kit | one-prompt-build-kit.pdf | kit-one-prompt-build.html, builds.html |
 | Reversible or Not? card | https://isaacpeterson.au/downloads/reversible-card | reversible-or-not-card.pdf | "I Reviewed My Substack Workflow" post, card-reversible-or-not.html |
 | Workplace Quiz Generator | https://isaacpeterson.au/downloads/quiz-generator | github.com/3daysl8/build-with-ai *(off-site, 301)* | "I Used AI to Be Unproductive" post |
 

@@ -281,6 +281,16 @@ section { padding: 64px 0; border-top: 1px solid var(--rule); }
 .btn-disabled { background: none; color: var(--muted); border: 1px dashed var(--rule); pointer-events: none; opacity: 0.75; }
 .skill-panel .btn { width: 100%; }
 
+/* CROSS-SERIES STRIP — the handoff to Build With AI */
+.play-strip {
+  display: grid; grid-template-columns: 1fr auto; gap: 32px;
+  align-items: center;
+  border: 1px solid var(--rule); border-radius: 8px;
+  padding: 32px 34px; background: var(--accent-tint);
+}
+.play-copy .play-title { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.25; margin-bottom: 8px; }
+.play-copy .play-body { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 560px; }
+
 /* FAQ — two columns */
 .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
 .faq-item { padding: 26px 0; border-top: 1px solid var(--rule); }
@@ -319,6 +329,7 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
   .page-hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .skill-block { grid-template-columns: 1fr; gap: 28px; }
   .skill-panel { position: static; }
+  .play-strip { grid-template-columns: 1fr; gap: 22px; }
 }
 @media (max-width: 768px) {
   nav { padding: 0 24px; }
@@ -334,6 +345,7 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
   .section-title { font-size: 27px; }
   .how-grid { grid-template-columns: 1fr; gap: 28px; }
   .skill-title { font-size: 26px; }
+  .play-strip { padding: 26px 24px; }
   .faq-grid { grid-template-columns: 1fr; gap: 0; }
   .cta-inner { padding: 0 24px; }
   .cta-title { font-size: 27px; }
@@ -517,40 +529,20 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
   </div>
 </section>
 
-<!-- BUILD KIT — a making kit, distinct from the three thinking skills -->
+<!-- NEXT STEP — the making happens on the Build With AI page -->
 <section id="build">
   <div class="container">
-    <p class="section-eyebrow">Bonus · Build kit</p>
+    <p class="section-eyebrow">Next</p>
     <h2 class="section-title">Now go build one</h2>
-    <p class="section-intro">The trilogy sharpens how you <em>think</em>. This one is for <em>making</em> — the exact prompts behind a tool a development agency quoted at $100,000, built by one non-developer in 15 hours.</p>
+    <p class="section-intro">The trilogy sharpens how you <em>think</em>. When you've made the call and it's time to <em>make</em> the thing, that's the companion series.</p>
 
-    <article class="skill-block">
-      <div class="skill-main">
-        <p class="skill-stage">Quiet Tools · Kit 05</p>
-        <h3 class="skill-title">🛠️ The One-Prompt Build Kit</h3>
-        <p class="skill-question">Can one person really build a professional tool with AI?</p>
-        <div class="skill-body">
-          <p>Building a real tool with AI is one strong founding prompt plus a review loop. You supply the expertise and the judgement; the AI supplies the research, the build, and the iteration.</p>
-          <p>Five prompts are the skeleton of that loop — the founding prompt, a design brief, a self-audit, a specialist risk review, and an integrity check. Swap the domain, keep the structure.</p>
-        </div>
+    <div class="play-strip">
+      <div class="play-copy">
+        <p class="play-title">Build With AI</p>
+        <p class="play-body">Skills that hand you a working tool, not advice about one — plus the One-Prompt Build Kit, the exact prompts behind a tool a development agency quoted at $100,000. Free, and they run on the AI you already have at work.</p>
       </div>
-      <aside class="skill-panel">
-        <div class="panel-top">
-          <span class="panel-label">The kit</span>
-          <span class="pill live">Free</span>
-        </div>
-        <ul class="panel-list">
-          <li>One founding prompt that starts the whole build</li>
-          <li>A design brief + self-audit loop for polish</li>
-          <li>Risk + integrity checks before you ship</li>
-        </ul>
-        <div class="panel-actions">
-          <a class="btn btn-primary" href="kit-one-prompt-build.html">Read the kit</a>
-          <a class="btn btn-ghost" href="/downloads/one-prompt-build-kit" download="one-prompt-build-kit.pdf">Download PDF</a>
-        </div>
-        <p class="panel-note">5 prompts · works in any AI</p>
-      </aside>
-    </article>
+      <a class="btn btn-primary" href="builds.html">See the builds</a>
+    </div>
   </div>
 </section>
 
