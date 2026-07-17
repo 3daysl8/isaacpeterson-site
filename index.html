@@ -119,6 +119,54 @@ nav {
   line-height: 1;
 }
 
+/* NAV DROPDOWN — Skills fans out to the two series.
+   Opens on hover only where hover actually exists; everywhere
+   else (touch) the button click drives it. Mirrored in
+   skills.html and builds.html — change all three together. */
+.nav-drop { position: relative; }
+.nav-drop-btn {
+  background: none; border: none; cursor: pointer;
+  font: inherit; color: var(--muted);
+  padding: 8px 0; display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.nav-drop-btn:hover { color: var(--ink); }
+.nav-chev { transition: transform 0.2s; flex-shrink: 0; }
+.nav-drop-btn[aria-expanded="true"] .nav-chev { transform: rotate(180deg); }
+
+.nav-drop-menu {
+  position: absolute; top: calc(100% + 12px); left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  min-width: 190px; list-style: none;
+  background: var(--bg); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 6px; box-shadow: 0 8px 28px rgba(26,26,24,0.10);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+}
+.nav-drop-menu li a {
+  display: block; padding: 11px 12px; border-radius: 5px;
+  color: var(--ink); transition: background 0.15s;
+}
+.nav-drop-menu li a:hover { background: var(--accent-tint); }
+.drop-name { display: block; font-family: 'DM Serif Display', serif; font-size: 16px; line-height: 1.25; }
+.drop-sub {
+  display: block; font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); margin-top: 3px;
+}
+
+.nav-drop.open > .nav-drop-menu,
+.nav-drop:focus-within > .nav-drop-menu {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+@media (hover: hover) {
+  .nav-drop:hover > .nav-drop-menu {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 /* CONTAINER */
 .container {
   max-width: 1200px;
@@ -798,6 +846,10 @@ footer {
     padding: 0 24px;
   }
 
+  .nav-drop-menu { left: auto; right: 0; transform: translateY(-4px); min-width: 180px; }
+  .nav-drop.open > .nav-drop-menu,
+  .nav-drop:focus-within > .nav-drop-menu { transform: translateY(0); }
+
   .hero-inner {
     grid-template-columns: 1fr !important;
     padding: 80px 24px 48px;
@@ -1035,10 +1087,15 @@ footer {
       </a>
     </li>
 
-    <li>
-      <a href="skills.html">
+    <li class="nav-drop">
+      <button class="nav-drop-btn" aria-expanded="false" aria-haspopup="true" aria-controls="skills-menu">
         <span class="nav-label">Skills</span>
-      </a>
+        <svg class="nav-chev" width="9" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ul class="nav-drop-menu" id="skills-menu">
+        <li><a href="skills.html"><span class="drop-name">Think With AI</span><span class="drop-sub">Make the decision</span></a></li>
+        <li><a href="builds.html"><span class="drop-name">Build With AI</span><span class="drop-sub">Make the thing</span></a></li>
+      </ul>
     </li>
 
     <li>
@@ -1546,6 +1603,37 @@ if (track) {
     track.scrollLeft = scrollLeft - walk;
   });
 }
+
+/* Nav dropdown: click drives it everywhere (touch has no hover).
+   CSS handles hover on pointer devices; this handles tap, keyboard,
+   Escape, and click-away. Mirrored in skills.html and builds.html. */
+(function () {
+  var drop = document.querySelector('.nav-drop');
+  if (!drop) return;
+  var btn = drop.querySelector('.nav-drop-btn');
+
+  function close() {
+    drop.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var open = drop.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!drop.contains(e.target)) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && drop.classList.contains('open')) {
+      close();
+      btn.focus();
+    }
+  });
+})();
 </script>
 </body>
 </html>

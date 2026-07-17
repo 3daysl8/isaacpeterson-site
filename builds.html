@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Think With AI — Free AI Skills by Isaac Peterson</title>
-<meta name="description" content="Think With AI is a trilogy of small, free, copy-anywhere AI skills that turn a single AI chat into a thinking partner that pushes back. All three are live. Free to use, free to share.">
-<link rel="canonical" href="https://isaacpeterson.au/skills">
+<title>Build With AI — Free AI Skills by Isaac Peterson</title>
+<meta name="description" content="Build With AI is a series of small, free, copy-anywhere AI skills that hand you a working tool instead of advice about one. Name a topic, get a thing you can use. Free to use, free to share.">
+<link rel="canonical" href="https://isaacpeterson.au/builds">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Think With AI — Free AI Skills by Isaac Peterson">
-<meta property="og:description" content="A trilogy of steal-able AI skills for the three moments in any decision or build: Direction, Decision, Delivery. Free to use, free to share.">
-<meta property="og:url" content="https://isaacpeterson.au/skills">
+<meta property="og:title" content="Build With AI — Free AI Skills by Isaac Peterson">
+<meta property="og:description" content="Steal-able AI skills that make a thing. Name a topic, get a working tool — built with whatever AI your workplace already provides. Free to use, free to share.">
+<meta property="og:url" content="https://isaacpeterson.au/builds">
 <meta name="author" content="Isaac Peterson">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
@@ -19,9 +19,11 @@
 <style>
 
 /* ============================================================
-   Shares the isaacpeterson.au design language (see index.html)
-   but uses its own structure: this is a utility page (understand
-   → choose → act), not the homepage's scroll-to-discover brochure.
+   Mirrors skills.html exactly — same design language, same
+   structure. The two series are siblings: Think With AI makes a
+   decision, Build With AI makes a product. Any change to the
+   nav or shared components here must land in skills.html and
+   index.html too.
    Background #faf7f4 · Accent navy #2c3e6b · Ink #1a1a18
    Display: DM Serif Display · Body: DM Sans · Mono: DM Mono
    ============================================================ */
@@ -81,8 +83,7 @@ nav {
 
 /* NAV DROPDOWN — Skills fans out to the two series.
    Opens on hover only where hover actually exists; everywhere
-   else (touch) the button click drives it. Mirrored in
-   builds.html and index.html — change all three together. */
+   else (touch) the button click drives it. */
 .nav-drop { position: relative; }
 .nav-drop-btn {
   background: none; border: none; cursor: pointer;
@@ -143,7 +144,7 @@ nav {
 .pill.live { color: var(--accent); background: var(--accent-tint); }
 .pill.soon { color: var(--muted); background: rgba(26,26,24,0.05); }
 
-/* PAGE HERO — two columns: statement + trilogy card fills the right */
+/* PAGE HERO */
 #page-hero { padding-top: 64px; border-bottom: 1px solid var(--rule); }
 .page-hero-inner {
   max-width: 1200px; margin: 0 auto;
@@ -166,7 +167,7 @@ nav {
 .page-lede { font-size: 20px; line-height: 1.6; color: var(--ink); max-width: 600px; }
 .page-lede strong { font-weight: 500; }
 
-/* Trilogy card — orientation + jump nav, kills the hero dead space */
+/* Series card */
 .trilogy-card {
   border: 1px solid var(--rule); border-radius: 8px;
   padding: 26px 26px 12px; background: var(--bg);
@@ -183,6 +184,8 @@ nav {
   text-decoration: none; color: var(--ink); transition: opacity 0.2s;
 }
 .trilogy-row:hover { opacity: 0.62; }
+.trilogy-row.is-soon { cursor: default; }
+.trilogy-row.is-soon:hover { opacity: 1; }
 .trilogy-stage {
   display: block;
   font-family: 'DM Mono', monospace;
@@ -190,9 +193,11 @@ nav {
   letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 3px;
 }
+.trilogy-row.is-soon .trilogy-stage { color: var(--muted); }
 .trilogy-name { display: block; font-family: 'DM Serif Display', serif; font-size: 19px; line-height: 1.2; }
+.trilogy-row.is-soon .trilogy-name { color: var(--muted); }
 
-/* SECTIONS — tighter rhythm than the homepage's 120px brochure gaps */
+/* SECTIONS */
 section { padding: 64px 0; border-top: 1px solid var(--rule); }
 .section-eyebrow {
   font-family: 'DM Mono', monospace;
@@ -206,8 +211,9 @@ section { padding: 64px 0; border-top: 1px solid var(--rule); }
   color: var(--ink); margin-bottom: 14px;
 }
 .section-intro { font-size: 17px; color: var(--muted); max-width: 640px; margin-bottom: 48px; line-height: 1.7; }
+.section-intro em { font-style: italic; }
 
-/* HOW IT WORKS — three columns fill the width */
+/* HOW IT WORKS */
 .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 .how-num {
   width: 34px; height: 34px; border: 1px solid var(--accent);
@@ -219,7 +225,7 @@ section { padding: 64px 0; border-top: 1px solid var(--rule); }
 .how-body { font-size: 15px; color: var(--muted); line-height: 1.6; }
 .how-body strong { color: var(--ink); font-weight: 500; }
 
-/* SKILL BLOCKS — prose left, action panel right (fills the dead column) */
+/* SKILL BLOCKS */
 .skill-block {
   display: grid; grid-template-columns: 1fr 320px; gap: 48px;
   padding: 52px 0; border-top: 1px solid var(--rule); align-items: start;
@@ -241,6 +247,7 @@ section { padding: 64px 0; border-top: 1px solid var(--rule); }
 .skill-body p { margin-bottom: 16px; }
 .skill-body p:last-child { margin-bottom: 0; }
 .skill-body em { font-style: italic; }
+.skill-body strong { font-weight: 500; }
 .skill-credit { font-size: 14px; color: var(--muted); margin-top: 18px; line-height: 1.6; }
 .skill-credit a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
 .skill-credit a:hover { border-color: var(--accent); }
@@ -281,7 +288,17 @@ section { padding: 64px 0; border-top: 1px solid var(--rule); }
 .btn-disabled { background: none; color: var(--muted); border: 1px dashed var(--rule); pointer-events: none; opacity: 0.75; }
 .skill-panel .btn { width: 100%; }
 
-/* FAQ — two columns */
+/* PLAY IT — the live proof, unique to this page */
+.play-strip {
+  display: grid; grid-template-columns: 1fr auto; gap: 32px;
+  align-items: center;
+  border: 1px solid var(--rule); border-radius: 8px;
+  padding: 32px 34px; background: var(--accent-tint);
+}
+.play-copy .play-title { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.25; margin-bottom: 8px; }
+.play-copy .play-body { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 560px; }
+
+/* FAQ */
 .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
 .faq-item { padding: 26px 0; border-top: 1px solid var(--rule); }
 .faq-q { font-family: 'DM Serif Display', serif; font-size: 20px; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
@@ -319,6 +336,7 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
   .page-hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .skill-block { grid-template-columns: 1fr; gap: 28px; }
   .skill-panel { position: static; }
+  .play-strip { grid-template-columns: 1fr; gap: 22px; }
 }
 @media (max-width: 768px) {
   nav { padding: 0 24px; }
@@ -334,6 +352,7 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
   .section-title { font-size: 27px; }
   .how-grid { grid-template-columns: 1fr; gap: 28px; }
   .skill-title { font-size: 26px; }
+  .play-strip { padding: 26px 24px; }
   .faq-grid { grid-template-columns: 1fr; gap: 0; }
   .cta-inner { padding: 0 24px; }
   .cta-title { font-size: 27px; }
@@ -357,8 +376,8 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
         <svg class="nav-chev" width="9" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <ul class="nav-drop-menu" id="skills-menu">
-        <li><a href="skills.html" class="current"><span class="drop-name">Think With AI</span><span class="drop-sub">Make the decision</span></a></li>
-        <li><a href="builds.html"><span class="drop-name">Build With AI</span><span class="drop-sub">Make the thing</span></a></li>
+        <li><a href="skills.html"><span class="drop-name">Think With AI</span><span class="drop-sub">Make the decision</span></a></li>
+        <li><a href="builds.html" class="current"><span class="drop-name">Build With AI</span><span class="drop-sub">Make the thing</span></a></li>
       </ul>
     </li>
     <li><a href="index.html#sharing"><span class="nav-label">Out loud</span></a></li>
@@ -371,24 +390,20 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
   <div class="page-hero-inner">
     <div class="page-hero-copy">
       <p class="page-eyebrow">Free AI skills</p>
-      <h1 class="page-h1">Think With <em>AI</em></h1>
-      <p class="page-lede">A trilogy of small, steal-able AI skills for the three moments in any decision or build. Each one turns a single AI chat from a confident-answer machine into a <strong>thinking partner that pushes back.</strong> Free to use, free to share.</p>
+      <h1 class="page-h1">Build With <em>AI</em></h1>
+      <p class="page-lede">Skills that hand you a <strong>working tool</strong>, not advice about one. Name a topic, get a thing you can actually open and use — built with whatever AI you already have, including the one at work. Free to use, free to share.</p>
     </div>
 
-    <aside class="trilogy-card" aria-label="The three skills">
-      <p class="trilogy-label">The trilogy</p>
-      <a href="#claude-interview" class="trilogy-row">
-        <span><span class="trilogy-stage">01 · Direction</span><span class="trilogy-name">Claude Interview</span></span>
+    <aside class="trilogy-card" aria-label="The builds">
+      <p class="trilogy-label">The series</p>
+      <a href="#quiz-generator" class="trilogy-row">
+        <span><span class="trilogy-stage">01 · Play</span><span class="trilogy-name">Workplace Quiz Generator</span></span>
         <span class="pill live">Live</span>
       </a>
-      <a href="#llm-council" class="trilogy-row">
-        <span><span class="trilogy-stage">02 · Decision</span><span class="trilogy-name">LLM Council</span></span>
-        <span class="pill live">Live</span>
-      </a>
-      <a href="#lean-sensei" class="trilogy-row">
-        <span><span class="trilogy-stage">03 · Delivery</span><span class="trilogy-name">The Lean Sensei</span></span>
-        <span class="pill live">Live</span>
-      </a>
+      <div class="trilogy-row is-soon">
+        <span><span class="trilogy-stage">02 · Next</span><span class="trilogy-name">Pun Generator</span></span>
+        <span class="pill soon">Soon</span>
+      </div>
     </aside>
   </div>
 </header>
@@ -397,24 +412,24 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
 <section id="how">
   <div class="container">
     <p class="section-eyebrow">How it works</p>
-    <h2 class="section-title">Three steps, about a minute</h2>
-    <p class="section-intro">A skill is just a set of instructions you hand an AI so it works a certain way. Here's the whole flow — no account, no cost, nothing to install beyond a file.</p>
+    <h2 class="section-title">Three steps, about a lunch break</h2>
+    <p class="section-intro">A skill is just a set of instructions you hand an AI so it works a certain way. These ones end with a file you can open — no account, no cost, nothing to install beyond the skill itself.</p>
 
     <div class="how-grid">
       <div class="how-step">
         <div class="how-num">1</div>
-        <p class="how-title">Pick your moment</p>
-        <p class="how-body">Choose the skill that fits where you're stuck — finding <strong>direction</strong>, making a <strong>decision</strong>, or getting <strong>delivery</strong> right. Each is one file.</p>
+        <p class="how-title">Pick what you're making</p>
+        <p class="how-body">Choose the build you want. Each one is a single file that teaches the AI how to make a specific kind of thing — <strong>properly, not as a rough sketch.</strong></p>
       </div>
       <div class="how-step">
         <div class="how-num">2</div>
         <p class="how-title">Add it — or copy the kit</p>
-        <p class="how-body">On Claude: <strong>Settings → Capabilities → Skills</strong>, upload the file or drag it into a chat. Not on Claude? Open the <strong>printable kit</strong> and paste its prompts into any chatbot.</p>
+        <p class="how-body">On Claude: <strong>Settings → Capabilities → Skills</strong>, upload the file or drag it into a chat. On a workplace AI like Copilot? Use the <strong>copy-paste kit</strong> — same build, done by hand.</p>
       </div>
       <div class="how-step">
         <div class="how-num">3</div>
-        <p class="how-title">Describe your problem</p>
-        <p class="how-body">Say what you're wrestling with in plain language. The skill triggers on its own and <strong>runs the rest.</strong></p>
+        <p class="how-title">Name your topic</p>
+        <p class="how-body">Say what it's about in plain language. The skill runs the rest — including the playtest — and hands you <strong>something that works on arrival.</strong></p>
       </div>
     </div>
   </div>
@@ -423,19 +438,20 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
 <!-- SKILL DETAILS -->
 <section id="skills">
   <div class="container">
-    <p class="section-eyebrow">The skills</p>
-    <h2 class="section-title">Pick your moment, in detail</h2>
-    <p class="section-intro">Everything lives in one open GitHub repository under a Creative Commons licence. Install the skill into Claude, or grab the printable kit for any chatbot.</p>
+    <p class="section-eyebrow">The builds</p>
+    <h2 class="section-title">What you can make</h2>
+    <p class="section-intro">Everything lives in one open GitHub repository under a Creative Commons licence. Install the skill into Claude, or take the copy-paste kit into any AI — including the one your employer already provides.</p>
 
-    <!-- Claude Interview -->
-    <article id="claude-interview" class="skill-block">
+    <!-- Workplace Quiz Generator -->
+    <article id="quiz-generator" class="skill-block">
       <div class="skill-main">
-        <p class="skill-stage">01 · Direction</p>
-        <h3 class="skill-title">🎙️ Claude Interview</h3>
-        <p class="skill-question">Who am I, what am I good at, and where should I go next?</p>
+        <p class="skill-stage">01 · Play</p>
+        <h3 class="skill-title">🎉 Workplace Quiz Generator</h3>
+        <p class="skill-question">Can I turn any topic into something people actually play?</p>
         <div class="skill-body">
-          <p>Make the AI interrogate <em>you</em> — one question at a time, no advice until the end — like a demanding hiring manager. Then have it build a real plan from your answers.</p>
-          <p>You get back your skills gaps, three career pillars with exit roles and salary bands, a sequenced action list, and the network you'd need to build. It works because it withholds the confident summary until it has actually understood you.</p>
+          <p>Name a topic — famous Australians, 90s music, your team's in-jokes, your own family — and get back one self-contained HTML file: a player lobby, clue-by-clue reveals, a live scoreboard, a winner screen. No app, no login, no accounts. Open it on a phone, put the phone in the middle of the table, and let people shout.</p>
+          <p>The engine is a difficulty ladder: <strong>six clues per answer, hardest first, and guessing early is worth more than guessing safe.</strong> That's the rule that makes a room lean in rather than politely take turns — and the skill holds the line on it, so no clue gives the answer away at number three.</p>
+          <p>It will not save you a minute. That's the point: a build with no stakes rehearses the exact loop behind the serious ones — write the spec, iterate, judge the quality, ship it — with the pressure removed and the reps still counting.</p>
         </div>
       </div>
       <aside class="skill-panel">
@@ -444,113 +460,34 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
           <span class="pill live">Live</span>
         </div>
         <ul class="panel-list">
-          <li>A rigorous, one-question-at-a-time interview</li>
-          <li>Three career pillars with salary bands</li>
-          <li>A sequenced, concrete action list</li>
+          <li>Any topic in, a playable quiz out</li>
+          <li>One HTML file — no app, no login</li>
+          <li>Playtested before it reaches you</li>
         </ul>
         <div class="panel-actions">
-          <a class="btn btn-primary" href="https://github.com/3daysl8/think-with-ai/blob/main/skills/claude-interview/SKILL.md" target="_blank" rel="noopener">Get the skill</a>
-          <a class="btn btn-ghost" href="kit-claude-interview.html">Printable kit</a>
+          <a class="btn btn-primary" href="https://github.com/3daysl8/build-with-ai/blob/main/skills/quiz-generator/SKILL.md" target="_blank" rel="noopener">Get the skill</a>
+          <a class="btn btn-ghost" href="https://github.com/3daysl8/build-with-ai/blob/main/skills/quiz-generator/quiz-kit.md" target="_blank" rel="noopener">Copy-paste kit</a>
         </div>
-        <p class="panel-note">Works in any chatbot</p>
-      </aside>
-    </article>
-
-    <!-- LLM Council -->
-    <article id="llm-council" class="skill-block">
-      <div class="skill-main">
-        <p class="skill-stage">02 · Decision</p>
-        <h3 class="skill-title">🏛️ LLM Council</h3>
-        <p class="skill-question">I have a direction — which path do I actually commit to?</p>
-        <div class="skill-body">
-          <p>Convene five AI advisors — the Contrarian, the First Principles Thinker, the Expansionist, the Outsider, and the Executor — to pressure-test one hard decision from five directions at once.</p>
-          <p>Then you play chairman: the skill synthesises the fight into a single call and a first action. Instead of one agreeable answer, you get a real argument you can weigh.</p>
-        </div>
-        <p class="skill-credit">Based on <a href="https://github.com/karpathy/llm-council" target="_blank" rel="noopener">Andrej Karpathy's open-source <code>llm-council</code></a>.</p>
-      </div>
-      <aside class="skill-panel">
-        <div class="panel-top">
-          <span class="panel-label">Get started</span>
-          <span class="pill live">Live</span>
-        </div>
-        <ul class="panel-list">
-          <li>Five advisors, five fixed thinking styles</li>
-          <li>A real argument, not one flat answer</li>
-          <li>One synthesised call + first action</li>
-        </ul>
-        <div class="panel-actions">
-          <a class="btn btn-primary" href="https://github.com/3daysl8/think-with-ai/blob/main/skills/llm-council/SKILL.md" target="_blank" rel="noopener">Get the skill</a>
-          <a class="btn btn-ghost" href="kit-llm-council.html">Printable kit</a>
-        </div>
-        <p class="panel-note">Works in any chatbot</p>
-      </aside>
-    </article>
-
-    <!-- Lean Sensei -->
-    <article id="lean-sensei" class="skill-block">
-      <div class="skill-main">
-        <p class="skill-stage">03 · Delivery</p>
-        <h3 class="skill-title">🥋 The Lean Sensei</h3>
-        <p class="skill-question">I'm in motion — how much rigor does this actually need?</p>
-        <div class="skill-body">
-          <p>The third skill, on delivery: a sensei that tells you how much rigor a piece of work actually needs — so you neither over-engineer a throwaway nor ship something important half-baked.</p>
-          <p>It starts with what you are about to make, then asks the one question that sorts it: is this cheap to reverse? Two-way doors you just try and pivot; one-way doors earn the rigor. And it protects the one thing that never got cheap, your attention.</p>
-        </div>
-      </div>
-      <aside class="skill-panel">
-        <div class="panel-top">
-          <span class="panel-label">Get started</span>
-          <span class="pill live">Live</span>
-        </div>
-        <ul class="panel-list">
-          <li>Right-sizes the rigor for the job</li>
-          <li>Stops over-engineering the throwaway</li>
-          <li>Completes the Direction → Decision → Delivery arc</li>
-        </ul>
-        <div class="panel-actions">
-          <a class="btn btn-primary" href="https://github.com/3daysl8/think-with-ai/blob/main/skills/lean-sensei/SKILL.md" target="_blank" rel="noopener">Get the skill</a>
-          <a class="btn btn-ghost" href="kit-lean-sensei.html">Printable kit</a>
-        </div>
-        <p class="panel-note">Works in any chatbot</p>
+        <p class="panel-note">5 prompts · works in any AI</p>
       </aside>
     </article>
   </div>
 </section>
 
-<!-- BUILD KIT — a making kit, distinct from the three thinking skills -->
-<section id="build">
+<!-- PLAY IT — the proof -->
+<section id="play">
   <div class="container">
-    <p class="section-eyebrow">Bonus · Build kit</p>
-    <h2 class="section-title">Now go build one</h2>
-    <p class="section-intro">The trilogy sharpens how you <em>think</em>. This one is for <em>making</em> — the exact prompts behind a tool a development agency quoted at $100,000, built by one non-developer in 15 hours.</p>
+    <p class="section-eyebrow">The proof</p>
+    <h2 class="section-title">Play the one I built</h2>
+    <p class="section-intro">The skill came out of a real build, not the other way round. This is the quiz itself — eighteen famous Australians, six clues each, hardest first. Built at work, on a lunch break, with the Copilot my employer provides.</p>
 
-    <article class="skill-block">
-      <div class="skill-main">
-        <p class="skill-stage">Quiet Tools · Kit 05</p>
-        <h3 class="skill-title">🛠️ The One-Prompt Build Kit</h3>
-        <p class="skill-question">Can one person really build a professional tool with AI?</p>
-        <div class="skill-body">
-          <p>Building a real tool with AI is one strong founding prompt plus a review loop. You supply the expertise and the judgement; the AI supplies the research, the build, and the iteration.</p>
-          <p>Five prompts are the skeleton of that loop — the founding prompt, a design brief, a self-audit, a specialist risk review, and an integrity check. Swap the domain, keep the structure.</p>
-        </div>
+    <div class="play-strip">
+      <div class="play-copy">
+        <p class="play-title">🇦🇺 The Aussie Celebrity Quiz</p>
+        <p class="play-body">One web page. Open it on a phone, add player names, and start shouting. Bradman to Margot Robbie.</p>
       </div>
-      <aside class="skill-panel">
-        <div class="panel-top">
-          <span class="panel-label">The kit</span>
-          <span class="pill live">Free</span>
-        </div>
-        <ul class="panel-list">
-          <li>One founding prompt that starts the whole build</li>
-          <li>A design brief + self-audit loop for polish</li>
-          <li>Risk + integrity checks before you ship</li>
-        </ul>
-        <div class="panel-actions">
-          <a class="btn btn-primary" href="kit-one-prompt-build.html">Read the kit</a>
-          <a class="btn btn-ghost" href="/downloads/one-prompt-build-kit" download="one-prompt-build-kit.pdf">Download PDF</a>
-        </div>
-        <p class="panel-note">5 prompts · works in any AI</p>
-      </aside>
-    </article>
+      <a class="btn btn-primary" href="https://aussie-celebrity-quiz.netlify.app" target="_blank" rel="noopener">Play it now</a>
+    </div>
   </div>
 </section>
 
@@ -562,20 +499,20 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
 
     <div class="faq-grid">
       <div class="faq-item">
-        <h3 class="faq-q">What is an AI skill?</h3>
-        <p class="faq-a">An AI skill is a small set of written instructions — usually a single Markdown file — that teaches an AI assistant a specific way of working. Instead of prompting from scratch each time, you install the skill once and the assistant follows its procedure whenever it's relevant. These are plain <code>SKILL.md</code> files you can read, edit, and share freely.</p>
+        <h3 class="faq-q">How is this different from Think With AI?</h3>
+        <p class="faq-a"><a href="skills.html">Think With AI</a> is a trilogy of skills that help you make a <em>decision</em> — they turn a chat into a thinking partner that pushes back. Build With AI is the companion series: these ones hand you a <em>product</em>. Same licence, same format, different job. Decide over there, make it here.</p>
       </div>
       <div class="faq-item">
-        <h3 class="faq-q">Are these skills free?</h3>
-        <p class="faq-a">Yes. All three skills are free to use, adapt, and share under a Creative Commons Attribution licence. The only ask is that you keep the attribution to the original author — and, for the LLM Council, to Andrej Karpathy, whose idea it builds on.</p>
+        <h3 class="faq-q">Will this work on my work computer?</h3>
+        <p class="faq-a">That's what it's built for. Every skill ships with a copy-paste kit that runs in any AI, including the Copilot your employer already provides. That isn't a downgrade — the quiz generator was first built exactly that way, inside a corporate fence, on a lunch break.</p>
       </div>
       <div class="faq-item">
-        <h3 class="faq-q">Do I need Claude to use them?</h3>
-        <p class="faq-a">No. Each skill ships with a printable kit — the same procedure written out to copy and paste into any chatbot, including ChatGPT, Gemini, or Perplexity. The <code>SKILL.md</code> files are optimised for Claude's Skills feature, but the thinking works anywhere.</p>
+        <h3 class="faq-q">Are these free?</h3>
+        <p class="faq-a">Yes. Free to use, adapt, and share under a Creative Commons Attribution licence. The only ask is that you keep the attribution to the original author. Whatever you build with them is yours — the licence covers the skills, not your output.</p>
       </div>
       <div class="faq-item">
-        <h3 class="faq-q">Who made these?</h3>
-        <p class="faq-a">Isaac Peterson — a non-developer in Melbourne building tools and automations with AI and <a href="index.html#sharing">sharing the process in public</a>. The skills started as workflows in his own newsletter and were genericised so anyone can use them.</p>
+        <h3 class="faq-q">Do I need to know how to code?</h3>
+        <p class="faq-a">No. Nothing here needs a developer setup, a terminal, or an install. You describe what you want in plain language and the AI writes the file; your job is judgement — spotting the clue that gives it away, the fact that's wrong, the screen that's awkward on a phone. These skills were all made by a non-developer.</p>
       </div>
     </div>
   </div>
@@ -584,8 +521,8 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
 <!-- CTA -->
 <section id="cta">
   <div class="cta-inner">
-    <h2 class="cta-title">One steal-able AI workflow a week</h2>
-    <p class="cta-sub">The skills come out of my newsletter. Subscribe to get the next one — including the Lean Sensei — the week it lands. It's free.</p>
+    <h2 class="cta-title">One steal-able AI build a week</h2>
+    <p class="cta-sub">Every build comes with real prompts, real costs, real screenshots. Subscribe to get the next one the week it lands. It's free.</p>
     <a class="cta-btn" href="https://substack.com/@isaacpetersonau" target="_blank" rel="noopener">Subscribe on Substack</a>
   </div>
 </section>
@@ -596,7 +533,7 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
     <div class="footer-inner">
       <span class="footer-name">Isaac Peterson</span>
       <span class="footer-social">
-        <a href="https://github.com/3daysl8/think-with-ai" target="_blank" rel="noopener" aria-label="GitHub repository">
+        <a href="https://github.com/3daysl8/build-with-ai" target="_blank" rel="noopener" aria-label="GitHub repository">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14 0 1.54-.01 2.79-.01 3.17 0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
         </a>
         <a href="https://isaacpetersonau.substack.com/" target="_blank" rel="noopener" aria-label="Substack">
@@ -611,7 +548,7 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
 <script>
 /* Nav dropdown: click drives it everywhere (touch has no hover).
    CSS handles hover on pointer devices; this handles tap, keyboard,
-   Escape, and click-away. Mirrored in builds.html and index.html. */
+   Escape, and click-away. */
 (function () {
   var drop = document.querySelector('.nav-drop');
   if (!drop) return;
@@ -648,37 +585,24 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://isaacpeterson.au/skills",
-      "url": "https://isaacpeterson.au/skills",
-      "name": "Think With AI — Free AI Skills by Isaac Peterson",
-      "description": "A trilogy of free, copy-anywhere AI skills for the three moments in any decision or build: Direction, Decision, Delivery.",
+      "@id": "https://isaacpeterson.au/builds",
+      "url": "https://isaacpeterson.au/builds",
+      "name": "Build With AI — Free AI Skills by Isaac Peterson",
+      "description": "A series of free, copy-anywhere AI skills that hand you a working tool instead of advice about one. Name a topic, get something you can open and use.",
       "author": { "@type": "Person", "name": "Isaac Peterson", "url": "https://isaacpeterson.au" }
     },
     {
       "@type": "ItemList",
-      "name": "Think With AI skills",
+      "name": "Build With AI skills",
       "itemListElement": [
         {
           "@type": "ListItem",
           "position": 1,
           "item": {
             "@type": "CreativeWork",
-            "name": "Claude Interview",
-            "description": "An AI skill that makes the assistant interview you one question at a time, then builds a career plan with skills gaps, three pillars, and a sequenced action list.",
-            "url": "https://github.com/3daysl8/think-with-ai/tree/main/skills/claude-interview",
-            "author": { "@type": "Person", "name": "Isaac Peterson" },
-            "license": "https://creativecommons.org/licenses/by/4.0/",
-            "isAccessibleForFree": true
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@type": "CreativeWork",
-            "name": "LLM Council",
-            "description": "An AI skill that convenes five AI advisors to pressure-test one hard decision, then synthesises the debate into a single call and a first action.",
-            "url": "https://github.com/3daysl8/think-with-ai/tree/main/skills/llm-council",
+            "name": "Workplace Quiz Generator",
+            "description": "An AI skill that turns any topic into a working party quiz — a single self-contained HTML file with a player lobby, six clues per answer revealed hardest first, a live scoreboard and a winner screen, playable on a phone.",
+            "url": "https://github.com/3daysl8/build-with-ai/tree/main/skills/quiz-generator",
             "author": { "@type": "Person", "name": "Isaac Peterson" },
             "license": "https://creativecommons.org/licenses/by/4.0/",
             "isAccessibleForFree": true
@@ -691,18 +615,18 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is an AI skill?",
-          "acceptedAnswer": { "@type": "Answer", "text": "An AI skill is a small set of written instructions — usually a single Markdown file — that teaches an AI assistant a specific way of working. You install the skill once and the assistant follows its procedure whenever it is relevant." }
+          "name": "How is Build With AI different from Think With AI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Think With AI is a trilogy of skills that help you make a decision — they turn a chat into a thinking partner that pushes back. Build With AI is the companion series: those skills hand you a working product. Same licence, same dual format, different job." }
         },
         {
           "@type": "Question",
-          "name": "Are these skills free?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. All three Think With AI skills are free to use, adapt, and share under a Creative Commons Attribution licence. Keep the attribution to the original author, and for the LLM Council to Andrej Karpathy." }
+          "name": "Will these skills work on a workplace AI like Copilot?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every skill ships with a copy-paste kit that runs in any AI, including the Microsoft Copilot an employer already provides. The Workplace Quiz Generator was first built exactly that way, on a lunch break." }
         },
         {
           "@type": "Question",
-          "name": "Do I need Claude to use them?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Each skill ships with a printable kit — the same procedure written out to copy and paste into any chatbot, including ChatGPT, Gemini, or Perplexity." }
+          "name": "Do I need to know how to code to use them?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Nothing requires a developer setup, a terminal, or an install. You describe what you want in plain language and the AI writes the file. These skills were made by a non-developer." }
         }
       ]
     }
