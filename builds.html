@@ -288,15 +288,14 @@ section { padding: 64px 0; border-top: 1px solid var(--rule); }
 .btn-disabled { background: none; color: var(--muted); border: 1px dashed var(--rule); pointer-events: none; opacity: 0.75; }
 .skill-panel .btn { width: 100%; }
 
-/* PLAY IT — the live proof, unique to this page */
-.play-strip {
-  display: grid; grid-template-columns: 1fr auto; gap: 32px;
-  align-items: center;
-  border: 1px solid var(--rule); border-radius: 8px;
-  padding: 32px 34px; background: var(--accent-tint);
+/* Play is a different kind of action from the two above it — those get
+   you the skill, this one is the finished thing. Hairline via ::before so
+   the button keeps its own border and symmetric padding. */
+.btn-play { margin-top: 18px; position: relative; }
+.btn-play::before {
+  content: ''; position: absolute; top: -9px; left: 0; right: 0;
+  height: 1px; background: var(--rule);
 }
-.play-copy .play-title { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.25; margin-bottom: 8px; }
-.play-copy .play-body { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 560px; }
 
 /* FAQ */
 .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
@@ -336,7 +335,6 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
   .page-hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .skill-block { grid-template-columns: 1fr; gap: 28px; }
   .skill-panel { position: static; }
-  .play-strip { grid-template-columns: 1fr; gap: 22px; }
 }
 @media (max-width: 768px) {
   nav { padding: 0 24px; }
@@ -352,7 +350,6 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
   .section-title { font-size: 27px; }
   .how-grid { grid-template-columns: 1fr; gap: 28px; }
   .skill-title { font-size: 26px; }
-  .play-strip { padding: 26px 24px; }
   .faq-grid { grid-template-columns: 1fr; gap: 0; }
   .cta-inner { padding: 0 24px; }
   .cta-title { font-size: 27px; }
@@ -493,6 +490,7 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
           <p>Name a topic — famous Australians, 90s music, your team's in-jokes, your own family — and get back one self-contained HTML file: a player lobby, clue-by-clue reveals, a live scoreboard, a winner screen. No app, no login, no accounts. Open it on a phone, put the phone in the middle of the table, and let people shout.</p>
           <p>The engine is a difficulty ladder: <strong>six clues per answer, hardest first, and guessing early is worth more than guessing safe.</strong> That's the rule that makes a room lean in rather than politely take turns — and the skill holds the line on it, so no clue gives the answer away at number three.</p>
           <p>It will not save you a minute. That's the point: a build with no stakes rehearses the exact loop behind the serious ones — write the spec, iterate, judge the quality, ship it — with the pressure removed and the reps still counting.</p>
+          <p>The skill came out of a real build, not the other way round. <strong>Play it now</strong> and you're playing the original: eighteen famous Australians, Bradman to Margot Robbie, made at work on a lunch break with the Copilot my employer provides.</p>
         </div>
       </div>
       <aside class="skill-panel">
@@ -508,27 +506,11 @@ footer { border-top: 1px solid var(--rule); padding: 40px 0; }
         <div class="panel-actions">
           <a class="btn btn-primary" href="https://github.com/3daysl8/build-with-ai/blob/main/skills/quiz-generator/SKILL.md" target="_blank" rel="noopener">Get the skill</a>
           <a class="btn btn-ghost" href="https://github.com/3daysl8/build-with-ai/blob/main/skills/quiz-generator/quiz-kit.md" target="_blank" rel="noopener">Copy-paste kit</a>
+          <a class="btn btn-ghost btn-play" href="https://aussie-celebrity-quiz.netlify.app" target="_blank" rel="noopener">Play it now</a>
         </div>
         <p class="panel-note">5 prompts · works in any AI</p>
       </aside>
     </article>
-  </div>
-</section>
-
-<!-- PLAY IT — the proof -->
-<section id="play">
-  <div class="container">
-    <p class="section-eyebrow">The proof</p>
-    <h2 class="section-title">Play the one I built</h2>
-    <p class="section-intro">The skill came out of a real build, not the other way round. This is the quiz itself — eighteen famous Australians, six clues each, hardest first. Built at work, on a lunch break, with the Copilot my employer provides.</p>
-
-    <div class="play-strip">
-      <div class="play-copy">
-        <p class="play-title">🇦🇺 The Aussie Celebrity Quiz</p>
-        <p class="play-body">One web page. Open it on a phone, add player names, and start shouting. Bradman to Margot Robbie.</p>
-      </div>
-      <a class="btn btn-primary" href="https://aussie-celebrity-quiz.netlify.app" target="_blank" rel="noopener">Play it now</a>
-    </div>
   </div>
 </section>
 
