@@ -10,5 +10,9 @@
 /downloads/one-prompt-build-kit      /one-prompt-build-kit.pdf     200
 /downloads/reversible-card           /reversible-or-not-card.pdf   200
 
+# Front doors can also point off-site. Same promise: the link below never
+# changes, even if the repo is renamed or the skill moves.
+/downloads/quiz-generator            https://github.com/3daysl8/build-with-ai   301
+
 # Add new giveaways here as their files land, e.g.:
 # /downloads/<slug>                  /<file>                       200
