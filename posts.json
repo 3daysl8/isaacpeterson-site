@@ -3,6 +3,13 @@
   "posts": [
     {
       "tag": "AI & me",
+      "title": "Pangram vs Claude: Chasing 100% Human Using AI",
+      "date": "2026-08",
+      "url": "https://substack.com/@isaacpetersonau/note/p-212261776",
+      "image": "assets/post-pangram-vs-claude.png"
+    },
+    {
+      "tag": "AI & me",
       "title": "I Used AI to Be Unproductive. Now So Can You.",
       "date": "2026-07",
       "url": "https://isaacpetersonau.substack.com/p/i-used-ai-to-be-unproductive-now",
