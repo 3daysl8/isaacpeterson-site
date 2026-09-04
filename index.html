@@ -250,46 +250,36 @@ nav {
 }
 
 /* ============================================================
-   HERO ILLUSTRATION ANIMATION
-   Phase 1: 1s entrance fade-and-rise (translateY 12px -> 0)
-   Phase 2: 8s subtle ambient float & contemplative micro-rotation
+   HERO ILLUSTRATION ANIMATION (High-Visibility Drift)
    ============================================================ */
-@media (prefers-reduced-motion: no-preference) {
-  @keyframes heroEntrance {
-    0% {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+@keyframes heroEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
   }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  @keyframes heroAmbientDrift {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-    }
-    25% {
-      transform: translateY(-4px) rotate(0.35deg);
-    }
-    50% {
-      transform: translateY(-1px) rotate(-0.2deg);
-    }
-    75% {
-      transform: translateY(-3.5px) rotate(0.2deg);
-    }
+@keyframes heroAmbientDrift {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
   }
+  50% {
+    transform: translateY(-12px) rotate(0.75deg);
+  }
+}
 
-  .hero-illustration {
-    animation: heroEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
+.hero-illustration {
+  animation: heroEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
-  .hero-illustration img {
-    animation: heroAmbientDrift 8s ease-in-out 1s infinite;
-    will-change: transform;
-    transform-origin: bottom center;
-  }
+.hero-illustration img {
+  animation: heroAmbientDrift 4s ease-in-out 1s infinite;
+  will-change: transform;
+  transform-origin: bottom center;
 }
 
 /* illustration placeholder for mockup */
