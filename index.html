@@ -238,19 +238,32 @@ nav {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+  animation: heroEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.hero-illustration img {
+.hero-pose-stack {
+  position: relative;
   width: auto;
-  height: auto;
+  height: 480px;
+  aspect-ratio: 572 / 977;
   max-width: 100%;
-  display: block;
-  opacity: 0.92;
+}
+
+.hero-pose {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom right;
   mix-blend-mode: multiply;
+  will-change: opacity, transform;
+  transform-origin: bottom center;
 }
 
 /* ============================================================
-   HERO ILLUSTRATION ANIMATION (High-Visibility Drift)
+   HERO MULTI-POSE CROSSFADE ANIMATION (15s Loop)
+   Pose 1 (Contemplative Profile) -> Pose 2 (Lean Back Reflection) -> Pose 3 (Head Turn Outward)
    ============================================================ */
 @keyframes heroEntrance {
   0% {
@@ -263,23 +276,81 @@ nav {
   }
 }
 
-@keyframes heroAmbientDrift {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
+@keyframes crossfadePose1 {
+  0%, 25% {
+    opacity: 0.92;
+    transform: translateY(0);
   }
-  50% {
-    transform: translateY(-12px) rotate(0.75deg);
+  33.3%, 91.7% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0.92;
+    transform: translateY(0);
   }
 }
 
-.hero-illustration {
-  animation: heroEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+@keyframes crossfadePose2 {
+  0%, 25% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  33.3%, 58.3% {
+    opacity: 0.92;
+    transform: translateY(0);
+  }
+  66.6%, 100% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
 }
 
-.hero-illustration img {
-  animation: heroAmbientDrift 4s ease-in-out 1s infinite;
-  will-change: transform;
-  transform-origin: bottom center;
+@keyframes crossfadePose3 {
+  0%, 58.3% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  66.6%, 91.7% {
+    opacity: 0.92;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+}
+
+.hero-pose-1 {
+  opacity: 0.92;
+  z-index: 3;
+  animation: crossfadePose1 15s ease-in-out infinite;
+}
+
+.hero-pose-2 {
+  opacity: 0;
+  z-index: 2;
+  animation: crossfadePose2 15s ease-in-out infinite;
+}
+
+.hero-pose-3 {
+  opacity: 0;
+  z-index: 1;
+  animation: crossfadePose3 15s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-illustration {
+    animation: none;
+  }
+  .hero-pose-1 {
+    animation: none;
+    opacity: 0.92;
+  }
+  .hero-pose-2,
+  .hero-pose-3 {
+    display: none;
+  }
 }
 
 /* illustration placeholder for mockup */
@@ -1184,7 +1255,11 @@ footer {
       <p class="hero-sub">This is where I figure things out in public.</p>
     </div>
     <div class="hero-illustration">
-      <img src="assets/hero-illustration.webp" alt="Seated thinker — line illustration" width="420" height="420" fetchpriority="high" decoding="async" />
+      <div class="hero-pose-stack">
+        <img class="hero-pose hero-pose-1" src="assets/hero-pose-1.webp" alt="Isaac Peterson — contemplative thinker with hand on chin" width="572" height="977" fetchpriority="high" decoding="async" />
+        <img class="hero-pose hero-pose-2" src="assets/hero-pose-2.webp" alt="Isaac Peterson — leaning back in reflection" width="572" height="977" loading="lazy" decoding="async" />
+        <img class="hero-pose hero-pose-3" src="assets/hero-pose-3.webp" alt="Isaac Peterson — head turned outward with curious expression" width="572" height="977" loading="lazy" decoding="async" />
+      </div>
     </div>
   </div>
 </section>
@@ -1475,14 +1550,13 @@ footer {
 // ============================================================
 function matchHeroIllustrationHeight() {
   const copy = document.querySelector('.hero-copy');
-  const img = document.querySelector('.hero-illustration img');
-  if (!copy || !img) return;
+  const stack = document.querySelector('.hero-pose-stack') || document.querySelector('.hero-illustration img');
+  if (!copy || !stack) return;
   if (window.innerWidth <= 768) {
-    img.style.height = '';
+    stack.style.height = '';
     return;
   }
-  img.style.height = copy.offsetHeight + 'px';
-  img.style.width = 'auto';
+  stack.style.height = copy.offsetHeight + 'px';
 }
 
 window.addEventListener('load', matchHeroIllustrationHeight);
