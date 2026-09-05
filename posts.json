@@ -3,6 +3,38 @@
   "posts": [
     {
       "tag": "AI & me",
+      "title": "Every Newsletter is a Print House",
+      "date": "2026-08",
+      "readTime": "4 min read",
+      "url": "https://isaacpetersonau.substack.com/p/every-newsletter-is-a-print-house",
+      "image": "assets/post-every-newsletter-print-house.webp"
+    },
+    {
+      "tag": "AI & me",
+      "title": "Pangram v Claude: Chasing 100% Human Using AI",
+      "date": "2026-08",
+      "readTime": "5 min read",
+      "url": "https://isaacpetersonau.substack.com/p/pangram-v-claude-chasing-100-human",
+      "image": "assets/post-pangram-v-claude.webp"
+    },
+    {
+      "tag": "Personal Injury",
+      "title": "AI-Driven Uncertainty Cited in NSW Personal Injury Damages (Duong v Insurance Australia)",
+      "date": "2026-08",
+      "readTime": "2 min read",
+      "url": "https://www.linkedin.com/posts/isaac-peterson-9b693722_earlier-this-month-there-was-a-personal-injury-share-7497176993558474753-twiX/",
+      "image": "assets/post-duong-personal-injury-ai.webp"
+    },
+    {
+      "tag": "Psychosocial Risk",
+      "title": "Operational Prestarts: What Physical Safety Briefings Can Teach Us About Psychosocial Hazards",
+      "date": "2026-08",
+      "readTime": "2 min read",
+      "url": "https://www.linkedin.com/posts/isaac-peterson-9b693722_earlier-this-month-i-was-at-one-of-our-wind-share-7498720659200425984-wPXC/",
+      "image": "assets/post-operational-prestart-wind.webp"
+    },
+    {
+      "tag": "AI & me",
       "title": "I Used AI to Be Unproductive. Now So Can You.",
       "date": "2026-07",
       "readTime": "4 min read",
