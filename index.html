@@ -245,8 +245,11 @@ nav {
   position: relative;
   width: auto;
   height: 480px;
-  aspect-ratio: 572 / 977;
   max-width: 100%;
+  aspect-ratio: 572 / 977;
+  animation: heroAmbientFloat 5s ease-in-out infinite;
+  will-change: transform;
+  transform-origin: bottom center;
 }
 
 .hero-pose {
@@ -257,13 +260,16 @@ nav {
   object-fit: contain;
   object-position: bottom right;
   mix-blend-mode: multiply;
-  will-change: opacity, transform;
-  transform-origin: bottom center;
+  will-change: opacity;
+  pointer-events: none;
 }
 
 /* ============================================================
-   HERO MULTI-POSE CROSSFADE ANIMATION (15s Loop)
-   Pose 1 (Contemplative Profile) -> Pose 2 (Lean Back Reflection) -> Pose 3 (Head Turn Outward)
+   HERO ANIMATIONS:
+   1. Entrance Fade & Rise
+   2. Continuous Ambient Float (Alive, hovering drift)
+   3. 3-Pose Crossfade Loop (12s total: 4s per pose)
+      Pose 1 (Contemplative Profile) -> Pose 2 (Lean Back Reflection) -> Pose 3 (Head Turn Outward)
    ============================================================ */
 @keyframes heroEntrance {
   0% {
@@ -276,81 +282,67 @@ nav {
   }
 }
 
-@keyframes crossfadePose1 {
-  0%, 25% {
-    opacity: 0.92;
-    transform: translateY(0);
+@keyframes heroAmbientFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
   }
-  33.3%, 91.7% {
+  50% {
+    transform: translateY(-10px) rotate(0.6deg);
+  }
+}
+
+@keyframes crossfadePose1 {
+  0%, 28% {
+    opacity: 0.95;
+  }
+  33.3%, 94.7% {
     opacity: 0;
-    transform: translateY(-2px);
   }
   100% {
-    opacity: 0.92;
-    transform: translateY(0);
+    opacity: 0.95;
   }
 }
 
 @keyframes crossfadePose2 {
-  0%, 25% {
+  0%, 28% {
     opacity: 0;
-    transform: translateY(2px);
   }
-  33.3%, 58.3% {
-    opacity: 0.92;
-    transform: translateY(0);
+  33.3%, 61.4% {
+    opacity: 0.95;
   }
   66.6%, 100% {
     opacity: 0;
-    transform: translateY(-2px);
   }
 }
 
 @keyframes crossfadePose3 {
-  0%, 58.3% {
+  0%, 61.4% {
     opacity: 0;
-    transform: translateY(2px);
   }
-  66.6%, 91.7% {
-    opacity: 0.92;
-    transform: translateY(0);
+  66.6%, 94.7% {
+    opacity: 0.95;
   }
   100% {
     opacity: 0;
-    transform: translateY(-2px);
   }
 }
 
 .hero-pose-1 {
-  opacity: 0.92;
+  opacity: 0.95;
   z-index: 3;
-  animation: crossfadePose1 15s ease-in-out infinite;
+  animation: crossfadePose1 12s ease-in-out infinite;
 }
 
 .hero-pose-2 {
   opacity: 0;
   z-index: 2;
-  animation: crossfadePose2 15s ease-in-out infinite;
+  animation: crossfadePose2 12s ease-in-out infinite;
 }
 
 .hero-pose-3 {
   opacity: 0;
   z-index: 1;
-  animation: crossfadePose3 15s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-illustration {
-    animation: none;
-  }
-  .hero-pose-1 {
-    animation: none;
-    opacity: 0.92;
-  }
-  .hero-pose-2,
-  .hero-pose-3 {
-    display: none;
-  }
+  animation: crossfadePose3 12s ease-in-out infinite;
 }
 
 /* illustration placeholder for mockup */
