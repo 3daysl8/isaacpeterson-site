@@ -411,10 +411,8 @@ section {
   margin-top: 32px;
 }
 
-@media (max-width: 768px) {
-  .tools-grid {
-    grid-template-columns: 1fr;
-  }
+.tools-pagination {
+  display: none;
 }
 
 .tool-card {
@@ -1071,6 +1069,58 @@ footer {
     padding: 64px 0;
   }
 
+  /* Mobile Horizontal Snap Container for Projects */
+  .tools-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    gap: 16px;
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tools-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tool-card {
+    flex: 0 0 84%;
+    min-width: 84%;
+    max-width: 84%;
+    scroll-snap-align: center;
+  }
+
+  .tools-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .tools-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rule);
+    transition: background-color 0.25s ease, transform 0.25s ease, width 0.25s ease;
+  }
+
+  .tools-dot.active {
+    background: var(--accent);
+    width: 18px;
+    border-radius: 4px;
+  }
+
   .sharing-grid {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -1384,6 +1434,16 @@ footer {
         </div>
       </div>
 
+    </div>
+
+    <div class="tools-pagination" aria-label="Project carousel pagination">
+      <span class="tools-dot active"></span>
+      <span class="tools-dot"></span>
+      <span class="tools-dot"></span>
+      <span class="tools-dot"></span>
+      <span class="tools-dot"></span>
+      <span class="tools-dot"></span>
+      <span class="tools-dot"></span>
     </div>
   </div>
 </section>
@@ -1758,6 +1818,42 @@ window.addEventListener('resize', updateFeedFade);
       btn.focus();
     }
   });
+})();
+
+// Synchronize mobile project carousel pagination dots with horizontal scroll
+(function () {
+  var toolsGrid = document.querySelector('.tools-grid');
+  var toolsDots = document.querySelectorAll('.tools-dot');
+  if (!toolsGrid || !toolsDots.length) return;
+
+  var isTicking = false;
+  toolsGrid.addEventListener('scroll', function () {
+    if (!isTicking) {
+      window.requestAnimationFrame(function () {
+        var cards = toolsGrid.querySelectorAll('.tool-card');
+        if (cards.length) {
+          var containerCenter = toolsGrid.scrollLeft + toolsGrid.clientWidth / 2;
+          var activeIndex = 0;
+          var minDistance = Infinity;
+
+          cards.forEach(function (card, index) {
+            var cardCenter = card.offsetLeft + card.offsetWidth / 2;
+            var distance = Math.abs(containerCenter - cardCenter);
+            if (distance < minDistance) {
+              minDistance = distance;
+              activeIndex = index;
+            }
+          });
+
+          toolsDots.forEach(function (dot, idx) {
+            dot.classList.toggle('active', idx === activeIndex);
+          });
+        }
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }, { passive: true });
 })();
 </script>
 </body>
