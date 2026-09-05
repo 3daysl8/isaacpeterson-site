@@ -404,18 +404,72 @@ section {
   border-top: 1px solid var(--rule);
 }
 
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  margin-top: 32px;
+.built-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
-.tools-pagination {
+.built-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  background: #ffffff;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.carousel-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tools-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  gap: 24px;
+  padding-bottom: 12px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tools-grid::-webkit-scrollbar {
   display: none;
 }
 
 .tool-card {
+  flex: 0 0 calc(50% - 12px);
+  min-width: calc(50% - 12px);
+  max-width: calc(50% - 12px);
+  scroll-snap-align: start;
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
@@ -424,6 +478,31 @@ section {
   display: flex;
   flex-direction: column;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.tools-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.tools-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: var(--rule);
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.25s ease, width 0.25s ease;
+}
+
+.tools-dot.active {
+  background: var(--accent);
+  width: 24px;
+  border-radius: 4px;
 }
 
 .tool-card:hover {
@@ -1070,26 +1149,24 @@ footer {
   }
 
   /* Mobile Horizontal Snap Container for Projects */
+  .built-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .built-controls {
+    display: none;
+  }
+
   .tools-grid {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
     gap: 16px;
     margin-left: -24px;
     margin-right: -24px;
     padding-left: 24px;
     padding-right: 24px;
     padding-bottom: 8px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .tools-grid::-webkit-scrollbar {
-    display: none;
   }
 
   .tool-card {
@@ -1100,25 +1177,17 @@ footer {
   }
 
   .tools-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
     margin-top: 20px;
+    gap: 6px;
   }
 
   .tools-dot {
     width: 6px;
     height: 6px;
-    border-radius: 50%;
-    background: var(--rule);
-    transition: background-color 0.25s ease, transform 0.25s ease, width 0.25s ease;
   }
 
   .tools-dot.active {
-    background: var(--accent);
     width: 18px;
-    border-radius: 4px;
   }
 
   .sharing-grid {
@@ -1309,9 +1378,21 @@ footer {
 <!-- BUILT -->
 <section id="built">
   <div class="container">
-    <p class="section-eyebrow">PROJECTS</p>
-    <h2 class="section-title">Things I've made</h2>
-    <p class="section-intro">Things I've built and deployed. Tools, experiments, and projects, made with AI.</p>
+    <div class="built-header">
+      <div class="built-intro-wrap">
+        <p class="section-eyebrow">PROJECTS</p>
+        <h2 class="section-title">Things I've made</h2>
+        <p class="section-intro" style="margin-bottom: 0;">Things I've built and deployed. Tools, experiments, and projects, made with AI.</p>
+      </div>
+      <div class="built-controls" aria-label="Project carousel navigation">
+        <button type="button" class="carousel-btn carousel-prev" aria-label="Previous project">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <button type="button" class="carousel-btn carousel-next" aria-label="Next project">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
 
     <div class="tools-grid">
 
@@ -1437,13 +1518,13 @@ footer {
     </div>
 
     <div class="tools-pagination" aria-label="Project carousel pagination">
-      <span class="tools-dot active"></span>
-      <span class="tools-dot"></span>
-      <span class="tools-dot"></span>
-      <span class="tools-dot"></span>
-      <span class="tools-dot"></span>
-      <span class="tools-dot"></span>
-      <span class="tools-dot"></span>
+      <button type="button" class="tools-dot active" aria-label="Go to project 1"></button>
+      <button type="button" class="tools-dot" aria-label="Go to project 2"></button>
+      <button type="button" class="tools-dot" aria-label="Go to project 3"></button>
+      <button type="button" class="tools-dot" aria-label="Go to project 4"></button>
+      <button type="button" class="tools-dot" aria-label="Go to project 5"></button>
+      <button type="button" class="tools-dot" aria-label="Go to project 6"></button>
+      <button type="button" class="tools-dot" aria-label="Go to project 7"></button>
     </div>
   </div>
 </section>
@@ -1820,40 +1901,79 @@ window.addEventListener('resize', updateFeedFade);
   });
 })();
 
-// Synchronize mobile project carousel pagination dots with horizontal scroll
+// Project Carousel Controller (Desktop & Mobile)
 (function () {
   var toolsGrid = document.querySelector('.tools-grid');
+  var prevBtn = document.querySelector('.carousel-prev');
+  var nextBtn = document.querySelector('.carousel-next');
   var toolsDots = document.querySelectorAll('.tools-dot');
-  if (!toolsGrid || !toolsDots.length) return;
+  if (!toolsGrid) return;
+
+  var cards = toolsGrid.querySelectorAll('.tool-card');
+
+  function updateControls() {
+    var scrollLeft = toolsGrid.scrollLeft;
+    var maxScroll = toolsGrid.scrollWidth - toolsGrid.clientWidth;
+
+    if (prevBtn) prevBtn.disabled = scrollLeft <= 4;
+    if (nextBtn) nextBtn.disabled = scrollLeft >= maxScroll - 4;
+
+    if (toolsDots.length && cards.length) {
+      var containerCenter = scrollLeft + toolsGrid.clientWidth / 2;
+      var activeIndex = 0;
+      var minDistance = Infinity;
+
+      cards.forEach(function (card, index) {
+        var cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        var distance = Math.abs(containerCenter - cardCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeIndex = index;
+        }
+      });
+
+      toolsDots.forEach(function (dot, idx) {
+        dot.classList.toggle('active', idx === activeIndex);
+      });
+    }
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function () {
+      var cardWidth = cards.length ? cards[0].offsetWidth + 24 : toolsGrid.clientWidth * 0.5;
+      toolsGrid.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function () {
+      var cardWidth = cards.length ? cards[0].offsetWidth + 24 : toolsGrid.clientWidth * 0.5;
+      toolsGrid.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    });
+  }
+
+  toolsDots.forEach(function (dot, index) {
+    dot.addEventListener('click', function () {
+      if (cards[index]) {
+        var scrollTarget = cards[index].offsetLeft - (toolsGrid.clientWidth - cards[index].offsetWidth) / 2;
+        toolsGrid.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
+      }
+    });
+  });
 
   var isTicking = false;
   toolsGrid.addEventListener('scroll', function () {
     if (!isTicking) {
       window.requestAnimationFrame(function () {
-        var cards = toolsGrid.querySelectorAll('.tool-card');
-        if (cards.length) {
-          var containerCenter = toolsGrid.scrollLeft + toolsGrid.clientWidth / 2;
-          var activeIndex = 0;
-          var minDistance = Infinity;
-
-          cards.forEach(function (card, index) {
-            var cardCenter = card.offsetLeft + card.offsetWidth / 2;
-            var distance = Math.abs(containerCenter - cardCenter);
-            if (distance < minDistance) {
-              minDistance = distance;
-              activeIndex = index;
-            }
-          });
-
-          toolsDots.forEach(function (dot, idx) {
-            dot.classList.toggle('active', idx === activeIndex);
-          });
-        }
+        updateControls();
         isTicking = false;
       });
       isTicking = true;
     }
   }, { passive: true });
+
+  window.addEventListener('resize', updateControls);
+  updateControls();
 })();
 </script>
 </body>
