@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Made · Isaac Peterson</title>
+<meta name="description" content="Everything Isaac Peterson has built: tools, games, experiments and projects, made with AI.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="board">
+  <header class="grid">
+    <div class="cell-name"><a href="/" class="display">Isaac<br>Peterson</a></div>
+    <div class="cell-tag"><p>Things made, questions asked, and whatever I'm figuring out this week.</p></div>
+    <nav class="cell-nav" aria-label="Site">
+      <ul class="display">
+        <li><a href="/made/" aria-current="page">Made</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/skills.html">Skills</a></li>
+        <li><a href="/watch.html">Watch <span class="soon">soon</span></a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="grid">
+      <div class="page-intro">
+        <h1 class="display"><span class="hl">Things</span> I've made</h1>
+        <p>Tools, games, experiments and projects, made with AI. Newest first. Where there's a story, it covers why I made it, how it came together, and what broke.</p>
+      </div>
+    </div>
+    <div id="made-list">
+      <noscript><div class="grid"><div><p>This list needs JavaScript. The raw list is in <a href="/made.json">made.json</a>.</p></div></div></noscript>
+    </div>
+  </main>
+</div>
+
+<div class="wire"></div>
+<footer class="foot">
+  <p><a href="mailto:hello@isaacpeterson.au">hello@isaacpeterson.au</a> · <a href="https://www.linkedin.com/in/isaac-peterson-9b693722/" rel="noopener">LinkedIn</a> · <a href="https://isaacpetersonau.substack.com/" rel="noopener">Substack</a> · <a href="https://github.com/3daysl8" rel="noopener">GitHub</a> · <a href="/watch.html">YouTube</a></p>
+</footer>
+
+<script>
+(function () {
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmt(d) { var p = d.split('-'); return MONTHS[parseInt(p[1], 10) - 1] + ' ' + p[0]; }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+  function link(href, text, external) {
+    var a = el('a', null, text); a.href = href;
+    if (external) a.rel = 'noopener';
+    return a;
+  }
+
+  fetch('/made.json').then(function (r) { return r.json(); }).then(function (d) {
+    var list = document.getElementById('made-list');
+    var items = d.made.slice().sort(function (a, b) { return b.date.localeCompare(a.date); });
+    items.forEach(function (m, i) {
+      var row = el('article', 'grid made-row');
+      var storyHref = '/made/' + m.slug + '/';
+
+      var text = el('div', 'made-text');
+      text.appendChild(el('p', 'mono', 'No. ' + String(items.length - i).padStart(3, '0') + ' · ' + m.kind + ' · ' + fmt(m.date)));
+      var h = el('h2', 'display');
+      h.appendChild(link(m.story ? storyHref : m.url, m.title, !m.story));
+      text.appendChild(h);
+      text.appendChild(el('p', null, m.summary));
+
+      var links = el('div', 'made-links');
+      if (m.story) links.appendChild(link(storyHref, 'Read the story →'));
+      if (m.archived) links.appendChild(link(storyHref + 'app/', 'Open (archived copy)'));
+      if (m.url) links.appendChild(link(m.url, 'Open live', true));
+      text.appendChild(links);
+
+      var shot = el('div', 'made-shot');
+      var img = el('img'); img.src = '/' + m.image; img.alt = ''; img.loading = 'lazy';
+      shot.appendChild(img);
+
+      row.appendChild(text);
+      row.appendChild(shot);
+      list.appendChild(row);
+    });
+  });
+})();
+</script>
+</body>
+</html>

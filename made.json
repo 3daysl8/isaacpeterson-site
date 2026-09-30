@@ -1,0 +1,82 @@
+{
+  "_comment": "Everything Isaac has made. The homepage 'Latest' cell and the /made/ page read this file. Add new entries to the TOP. Fields: slug (folder name under /made/), title, kind (short label), date (YYYY-MM-DD, when it was built or first shipped), summary (one or two sentences), image (screenshot path), url (live version), story (true once /made/<slug>/ exists), archived (true once a copy lives at /made/<slug>/app/).",
+  "made": [
+    {
+      "slug": "career-plan-example",
+      "title": "Career Interview: Example Plan",
+      "kind": "AI-generated plan",
+      "date": "2026-07-24",
+      "summary": "A real output of the Claude Interview skill: a fictional composite profile, interviewed, researched, and turned into an interactive plan with career pillars, a value proposition, and a networking strategy.",
+      "image": "assets/tool-casey-career-plan.webp",
+      "url": "https://casey-career-plan.netlify.app",
+      "story": false,
+      "archived": false
+    },
+    {
+      "slug": "aussie-celebrity-quiz",
+      "title": "Aussie Celebrity Quiz",
+      "kind": "Party game",
+      "date": "2026-07-14",
+      "summary": "A living-room quiz in a single web page. Guess the famous Aussie from six clues, with fewer clues worth more points and scores tracked for the whole room.",
+      "image": "assets/tool-aussie-celebrity-quiz.webp",
+      "url": "https://aussie-celebrity-quiz.netlify.app",
+      "story": true,
+      "archived": true
+    },
+    {
+      "slug": "content-hub",
+      "title": "Content Hub: Pipeline",
+      "kind": "Live demo",
+      "date": "2026-07-09",
+      "summary": "A demonstration of my AI content pipeline: research queue, drafting stages, planner, and knowledge vault. Sample data only, all actions disabled.",
+      "image": "assets/tool-content-hub.webp",
+      "url": "https://isaac-content-hub-demo.netlify.app",
+      "story": false,
+      "archived": false
+    },
+    {
+      "slug": "hervey-bay-whats-on",
+      "title": "Hervey Bay What's On",
+      "kind": "Automated newsletter",
+      "date": "2026-07-05",
+      "summary": "An automated local newsletter, researched, written, illustrated and sent by AI. Whale-season events, local history, and a crossword for Hervey Bay, QLD.",
+      "image": "assets/tool-hervey-bay-newsletter.webp",
+      "url": "https://hervey-bay-newsletter.netlify.app",
+      "story": false,
+      "archived": false
+    },
+    {
+      "slug": "psychosocial-hazards-hub",
+      "title": "Psychosocial Hazards Employer Hub",
+      "kind": "Reference directory",
+      "date": "2026-07-02",
+      "summary": "A national reference directory across all nine Australian jurisdictions for managing psychosocial hazards.",
+      "image": "assets/tool-employer-hub.webp",
+      "url": "https://psychosocial-hazard-hub.netlify.app/",
+      "story": false,
+      "archived": false
+    },
+    {
+      "slug": "nsw-reform-navigator",
+      "title": "NSW Workers Compensation Reform Navigator",
+      "kind": "Interactive guide",
+      "date": "2026-07-02",
+      "summary": "An interactive guide to navigating the 2024 NSW workers compensation reforms.",
+      "image": "assets/tool-reform-navigator.webp",
+      "url": "https://nsw-wc-reform-navigator.netlify.app",
+      "story": false,
+      "archived": false
+    },
+    {
+      "slug": "psych-risk-model",
+      "title": "Psychological Risk Model",
+      "kind": "Interactive model",
+      "date": "2026-07-02",
+      "summary": "A conceptual model for mapping psychosocial risk across organisational, job, and individual dimensions.",
+      "image": "assets/tool-risk-model.webp",
+      "url": "https://psychologicalriskmetre.netlify.app",
+      "story": false,
+      "archived": false
+    }
+  ]
+}

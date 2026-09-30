@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en-AU" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#faf7f4">
+<meta name="description" content="A living-room party quiz: guess the famous Aussie from six clues. The fewer clues you need, the more points you score.">
+<title>Aussie Celebrity Quiz</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+  /* ============================================================
+     isaacpeterson.au brand tokens (Soft Navy)
+     Type:   DM Serif Display (display) / DM Sans (body) / DM Mono (labels)
+     Shape:  cards, buttons, inputs 4px; chips pill; avatars round
+     Flat surfaces, hairline rules, no gradients, no shadows
+     ============================================================ */
+  :root {
+    color-scheme: light;
+    --bg: #faf7f4;
+    --accent: #2c3e6b;
+    --accent-hover: #1e2d52;
+    --accent-tint: rgba(44,62,107,0.08);
+    --ink: #1a1a18;
+    --muted: #6b6b68;
+    --rule: rgba(26,26,24,0.12);
+    --radius: 4px;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: 'DM Mono', "Courier New", monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+    padding: clamp(20px, 4vw, 44px) clamp(16px, 3vw, 28px) 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .brand .eyebrow {
+    margin: 0 0 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .brand h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(30px, 6vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    color: var(--ink);
+  }
+  .brand h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .brand .sub {
+    margin: 10px auto 0;
+    max-width: 46ch;
+    color: var(--muted);
+    font-size: 16px;
+  }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: clamp(18px, 3vw, 28px);
+  }
+
+  /* ---------- Lobby ---------- */
+  .lobby-add {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .lobby-add input {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--sans);
+    font-size: 16px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    color: var(--ink);
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .lobby-add input::placeholder { color: var(--muted); }
+  .lobby-add input:focus { border-color: var(--accent); }
+
+  .roster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .roster:empty::after {
+    content: "No players yet. Add a few names above.";
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 15px;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color .2s, color .2s, background .2s;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--rule);
+    flex: none;
+    transition: background .2s;
+  }
+  .chip.joined {
+    color: var(--ink);
+    border-color: var(--accent);
+    background: var(--accent-tint);
+  }
+  .chip.joined .dot { background: var(--accent); }
+  .chip .rm {
+    margin-inline-start: 2px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0 2px;
+  }
+  .chip .rm:hover { color: var(--accent-hover); }
+
+  .hint { color: var(--muted); font-size: 13px; margin-top: 12px; }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    appearance: none;
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 11px 18px;
+    cursor: pointer;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+  .btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+  .btn.primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: var(--bg);
+  }
+  .btn.good { border-color: var(--accent); color: var(--accent); }
+  .btn.good.active { background: var(--accent); color: var(--bg); }
+  .btn.ghost { border-color: transparent; color: var(--muted); }
+  .btn.ghost:hover { border-color: transparent; color: var(--ink); }
+  .btn.block { width: 100%; }
+
+  button:focus-visible, input:focus-visible, .chip:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .start-row { margin-top: 20px; }
+
+  /* ---------- Quiz ---------- */
+  .quiz-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .progress, .worth {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .progress { color: var(--muted); }
+  .worth { color: var(--accent); white-space: nowrap; }
+
+  .quiz-body {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+    margin: 16px 0;
+  }
+  .quiz-main {
+    flex: 1;
+    min-width: 0;
+    height: clamp(340px, 56vh, 520px);
+    overflow-y: auto;
+    padding: 4px 8px 44px 2px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+  }
+  .scores-side {
+    width: 136px;
+    flex: none;
+    border-inline-start: 1px solid var(--rule);
+    padding-inline-start: 16px;
+    overflow-y: auto;
+    height: clamp(340px, 56vh, 520px);
+  }
+  @media (max-width: 640px) {
+    .quiz-body { flex-direction: column; }
+    .scores-side {
+      width: auto;
+      height: auto;
+      max-height: 200px;
+      border-inline-start: none;
+      border-top: 1px solid var(--rule);
+      padding-inline-start: 0;
+      padding-top: 14px;
+    }
+  }
+
+  .clue {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    transition: background .25s ease, border-color .25s ease, opacity .25s ease, padding .2s ease;
+  }
+  /* current clue = primary focal point */
+  .clue.current {
+    background: var(--accent-tint);
+    border: 1.5px solid var(--accent);
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .clue.current p { font-size: clamp(19px, 2.4vw, 23px); font-weight: 500; line-height: 1.5; }
+  .clue.current .num { width: 32px; height: 32px; font-size: 14px; }
+  /* earlier clues = de-emphasised history */
+  .clue.past { opacity: .55; border-color: transparent; padding: 8px 16px; margin-bottom: 6px; }
+  .clue.past p { font-size: 14px; }
+  .clue.past .num { width: 22px; height: 22px; font-size: 11px; }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .clue .num {
+    flex: none;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    display: grid;
+    place-items: center;
+    transition: background .25s ease, color .25s ease;
+  }
+  .clue-body { flex: 1; min-width: 0; }
+  .clue p { margin: 2px 0 0; line-height: 1.55; font-size: 16px; animation: pop .35s ease; }
+
+  /* locked / hidden clue slots */
+  .clue.locked {
+    border-style: dashed;
+    align-items: center;
+  }
+  .clue.locked .num {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+  }
+  .lock-note {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .reveal {
+    text-align: center;
+    border: 1px solid var(--accent);
+    background: var(--accent-tint);
+    border-radius: var(--radius);
+    padding: 26px 22px;
+    margin-top: 4px;
+    animation: pop .4s ease;
+  }
+  .reveal .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .reveal h2 {
+    margin: 8px 0 2px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(26px, 6vw, 36px);
+    letter-spacing: -.01em;
+    color: var(--ink);
+  }
+  .reveal .desc { color: var(--muted); font-size: 15px; }
+  .reveal .scored { margin-top: 12px; font-weight: 500; color: var(--accent); }
+
+  /* award panel */
+  .award {
+    border: 1px solid var(--accent);
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-top: 4px;
+  }
+  .award .t { font-weight: 500; margin-bottom: 12px; }
+  .award .t span { color: var(--muted); font-weight: 400; }
+  .award .who {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+  }
+  .controls .spacer { flex: 1; }
+
+  .end-row { margin-top: 14px; text-align: center; }
+  .end-row .btn { font-size: 13px; font-weight: 400; padding: 7px 14px; }
+
+  /* mini scoreboard */
+  .scores-side h3 {
+    margin: 0 0 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    text-align: start;
+  }
+  .score-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 2px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-row .who {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .score-row .avatar {
+    flex: none;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 10px; font-weight: 500;
+    color: var(--ink);
+  }
+  .score-row .pts {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ---------- Results ---------- */
+  .winner {
+    text-align: center;
+    padding: 32px 20px;
+    background: var(--accent-tint);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    margin-bottom: 18px;
+  }
+  .winner .crown {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .winner h2 {
+    margin: 10px 0 4px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(28px, 7vw, 40px);
+    letter-spacing: -.01em;
+  }
+  .winner .sub { color: var(--muted); }
+
+  .lb-title {
+    margin: 0 0 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+  .leaderboard .lb-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+  }
+  .leaderboard .lb-row.first {
+    border-color: var(--accent);
+    background: var(--accent-tint);
+  }
+  .leaderboard .rank {
+    flex: none;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+  }
+  .leaderboard .lb-row.first .rank {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+  .leaderboard .nm { flex: 1; font-weight: 500; }
+  .leaderboard .pts { font-family: var(--mono); color: var(--accent); }
+
+  footer.foot {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 18px 14px 22px;
+  }
+  footer.foot a { color: var(--accent); text-decoration: none; }
+  footer.foot a:hover { text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="brand">
+    <p class="eyebrow">Party game</p>
+    <h1>Aussie <em>Celebrity</em> Quiz</h1>
+    <p class="sub">Guess the famous Aussie from the clues. The fewer you need, the more points you score.</p>
+  </div>
+
+  <!-- ================= LOBBY ================= -->
+  <section id="screen-lobby" class="screen active">
+    <div class="card">
+      <div class="lobby-add">
+        <input id="playerName" type="text" placeholder="Add a player name…" maxlength="24" autocomplete="off">
+        <button id="addPlayer" class="btn primary">Add</button>
+      </div>
+      <div id="roster" class="roster"></div>
+      <p class="hint">Tap a name to toggle them in or out of this round. You need at least <strong>2</strong> players to start.</p>
+      <div class="start-row">
+        <button id="startQuiz" class="btn primary block" disabled>Start Quiz</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section id="screen-quiz" class="screen">
+    <div class="card">
+      <div class="quiz-top">
+        <span id="progress" class="progress">Celebrity 1 of 18</span>
+        <span id="worth" class="worth">No clues yet</span>
+      </div>
+
+      <div class="quiz-body">
+        <div class="quiz-main" id="quizMain">
+          <div id="clues"></div>
+          <div id="awardPanel" class="award" style="display:none;">
+            <div class="t">Who got it? <span>(awards <span id="awardPts">3</span> pts and reveals the answer)</span></div>
+            <div id="awardWho" class="who"></div>
+          </div>
+          <div id="revealBox"></div>
+        </div>
+        <aside class="scores-side">
+          <h3>Scores</h3>
+          <div id="miniScores"></div>
+        </aside>
+      </div>
+
+      <div class="controls">
+        <button id="revealClue" class="btn primary">First Clue</button>
+        <button id="gotIt" class="btn good" style="display:none;">Award Points</button>
+        <span class="spacer"></span>
+        <button id="showAnswer" class="btn ghost">Show Answer</button>
+      </div>
+
+      <div class="end-row">
+        <button id="endQuiz" class="btn ghost">End Quiz</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESULTS ================= -->
+  <section id="screen-results" class="screen">
+    <div id="winnerBox" class="winner"></div>
+    <div class="card">
+      <h3 class="lb-title">Final Leaderboard</h3>
+      <div id="leaderboard" class="leaderboard"></div>
+      <div style="margin-top:18px;">
+        <button id="playAgain" class="btn primary block">Play Again</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="foot">Clue one is worth 3 points, sliding down to 1 by clue six. A party game from <a href="https://isaacpeterson.au">isaacpeterson.au</a></footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- Data ---------------- */
+  var CELEBS = [
+    {
+      name: "Kylie Minogue",
+      descriptor: "Australian singer & actress",
+      clues: [
+        "Born 28 May 1968 in Melbourne, Victoria, Australia.",
+        "Her younger sister is also a well-known Australian pop singer.",
+        "Started her career as a child actress on Australian television in the early 1980s.",
+        "Rose to international fame playing a mechanic in a long-running Australian soap opera.",
+        "Her 1987 debut single was a cover of a 1960s Loco-Motion hit and topped the charts in Australia and the UK.",
+        "Known as the Princess of Pop, with hits including “Can’t Get You Out of My Head”."
+      ]
+    },
+    {
+      name: "Chris Hemsworth",
+      descriptor: "Australian actor",
+      clues: [
+        "Born 11 August 1983 in Melbourne, Victoria, Australia.",
+        "Grew up partly in the remote Northern Territory outback.",
+        "Has two brothers who are also well-known Australian actors.",
+        "Got his break on a long-running Australian soap opera before moving to Hollywood.",
+        "Auditioned twice for a major superhero role before finally being cast.",
+        "Best known for playing the Norse god of thunder in the Marvel Cinematic Universe."
+      ]
+    },
+    {
+      name: "Toni Collette",
+      descriptor: "Australian actress",
+      clues: [
+        "Born 1 November 1972 in Blacktown, New South Wales, Australia.",
+        "Grew up in the western suburbs of Sydney.",
+        "Gained 20 kilograms in six weeks to prepare for her breakthrough film role.",
+        "Received an Academy Award nomination for her debut lead film performance in 1994.",
+        "That film was an Australian coming-of-age story set around ballroom dancing.",
+        "Known for her roles in Muriel’s Wedding, The Sixth Sense, and Hereditary."
+      ]
+    },
+    {
+      name: "Steve Irwin",
+      descriptor: "The Crocodile Hunter",
+      clues: [
+        "Born 22 February 1962 in Essendon, Victoria, Australia.",
+        "His parents ran a reptile park in Queensland, where he grew up handling wildlife.",
+        "Received his first pet crocodile from his father on his sixth birthday.",
+        "Took over the family wildlife park in 1991 and turned it into a global attraction.",
+        "His wildlife documentary series launched in 1992 and became a worldwide phenomenon.",
+        "Known for his catchphrase “Crikey!” and his fearless handling of crocodiles on television."
+      ]
+    },
+    {
+      name: "Hugh Jackman",
+      descriptor: "Australian actor",
+      clues: [
+        "Born 12 October 1968 in Sydney, New South Wales, Australia.",
+        "His English-born father moved the family to Australia when he was a child.",
+        "Trained at the Western Australian Academy of Performing Arts in Perth.",
+        "Was cast in a major Hollywood role just days before filming began, replacing another actor.",
+        "Has played the same Marvel character in more films than any other actor in history.",
+        "Best known for playing the clawed mutant Wolverine in the X-Men franchise."
+      ]
+    },
+    {
+      name: "Olivia Newton-John",
+      descriptor: "Australian singer & actress",
+      clues: [
+        "Born 26 September 1948 in Cambridge, England, and raised in Melbourne, Australia.",
+        "Her maternal grandfather was a Nobel Prize-winning physicist.",
+        "Won four Grammy Awards and represented the United Kingdom in the Eurovision Song Contest in 1974.",
+        "Became a global star after starring in a 1978 musical film set in an American high school.",
+        "Her leather outfit from that film sold at auction for over one million dollars in 2019.",
+        "Best known for her role as Sandy in Grease opposite John Travolta."
+      ]
+    },
+    {
+      name: "Don Bradman",
+      descriptor: "Australian cricket legend",
+      clues: [
+        "Born 27 August 1908 in Cootamundra, New South Wales, Australia.",
+        "Grew up in Bowral and famously practised batting alone as a child using a stump and a golf ball.",
+        "Made his Test debut for Australia at the age of 20 in 1928.",
+        "His Test batting average of 99.94 is considered the greatest statistical achievement in any sport.",
+        "Was knighted in 1949, the first Australian cricketer to receive the honour.",
+        "Widely regarded as the greatest batsman in the history of cricket."
+      ]
+    },
+    {
+      name: "Nicole Kidman",
+      descriptor: "Australian actress",
+      clues: [
+        "Born 20 June 1967 in Honolulu, Hawaii, USA, and raised in Sydney, Australia.",
+        "Began acting in Australian films and television as a teenager in the early 1980s.",
+        "Rose to Hollywood prominence after starring opposite Tom Cruise in a 1990 racing film.",
+        "Won an Academy Award for Best Actress in 2003 for playing a famous British author.",
+        "That role required her to wear a prosthetic nose to portray Virginia Woolf in The Hours.",
+        "One of the most acclaimed actresses of her generation, with roles spanning Moulin Rouge to Big Little Lies."
+      ]
+    },
+    {
+      name: "Dawn Fraser",
+      descriptor: "Australian swimming legend",
+      clues: [
+        "Born 4 September 1937 in Balmain, an inner harbourside suburb of Sydney, New South Wales.",
+        "The youngest of eight children, she grew up in a tough working-class neighbourhood.",
+        "Overcame childhood asthma to become one of the world’s fastest swimmers.",
+        "Won gold in the 100-metre freestyle at three consecutive Olympic Games from 1956 to 1964.",
+        "Was the first woman to swim the 100-metre freestyle in under one minute.",
+        "Regarded as one of the greatest swimmers of all time and named Australian of the Year in 1964."
+      ]
+    },
+    {
+      name: "Rod Laver",
+      descriptor: "Australian tennis legend",
+      clues: [
+        "Born 9 August 1938 in Rockhampton, Queensland, Australia.",
+        "Nicknamed “the Rockhampton Rocket” after his hometown and his red hair.",
+        "A left-hander known for his powerful wrist and aggressive attacking game.",
+        "The only player to win all four Grand Slam singles titles in a single year, and he did it twice.",
+        "Achieved the calendar-year Grand Slam as an amateur in 1962 and as a professional in 1969.",
+        "One of the greatest tennis players ever; Melbourne’s main tennis arena is named after him."
+      ]
+    },
+    {
+      name: "Barry Humphries",
+      descriptor: "Australian comedian & actor",
+      clues: [
+        "Born 17 February 1934 in Melbourne, Victoria, Australia.",
+        "Studied at the University of Melbourne, where he began performing Dada-inspired comedy.",
+        "A satirist and character comedian who created several long-running stage personas.",
+        "His most famous creation was a flamboyant “housewife superstar” with lilac hair and cat-eye glasses.",
+        "That character interviewed celebrities on television while calling the audience “possums”.",
+        "Best known for portraying Dame Edna Everage, one of comedy’s most enduring stage characters."
+      ]
+    },
+    {
+      name: "Paul Hogan",
+      descriptor: "Australian actor & comedian",
+      clues: [
+        "Born 8 October 1939 in Lightning Ridge, New South Wales, Australia.",
+        "Worked as a rigger on the Sydney Harbour Bridge before entering show business.",
+        "Got his start on a TV talent show and went on to host his own Australian comedy programme.",
+        "Fronted a 1980s tourism campaign inviting Americans to “throw another shrimp on the barbie”.",
+        "Co-wrote and starred in a 1986 film about an outback adventurer who visits New York City.",
+        "Best known for playing Mick Dundee in Crocodile Dundee."
+      ]
+    },
+    {
+      name: "Cathy Freeman",
+      descriptor: "Australian sprinter",
+      clues: [
+        "Born 16 February 1973 in Mackay, Queensland, Australia.",
+        "A proud Aboriginal Australian who began winning national titles as a teenager.",
+        "Specialised in the 400 metres and was known for her distinctive full-body running suit.",
+        "Lit the cauldron at the opening ceremony of a home Olympic Games.",
+        "Won the 400-metre gold medal in front of a home crowd in Sydney in 2000.",
+        "Famously took her victory lap draped in both the Australian and Aboriginal flags."
+      ]
+    },
+    {
+      name: "Shane Warne",
+      descriptor: "Australian cricketer",
+      clues: [
+        "Born 13 September 1969 in Ferntree Gully, Victoria, Australia.",
+        "Was an aspiring Australian Rules footballer before focusing on cricket.",
+        "A leg-spin bowler who made his Test debut for Australia in 1992.",
+        "His first ball in Ashes cricket in 1993 became known as the “Ball of the Century”.",
+        "Took over 700 Test wickets, one of only a handful of bowlers to reach that mark.",
+        "Widely regarded as one of the greatest spin bowlers in cricket history."
+      ]
+    },
+    {
+      name: "Ian Thorpe",
+      descriptor: "Australian swimmer",
+      clues: [
+        "Born 13 October 1982 in Sydney, New South Wales, Australia.",
+        "Was famous for his exceptionally large feet, which acted like natural flippers.",
+        "Became the youngest-ever male world champion in swimming at the age of 15.",
+        "Earned a nickname referencing a sleek, fast aquatic predator.",
+        "Won five Olympic gold medals, the most by any Australian.",
+        "Best known as “the Thorpedo”, a dominant freestyle swimmer of the early 2000s."
+      ]
+    },
+    {
+      name: "Cate Blanchett",
+      descriptor: "Australian actress",
+      clues: [
+        "Born 14 May 1969 in Melbourne, Victoria, Australia.",
+        "Lost her father at age ten and was raised by her mother in suburban Melbourne.",
+        "Trained at Australia’s National Institute of Dramatic Art (NIDA).",
+        "Won an Academy Award for playing a Hollywood screen legend in a 2004 biographical film.",
+        "Has portrayed Queen Elizabeth I and an elven queen in major film franchises.",
+        "Acclaimed for Elizabeth, The Lord of the Rings, Blue Jasmine, and Carol."
+      ]
+    },
+    {
+      name: "Sia",
+      descriptor: "Australian singer-songwriter",
+      clues: [
+        "Born 18 December 1975 in Adelaide, South Australia.",
+        "Began her career singing in Adelaide acid-jazz and electronic groups in the 1990s.",
+        "Wrote hit songs for stars including Rihanna and Beyoncé before her own breakthrough.",
+        "Became known for hiding her face on stage, often behind an oversized two-tone wig.",
+        "A young dancer in a black-and-blonde wig starred in several of her music videos.",
+        "Best known for the hits “Chandelier” and “Cheap Thrills”."
+      ]
+    },
+    {
+      name: "Margot Robbie",
+      descriptor: "Australian actress",
+      clues: [
+        "Born 2 July 1990 in Dalby, Queensland, and raised on the Gold Coast.",
+        "Grew up partly on a farm and was largely raised by her mother.",
+        "Got her start on the long-running Australian soap opera Neighbours.",
+        "Had her Hollywood breakout opposite Leonardo DiCaprio in a 2013 Martin Scorsese film.",
+        "Played a comic-book antiheroine with dyed pigtails in several superhero films.",
+        "Best known for The Wolf of Wall Street, Harley Quinn, and the title role in Barbie."
+      ]
+    }
+  ];
+
+  var POINTS = { 1: 3, 2: 2.5, 3: 2, 4: 1.5, 5: 1, 6: 1 };
+
+  /* soft, non-bold player colours */
+  var COLORS = ["#8ab4d6", "#a8c98f", "#d9a7a0", "#c2a8d4", "#e0c089", "#8fc9c2", "#d4b08a", "#b3aed6"];
+  var nextColor = 0;
+
+  /* ---------------- State ---------------- */
+  var players = [];   // {id, name, joined, score}
+  var nextId = 1;
+  var order = [];     // shuffled indices into CELEBS
+  var idx = 0;        // position within order
+  var cluesRevealed = 0;
+  var revealed = false;
+
+  /* ---------------- Helpers ---------------- */
+  function $(id) { return document.getElementById(id); }
+
+  function show(screenId) {
+    var s = document.querySelectorAll(".screen");
+    for (var i = 0; i < s.length; i++) s[i].classList.remove("active");
+    $(screenId).classList.add("active");
+  }
+
+  function joinedPlayers() {
+    return players.filter(function (p) { return p.joined; });
+  }
+
+  function fmtPts(n) {
+    return (Math.round(n * 10) / 10).toString();
+  }
+
+  function initials(name) {
+    var parts = name.trim().split(/\s+/);
+    var s = parts[0].charAt(0);
+    if (parts.length > 1) s += parts[parts.length - 1].charAt(0);
+    return s.toUpperCase();
+  }
+
+  function buildOrder() {
+    order = CELEBS.map(function (_, i) { return i; });
+    for (var i = order.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = order[i]; order[i] = order[j]; order[j] = t;
+    }
+  }
+
+  function current() {
+    return CELEBS[order[idx]];
+  }
+
+  function scrollCenter(el) {
+    if (!el) return;
+    var c = $("quizMain");
+    var cRect = c.getBoundingClientRect();
+    var eRect = el.getBoundingClientRect();
+    var offset = (eRect.top - cRect.top) - (c.clientHeight / 2) + (el.offsetHeight / 2);
+    c.scrollTo({ top: c.scrollTop + offset, behavior: "smooth" });
+  }
+
+  /* ---------------- Lobby ---------------- */
+  function seedPlayers() {
+    players = [];
+    nextId = 1;
+    nextColor = 0;
+  }
+
+  function renderRoster() {
+    var r = $("roster");
+    r.innerHTML = "";
+    players.forEach(function (p) {
+      var chip = document.createElement("div");
+      chip.className = "chip" + (p.joined ? " joined" : "");
+      chip.setAttribute("data-id", p.id);
+
+      var dot = document.createElement("span");
+      dot.className = "dot";
+      chip.appendChild(dot);
+
+      var label = document.createElement("span");
+      label.textContent = p.name;
+      chip.appendChild(label);
+
+      var rm = document.createElement("button");
+      rm.className = "rm";
+      rm.setAttribute("data-remove", p.id);
+      rm.setAttribute("aria-label", "Remove " + p.name);
+      rm.textContent = "×";
+      chip.appendChild(rm);
+
+      r.appendChild(chip);
+    });
+    $("startQuiz").disabled = joinedPlayers().length < 2;
+  }
+
+  function addPlayer() {
+    var input = $("playerName");
+    var name = input.value.trim();
+    if (!name) return;
+    players.push({ id: nextId++, name: name, joined: true, score: 0, color: COLORS[nextColor++ % COLORS.length] });
+    input.value = "";
+    input.focus();
+    renderRoster();
+  }
+
+  $("addPlayer").addEventListener("click", addPlayer);
+  $("playerName").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") addPlayer();
+  });
+
+  $("roster").addEventListener("click", function (e) {
+    var rmId = e.target.getAttribute("data-remove");
+    if (rmId) {
+      players = players.filter(function (p) { return p.id !== parseInt(rmId, 10); });
+      renderRoster();
+      return;
+    }
+    var chip = e.target.closest ? e.target.closest(".chip") : null;
+    if (chip) {
+      var id = parseInt(chip.getAttribute("data-id"), 10);
+      var p = players.find(function (x) { return x.id === id; });
+      if (p) { p.joined = !p.joined; renderRoster(); }
+    }
+  });
+
+  /* ---------------- Quiz ---------------- */
+  $("startQuiz").addEventListener("click", function () {
+    joinedPlayers().forEach(function (p) { p.score = 0; });
+    buildOrder();
+    idx = 0;
+    loadCeleb();
+    show("screen-quiz");
+  });
+
+  function buildClueStack() {
+    var box = $("clues");
+    box.innerHTML = "";
+    for (var i = 0; i < 6; i++) {
+      var row = document.createElement("div");
+      row.className = "clue locked";
+      row.setAttribute("data-i", i);
+
+      var num = document.createElement("span");
+      num.className = "num";
+      num.textContent = (i + 1);
+      row.appendChild(num);
+
+      var body = document.createElement("div");
+      body.className = "clue-body";
+
+      var note = document.createElement("div");
+      note.className = "lock-note";
+      note.textContent = fmtPts(POINTS[i + 1]) + " pts";
+
+      body.appendChild(note);
+      row.appendChild(body);
+      box.appendChild(row);
+    }
+  }
+
+  function revealRow(i) {
+    var row = $("clues").querySelector('[data-i="' + i + '"]');
+    if (!row || !row.classList.contains("locked")) return row;
+    row.classList.remove("locked");
+    var body = row.querySelector(".clue-body");
+    body.innerHTML = "";
+    var p = document.createElement("p");
+    p.textContent = current().clues[i];
+    body.appendChild(p);
+    return row;
+  }
+
+  /* emphasise the latest revealed clue, fade older ones */
+  function markHierarchy() {
+    var rows = $("clues").querySelectorAll(".clue");
+    for (var k = 0; k < rows.length; k++) {
+      var r = rows[k];
+      r.classList.remove("current", "past");
+      if (r.classList.contains("locked")) continue;
+      if (!revealed && k === cluesRevealed - 1) r.classList.add("current");
+      else r.classList.add("past");
+    }
+  }
+
+  function loadCeleb() {
+    cluesRevealed = 0;
+    revealed = false;
+
+    $("progress").textContent = "Celebrity " + (idx + 1) + " of " + CELEBS.length;
+    $("worth").textContent = "No clues yet";
+    $("clues").innerHTML = "";
+    $("revealBox").innerHTML = "";
+    $("awardPanel").style.display = "none";
+
+    buildClueStack();
+
+    $("revealClue").style.display = "";
+    $("revealClue").disabled = false;
+    $("revealClue").textContent = "First Clue";
+    $("gotIt").style.display = "none";
+    $("gotIt").classList.remove("active");
+
+    var sa = $("showAnswer");
+    sa.style.display = "";
+    sa.classList.remove("primary");
+    sa.classList.add("ghost");
+    sa.textContent = "Show Answer";
+
+    $("quizMain").scrollTop = 0;
+    renderMiniScores();
+  }
+
+  function updateWorth() {
+    if (cluesRevealed === 0) { $("worth").textContent = "No clues yet"; return; }
+    $("worth").textContent = "Worth " + fmtPts(POINTS[cluesRevealed]) + " pts";
+    $("awardPts").textContent = fmtPts(POINTS[cluesRevealed]);
+  }
+
+  $("revealClue").addEventListener("click", function () {
+    if (revealed || cluesRevealed >= 6) return;
+
+    var row = revealRow(cluesRevealed);
+    cluesRevealed++;
+    markHierarchy();
+
+    updateWorth();
+
+    if (cluesRevealed >= 1) $("gotIt").style.display = "";
+    if (cluesRevealed >= 6) {
+      $("revealClue").disabled = true;
+      $("revealClue").textContent = "All clues revealed";
+    } else {
+      $("revealClue").textContent = "Next Clue (" + cluesRevealed + "/6)";
+    }
+
+    scrollCenter(row);
+  });
+
+  /* Someone Got It -> award panel */
+  $("gotIt").addEventListener("click", function () {
+    if (revealed) return;
+    $("gotIt").classList.add("active");
+    var who = $("awardWho");
+    who.innerHTML = "";
+    joinedPlayers().forEach(function (p) {
+      var b = document.createElement("button");
+      b.className = "btn";
+      b.setAttribute("data-award", p.id);
+      b.textContent = p.name;
+      who.appendChild(b);
+    });
+    updateWorth();
+    $("awardPanel").style.display = "";
+    scrollCenter($("awardPanel"));
+  });
+
+  $("awardWho").addEventListener("click", function (e) {
+    var id = e.target.getAttribute("data-award");
+    if (!id) return;
+    var p = players.find(function (x) { return x.id === parseInt(id, 10); });
+    if (!p) return;
+    var earned = POINTS[cluesRevealed] || 1;
+    p.score += earned;
+    $("awardPanel").style.display = "none";
+    doReveal(p, earned);
+  });
+
+  /* Show Answer (no scoring) */
+  $("showAnswer").addEventListener("click", function () {
+    if (revealed) { nextCeleb(); return; }
+    $("awardPanel").style.display = "none";
+    doReveal(null, 0);
+  });
+
+  function doReveal(scorer, earned) {
+    revealed = true;
+    var c = current();
+
+    for (var i = 0; i < 6; i++) revealRow(i);
+    markHierarchy();
+
+    var box = $("revealBox");
+    box.innerHTML = "";
+    var wrap = document.createElement("div");
+    wrap.className = "reveal";
+
+    var label = document.createElement("div");
+    label.className = "label";
+    label.textContent = "The answer is";
+    var h2 = document.createElement("h2");
+    h2.textContent = c.name;
+    var desc = document.createElement("div");
+    desc.className = "desc";
+    desc.textContent = c.descriptor;
+    wrap.appendChild(label);
+    wrap.appendChild(h2);
+    wrap.appendChild(desc);
+
+    if (scorer) {
+      var s = document.createElement("div");
+      s.className = "scored";
+      s.textContent = scorer.name + " +" + fmtPts(earned) + " pts";
+      wrap.appendChild(s);
+    }
+    box.appendChild(wrap);
+
+    $("revealClue").style.display = "none";
+    $("gotIt").style.display = "none";
+
+    var sa = $("showAnswer");
+    sa.classList.remove("ghost");
+    sa.classList.add("primary");
+    sa.textContent = (idx + 1 >= CELEBS.length) ? "See Results →" : "Next Celebrity →";
+
+    renderMiniScores();
+    scrollCenter(wrap);
+  }
+
+  function nextCeleb() {
+    if (idx + 1 >= CELEBS.length) { renderResults(); show("screen-results"); return; }
+    idx++;
+    loadCeleb();
+  }
+
+  function renderMiniScores() {
+    var m = $("miniScores");
+    m.innerHTML = "";
+    var sorted = joinedPlayers().slice().sort(function (a, b) { return b.score - a.score; });
+    sorted.forEach(function (p) {
+      var row = document.createElement("div");
+      row.className = "score-row";
+
+      var who = document.createElement("span");
+      who.className = "who";
+      var av = document.createElement("span");
+      av.className = "avatar";
+      av.style.background = p.color || "#cbd5e1";
+      av.textContent = initials(p.name);
+      av.title = p.name;
+      who.appendChild(av);
+
+      var pts = document.createElement("span");
+      pts.className = "pts";
+      pts.textContent = fmtPts(p.score);
+
+      row.appendChild(who);
+      row.appendChild(pts);
+      m.appendChild(row);
+    });
+  }
+
+  /* End Quiz */
+  $("endQuiz").addEventListener("click", function () {
+    if (window.confirm("End the quiz now and jump to the results?")) {
+      renderResults();
+      show("screen-results");
+    }
+  });
+
+  /* ---------------- Results ---------------- */
+  function renderResults() {
+    var sorted = joinedPlayers().slice().sort(function (a, b) { return b.score - a.score; });
+    var top = sorted.length ? sorted[0].score : 0;
+    var winners = sorted.filter(function (p) { return p.score === top; });
+
+    var wb = $("winnerBox");
+    wb.innerHTML = "";
+    var crown = document.createElement("div");
+    crown.className = "crown";
+    crown.textContent = "Final result";
+    var h2 = document.createElement("h2");
+    var sub = document.createElement("div");
+    sub.className = "sub";
+
+    if (winners.length === 1) {
+      h2.textContent = winners[0].name + " wins!";
+      sub.textContent = fmtPts(top) + " points";
+    } else {
+      h2.textContent = "It’s a tie!";
+      sub.textContent = winners.map(function (w) { return w.name; }).join(" & ") + " with " + fmtPts(top) + " points each";
+    }
+    wb.appendChild(crown);
+    wb.appendChild(h2);
+    wb.appendChild(sub);
+
+    var lb = $("leaderboard");
+    lb.innerHTML = "";
+    sorted.forEach(function (p, i) {
+      var row = document.createElement("div");
+      row.className = "lb-row" + (p.score === top && top > 0 ? " first" : "");
+      var rank = document.createElement("div");
+      rank.className = "rank";
+      rank.textContent = (i + 1);
+      var nm = document.createElement("div");
+      nm.className = "nm";
+      nm.textContent = p.name;
+      var pts = document.createElement("div");
+      pts.className = "pts";
+      pts.textContent = fmtPts(p.score) + " pts";
+      row.appendChild(rank);
+      row.appendChild(nm);
+      row.appendChild(pts);
+      lb.appendChild(row);
+    });
+  }
+
+  /* Play Again */
+  $("playAgain").addEventListener("click", function () {
+    players.forEach(function (p) { p.joined = false; p.score = 0; });
+    idx = 0;
+    renderRoster();
+    show("screen-lobby");
+  });
+
+  /* ---------------- Init ---------------- */
+  seedPlayers();
+  renderRoster();
+})();
+</script>
+</body>
+</html>

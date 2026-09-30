@@ -1,0 +1,183 @@
+/* ============================================================
+   isaacpeterson.au — shared styles
+   Ruled "puzzle" grid: every cell draws a 2px outline, and
+   neighbouring outlines overlap into single rules. Cells grow to
+   fill their row, so the tiling reflows by itself at any width.
+   ============================================================ */
+
+:root {
+  --ground: #faf7f4;   /* warm paper */
+  --ink: #1a1a18;      /* rules + text, 16:1 on ground */
+  --pop: #e8452c;      /* tomato: fills, shadows, hover. Large text only (4.4:1 with ink) */
+  --mark: #3366D2;     /* highlight blue: white text on it is 5.3:1 */
+  --paper: #ffffff;
+  --display: 'Archivo Black', 'Arial Black', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --rule: 2px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: calc(1rem + 0.4vw);
+  font-family: Georgia, serif;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--ground);
+}
+body { background: var(--ground); padding: 1.25rem; min-height: 100vh; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--pop); }
+:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+::selection { background: var(--mark); color: #fff; }
+
+.skip-link { position: absolute; left: -999px; top: 0.5rem; background: var(--ink); color: var(--ground); padding: 0.5rem 0.8rem; z-index: 10; }
+.skip-link:focus { left: 0.5rem; }
+
+/* ---------- type ---------- */
+.display {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.mono {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* street-art highlight: the text-selection look, made permanent */
+.hl, .hl-paper {
+  padding: 0.04em 0.12em 0;
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+}
+.hl { background: var(--mark); color: #fff; position: relative; z-index: 1; }
+.hl-paper { background: var(--ground); }
+
+/* ---------- the puzzle grid ---------- */
+.board {
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--pop);
+  background: var(--ground);
+  margin-right: 6px;
+}
+.grid { display: flex; flex-wrap: wrap; }
+.grid > * {
+  flex: 1 1 auto;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 1.5rem;
+  outline: var(--rule) solid var(--ink);
+  overflow: hidden;
+}
+
+/* ---------- header row: name / tagline / nav ---------- */
+.cell-name { flex-basis: 16rem; align-items: flex-start; }
+.cell-name a { font-size: 2.55rem; text-decoration: none; }
+.cell-tag { flex-basis: 20rem; flex-grow: 3; align-items: center; text-align: center; }
+.cell-tag p { font-style: italic; max-width: 30ch; }
+.cell-nav { flex-basis: 9rem; padding: 0 !important; }
+.cell-nav ul { list-style: none; display: flex; flex-direction: column; height: 100%; }
+.cell-nav li { flex: 1; display: flex; border-top: var(--rule) solid var(--ink); }
+.cell-nav li:first-child { border-top: 0; }
+.cell-nav a {
+  flex: 1; display: flex; align-items: center; justify-content: space-between;
+  padding: 0.55rem 1.25rem;
+  font-size: 1.16rem;
+  text-decoration: none;
+  transition: background 0.12s;
+}
+.cell-nav a::after { content: '→'; font-family: Georgia, serif; font-size: 0.9rem; opacity: 0; transition: opacity 0.12s, transform 0.12s; }
+.cell-nav a:hover, .cell-nav a:focus-visible { background: var(--pop); outline: none; }
+.cell-nav a:hover::after, .cell-nav a:focus-visible::after { opacity: 1; transform: translateX(3px); }
+.cell-nav a[aria-current="page"] { background: var(--ink); color: var(--ground); }
+.soon {
+  font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.08em;
+  background: var(--mark); color: #fff; padding: 0.15rem 0.35rem;
+  margin-left: 0.4rem; margin-right: auto;
+}
+
+/* ---------- inner pages: shared ---------- */
+.page-intro { flex-basis: 100%; align-items: flex-start !important; gap: 0.6rem; }
+.page-intro h1 { font-size: min(2.6rem, 11vw); }
+.page-intro p { max-width: 60ch; }
+
+/* ---------- /made/ list: text left, screenshot right ---------- */
+.made-row > * { justify-content: flex-start; }
+.made-text { flex-basis: 22rem; flex-grow: 3; gap: 0.5rem; }
+.made-text h2 { font-size: 1.5rem; line-height: 1; }
+.made-text h2 a { text-decoration: none; }
+.made-text h2 a:hover { background: var(--pop); }
+.made-text p { max-width: 60ch; font-size: 0.85rem; }
+.made-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.3rem; }
+.made-shot { flex-basis: 14rem; flex-grow: 1; padding: 0 !important; background: var(--paper); }
+.made-shot { position: relative; min-height: 11rem; }
+.made-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+
+/* ---------- story pages ---------- */
+.story-head { flex-basis: 18rem; flex-grow: 2; gap: 0.8rem; justify-content: flex-start !important; }
+.story-head h1 { font-size: min(2.2rem, 10vw); }
+.story-head .standfirst { font-style: italic; max-width: 45ch; }
+.costume-stage { flex-basis: 18rem; align-items: center; padding: 2.5rem 1.5rem !important; background: var(--ink); }
+
+.story-row > * { justify-content: flex-start; }
+.story-label { flex-basis: 11rem; flex-grow: 0; }
+.story-label h2 { font-size: 1.05rem; line-height: 1; }
+.story-body { flex-basis: 20rem; flex-grow: 5; }
+.story-body p { max-width: 62ch; }
+.story-body p + p { margin-top: 0.9em; }
+.story-meta { flex-basis: 100%; flex-direction: row !important; flex-wrap: wrap; gap: 0.6rem 1.5rem; align-items: baseline; }
+.story-meta .mono { font-size: 0.62rem; }
+.draft-note { background: var(--mark); color: #fff; padding: 0.5rem 0.8rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.04em; margin-bottom: 1rem; }
+
+/* costume: arcade ticket */
+.ticket {
+  --notch: 10px;
+  position: relative;
+  width: min(100%, 17rem);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 1.4rem 1.3rem 1.1rem;
+  transform: rotate(-2.5deg);
+  font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;
+  -webkit-mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom/var(--notch) 51% repeat-x,
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top/var(--notch) 51% repeat-x;
+          mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom/var(--notch) 51% repeat-x,
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top/var(--notch) 51% repeat-x;
+}
+.ticket .row { display: flex; justify-content: space-between; gap: 0.5rem; }
+.ticket hr { border: 0; border-top: 2px dashed var(--ink); margin: 0.7rem 0; }
+.ticket .admit { font-family: var(--display); font-size: 1.9rem; line-height: 0.9; letter-spacing: -0.02em; margin: 0.35rem 0 0.2rem; }
+.ticket .title-band { background: var(--pop); font-family: var(--display); font-size: 1.08rem; line-height: 1; padding: 0.35rem 0.4rem 0.25rem; letter-spacing: -0.02em; }
+.ticket ol { list-style: none; counter-reset: c; }
+.ticket ol li { counter-increment: c; display: flex; justify-content: space-between; padding: 0.12rem 0; }
+.ticket ol li::before { content: 'Clue ' counter(c); }
+.ticket .total { font-weight: 700; font-size: 0.75rem; }
+.ticket .barcode {
+  height: 2.2rem; margin-top: 0.6rem;
+  background: repeating-linear-gradient(90deg,
+    var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px,
+    var(--ink) 8px 11px, transparent 11px 12px, var(--ink) 12px 13px, transparent 13px 16px);
+}
+.ticket .stamp-mark {
+  position: absolute; right: 1.4rem; bottom: 3rem;
+  background: var(--paper);
+  border: 3px solid var(--pop); color: var(--pop);
+  font-family: var(--display); font-size: 0.96rem; line-height: 1;
+  padding: 0.3rem 0.4rem 0.2rem;
+  transform: rotate(14deg);
+}
+
+/* ---------- footer ---------- */
+.wire { width: var(--rule); height: 2.5rem; background: var(--ink); margin: 0 auto; }
+.foot { text-align: center; font-size: 0.7rem; }
+.foot p + p { margin-top: 0.35rem; }
+.credit { font-size: 0.55rem; opacity: 0.75; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

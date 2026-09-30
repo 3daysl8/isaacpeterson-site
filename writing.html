@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing · Isaac Peterson</title>
+<meta name="description" content="Posts on workers comp, psychosocial risk, AI, and whatever I'm chewing on. Published as I figure it out.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css">
+<style>
+.filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+.filters button {
+  font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink); background: transparent; border: var(--rule) solid var(--ink);
+  padding: 0.3rem 0.6rem; cursor: pointer;
+}
+.filters button:hover { background: var(--pop); }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+
+.post-row > * { justify-content: flex-start; }
+.post-text { flex-basis: 22rem; flex-grow: 4; gap: 0.45rem; }
+.post-text h2 { font-family: Georgia, serif; font-weight: 700; font-size: 1.05rem; line-height: 1.25; max-width: 48ch; }
+.post-text h2 a { text-decoration: none; }
+.post-text h2 a:hover { text-decoration: underline; text-decoration-color: var(--pop); }
+.post-thumb { flex-basis: 9rem; flex-grow: 1; padding: 0 !important; position: relative; min-height: 7rem; background: var(--paper); }
+.post-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.post-count { flex-basis: 100%; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="board">
+  <header class="grid">
+    <div class="cell-name"><a href="/" class="display">Isaac<br>Peterson</a></div>
+    <div class="cell-tag"><p>Things made, questions asked, and whatever I'm figuring out this week.</p></div>
+    <nav class="cell-nav" aria-label="Site">
+      <ul class="display">
+        <li><a href="/made/">Made</a></li>
+        <li><a href="/writing.html" aria-current="page">Writing</a></li>
+        <li><a href="/skills.html">Skills</a></li>
+        <li><a href="/watch.html">Watch <span class="soon">soon</span></a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="grid">
+      <div class="page-intro">
+        <h1 class="display"><span class="hl">Thinking</span> out loud</h1>
+        <p>Posts on workers comp, psychosocial risk, AI, and whatever I'm chewing on. Published as I figure it out.</p>
+        <div class="filters" id="filters" role="group" aria-label="Filter posts by topic"></div>
+      </div>
+    </div>
+    <div id="post-list" aria-live="polite">
+      <noscript><div class="grid"><div><p>This list needs JavaScript. Everything is also on <a href="https://isaacpetersonau.substack.com/">Substack</a>.</p></div></div></noscript>
+    </div>
+    <div class="grid"><p class="post-count mono" id="post-count"></p></div>
+  </main>
+</div>
+
+<div class="wire"></div>
+<footer class="foot">
+  <p><a href="mailto:hello@isaacpeterson.au">hello@isaacpeterson.au</a> · <a href="https://www.linkedin.com/in/isaac-peterson-9b693722/" rel="noopener">LinkedIn</a> · <a href="https://isaacpetersonau.substack.com/" rel="noopener">Substack</a> · <a href="https://github.com/3daysl8" rel="noopener">GitHub</a> · <a href="/watch.html">YouTube</a></p>
+</footer>
+
+<script>
+(function () {
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmt(d) { var p = d.split('-'); return MONTHS[parseInt(p[1], 10) - 1] + ' ' + p[0]; }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+
+  var posts = [], active = 'All';
+
+  function renderFilters() {
+    var wrap = document.getElementById('filters');
+    var tags = [];
+    posts.forEach(function (p) { if (tags.indexOf(p.tag) < 0) tags.push(p.tag); });
+    wrap.innerHTML = '';
+    if (tags.length < 2) return;
+    ['All'].concat(tags).forEach(function (t) {
+      var b = el('button', null, t);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', t === active ? 'true' : 'false');
+      b.addEventListener('click', function () { active = t; renderFilters(); renderPosts(); });
+      wrap.appendChild(b);
+    });
+  }
+
+  function renderPosts() {
+    var list = document.getElementById('post-list');
+    list.innerHTML = '';
+    var shown = posts
+      .filter(function (p) { return active === 'All' || p.tag === active; })
+      .sort(function (a, b) { return b.date.localeCompare(a.date); });
+    shown.forEach(function (p) {
+      var row = el('article', 'grid post-row');
+      var text = el('div', 'post-text');
+      text.appendChild(el('p', 'mono', p.tag + ' · ' + fmt(p.date) + (p.readTime ? ' · ' + p.readTime : '')));
+      var h = el('h2');
+      if (p.url) {
+        var a = el('a', null, p.title); a.href = p.url; a.rel = 'noopener';
+        h.appendChild(a);
+      } else {
+        h.textContent = p.title;
+      }
+      text.appendChild(h);
+      row.appendChild(text);
+      if (p.image) {
+        var t = el('div', 'post-thumb');
+        var img = el('img'); img.src = '/' + p.image; img.alt = ''; img.loading = 'lazy';
+        t.appendChild(img);
+        row.appendChild(t);
+      }
+      list.appendChild(row);
+    });
+    document.getElementById('post-count').textContent = shown.length + (shown.length === 1 ? ' post' : ' posts');
+  }
+
+  fetch('/posts.json').then(function (r) { return r.json(); }).then(function (d) {
+    posts = d.posts || d;
+    renderFilters();
+    renderPosts();
+  });
+})();
+</script>
+</body>
+</html>
