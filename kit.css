@@ -1,0 +1,93 @@
+/* ============================================================
+   Printable kits. The top bar (.kit-bar) is shared by every kit
+   and card; the .kit-sheet document styles are for the standard
+   kits. Everything is class-scoped so the custom-designed kit and
+   card pages can load this for the bar alone.
+   ============================================================ */
+
+/* ---------- top bar ---------- */
+.kit-bar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap;
+  background: #1a1a18; color: #faf7f4;
+  padding: 0.7rem 1.2rem; border: 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.kit-back {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: #faf7f4; text-decoration: none;
+}
+.kit-back:hover { text-decoration: underline; text-decoration-color: #e8452c; }
+.kit-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.kit-print, .kit-dl {
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  background: #e8452c; color: #1a1a18; border: 2px solid #e8452c; border-radius: 0;
+  padding: 0.5rem 0.8rem; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.kit-dl { background: transparent; color: #faf7f4; border-color: #faf7f4; }
+.kit-print:hover, .kit-dl:hover { background: #faf7f4; color: #1a1a18; border-color: #faf7f4; }
+
+/* ---------- standard kit sheet ---------- */
+.kit-sheet {
+  max-width: 46rem; margin: 1.5rem auto 2.5rem;
+  background: var(--paper, #fff);
+  border: 3px solid var(--ink, #1a1a18);
+  box-shadow: 6px 6px 0 var(--pop, #e8452c);
+  padding: 2.2rem 2rem 2.4rem;
+}
+.kit-eyebrow { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.kit-title { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; font-size: min(2.2rem, 9vw); margin-bottom: 0.6rem; }
+.kit-deck { font-style: italic; font-size: 1.05rem; margin-bottom: 1.2rem; max-width: 52ch; }
+.kit-note { border: 2px solid var(--ink); background: var(--ground); padding: 0.8rem 1rem; font-size: 0.82rem; margin-bottom: 1.4rem; }
+.kit-lede { font-size: 0.95rem; margin-bottom: 0.9rem; max-width: 62ch; }
+.kit-credit { font-size: 0.8rem; margin-bottom: 0.5rem; }
+
+.kit-h2 {
+  font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1;
+  font-size: 1.2rem; margin: 2rem 0 0.9rem; padding-top: 0.9rem; border-top: var(--rule) solid var(--ink);
+}
+.kit-role {
+  display: inline-block; margin: 1.3rem 0 0.5rem;
+  font-family: var(--mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--mark); color: #fff; padding: 0.25rem 0.5rem;
+}
+.kit-sheet pre {
+  font-family: var(--mono); font-size: 0.72rem; line-height: 1.6;
+  background: var(--ground); color: var(--ink);
+  border: var(--rule) solid var(--ink); border-left: 6px solid var(--pop);
+  padding: 0.9rem 1rem; margin-bottom: 0.9rem;
+  white-space: pre-wrap; word-wrap: break-word;
+}
+.kit-hint { font-size: 0.8rem; font-style: italic; margin: -0.3rem 0 1rem; }
+
+.kit-list { list-style: none; margin-bottom: 1.1rem; }
+.kit-list li { position: relative; padding-left: 1.3rem; margin-bottom: 0.6rem; font-size: 0.9rem; }
+.kit-list li::before { content: '→'; position: absolute; left: 0; }
+.kit-list strong { font-weight: 700; }
+
+.kit-sheet blockquote {
+  border-left: 6px solid var(--pop); padding: 0.2rem 0 0.2rem 1rem; margin: 1.6rem 0;
+  font-style: italic; font-size: 1.1rem; line-height: 1.45;
+}
+.kit-foot { margin-top: 2rem; padding-top: 1rem; border-top: var(--rule) solid var(--ink); font-size: 0.75rem; }
+
+@media (max-width: 640px) {
+  .kit-sheet { padding: 1.4rem 1.1rem 1.6rem; margin-top: 1rem; }
+}
+
+/* ---------- print: plain black on white, no chrome ---------- */
+@media print {
+  html { font-size: 11pt; }
+  body { background: #fff !important; padding: 0 !important; }
+  .kit-bar { display: none !important; }
+  .kit-sheet { max-width: none; margin: 0; padding: 0; border: 0; box-shadow: none; background: #fff; }
+  .kit-role { background: none; color: #000; border: 1px solid #000; }
+  .kit-sheet pre { background: #fff; border: 1px solid #000; border-left: 3px solid #000; page-break-inside: avoid; }
+  .kit-sheet blockquote { border-left: 3px solid #000; }
+  .kit-note { background: none; border: 1px solid #000; }
+  .kit-sheet a { color: #000; text-decoration: underline; }
+  .kit-h2, .kit-role { page-break-after: avoid; }
+}

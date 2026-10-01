@@ -1,0 +1,117 @@
+/* ============================================================
+   Skill-series pages (skills.html, builds.html) in the ruled grid.
+   Loaded after site.css. Their markup keeps its original class
+   names; this file restyles them as grid cells.
+   ============================================================ */
+
+.board > section, .board > header.page-hero-row { outline: var(--rule) solid var(--ink); }
+.board > section { padding: 1.6rem 1.5rem; }
+.container { max-width: none; }
+
+/* ---------- Think / Build switch under the header ---------- */
+.series-switch { flex-basis: 100%; flex-direction: row !important; flex-wrap: wrap; padding: 0 !important; }
+.series-switch a { flex: 1 1 14rem; padding: 0.7rem 1.2rem; text-decoration: none; outline: var(--rule) solid var(--ink); text-align: center; }
+.series-switch a:hover { background: var(--pop); }
+.series-switch a[aria-current="page"] { background: var(--ink); color: var(--ground); }
+
+/* ---------- type ---------- */
+.page-eyebrow, .section-eyebrow, .skill-stage, .trilogy-stage, .trilogy-label,
+.panel-label, .panel-note {
+  font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.section-eyebrow, .page-eyebrow { margin-bottom: 0.5rem; }
+.page-h1, .section-title, .skill-title, .cta-title, .play-title, .how-title, .faq-q, .trilogy-name {
+  font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1;
+}
+.page-h1 { font-size: min(2.8rem, 11vw); margin-bottom: 0.8rem; }
+.page-h1 em {
+  font-style: normal; background: var(--mark); color: #fff;
+  padding: 0.04em 0.12em 0; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.page-lede { max-width: 56ch; }
+.section-title { font-size: min(1.7rem, 8vw); margin-bottom: 0.6rem; }
+.section-intro { max-width: 60ch; margin-bottom: 1.4rem; font-size: 0.9rem; }
+code { font-family: var(--mono); font-size: 0.8em; background: var(--paper); padding: 0 0.2em; }
+
+/* ---------- page hero: copy cell + trilogy cell ---------- */
+.page-hero-inner { display: flex; flex-wrap: wrap; }
+.page-hero-inner > * { outline: var(--rule) solid var(--ink); padding: 1.6rem 1.5rem; }
+.page-hero-copy { flex: 3 1 22rem; }
+.trilogy-card { flex: 1 1 15rem; padding: 0 !important; display: flex; flex-direction: column; }
+.trilogy-label { padding: 0.8rem 1.2rem; border-bottom: var(--rule) solid var(--ink); background: var(--ink); color: var(--ground); }
+.trilogy-row {
+  flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+  padding: 0.8rem 1.2rem; text-decoration: none; border-bottom: var(--rule) solid var(--ink);
+}
+.trilogy-row:last-child { border-bottom: 0; }
+.trilogy-row:hover { background: var(--pop); }
+.trilogy-row.is-soon { opacity: 0.65; }
+.trilogy-stage { display: block; margin-bottom: 0.2rem; }
+.trilogy-name { display: block; font-size: 1rem; }
+
+.pill { font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.18rem 0.4rem; white-space: nowrap; }
+.pill.live { background: var(--ink); color: var(--ground); }
+.pill.soon { background: var(--mark); color: #fff; }
+
+/* ---------- how it works: numbered cells ---------- */
+.how-grid { display: flex; flex-wrap: wrap; margin: 0 -1.5rem -1.6rem; }
+.how-step { flex: 1 1 13rem; outline: var(--rule) solid var(--ink); padding: 1.3rem 1.5rem; }
+.how-num {
+  display: inline-grid; place-items: center; width: 2rem; height: 2rem; margin-bottom: 0.7rem;
+  background: var(--pop); font-family: var(--display); font-size: 1.1rem;
+}
+.how-title { font-size: 1rem; margin-bottom: 0.4rem; }
+.how-body { font-size: 0.85rem; }
+
+/* ---------- skill blocks: story-style rows ---------- */
+.skill-block { display: flex; flex-wrap: wrap; margin: 0 -1.5rem; }
+.skill-block:last-child { margin-bottom: -1.6rem; }
+.skill-block > * { outline: var(--rule) solid var(--ink); padding: 1.4rem 1.5rem; }
+.skill-main { flex: 3 1 22rem; }
+.skill-panel { flex: 1 1 14rem; background: var(--paper); display: flex; flex-direction: column; gap: 0.8rem; }
+.skill-title { font-size: 1.35rem; margin: 0.3rem 0 0.5rem; }
+.skill-question { font-style: italic; margin-bottom: 0.7rem; }
+.skill-body p { font-size: 0.88rem; max-width: 62ch; }
+.skill-body p + p { margin-top: 0.7em; }
+.skill-credit { margin-top: 0.8rem; font-size: 0.75rem; }
+.panel-top { display: flex; justify-content: space-between; align-items: center; }
+.panel-list { list-style: none; font-size: 0.8rem; }
+.panel-list li { padding: 0.3rem 0; border-bottom: 1px dotted var(--ink); }
+.panel-list li::before { content: '→ '; }
+.panel-actions { display: flex; flex-direction: column; gap: 0.45rem; }
+
+/* ---------- buttons ---------- */
+.btn, .cta-btn {
+  display: inline-block; text-align: center; text-decoration: none;
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.65rem 0.9rem; border: var(--rule) solid var(--ink);
+  transition: background 0.12s, color 0.12s;
+}
+.btn-primary, .cta-btn { background: var(--ink); color: var(--ground); }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn:hover, .cta-btn:hover { background: var(--pop); color: var(--ink); }
+
+/* ---------- next-step strip ---------- */
+.play-strip { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; justify-content: space-between; border: var(--rule) solid var(--ink); background: var(--paper); padding: 1.2rem 1.4rem; }
+.play-copy { flex: 1 1 20rem; }
+.play-title { font-size: 1.2rem; margin-bottom: 0.3rem; }
+.play-body { font-size: 0.85rem; max-width: 60ch; }
+
+/* ---------- FAQ cells ---------- */
+.faq-grid { display: flex; flex-wrap: wrap; margin: 0 -1.5rem -1.6rem; }
+.faq-item { flex: 1 1 18rem; outline: var(--rule) solid var(--ink); padding: 1.3rem 1.5rem; }
+.faq-q { font-size: 0.95rem; margin-bottom: 0.5rem; }
+.faq-a { font-size: 0.85rem; }
+
+/* ---------- subscribe CTA: the one tomato cell ---------- */
+#cta { background: var(--pop); }
+.cta-inner { max-width: 60ch; }
+.cta-title { font-size: min(1.7rem, 8vw); margin-bottom: 0.5rem; }
+.cta-sub { margin-bottom: 1rem; font-size: 0.9rem; }
+
+@media (max-width: 640px) {
+  .board > section { padding: 1.2rem 1.1rem; }
+  .how-grid, .faq-grid { margin: 0 -1.1rem -1.2rem; }
+  .skill-block { margin: 0 -1.1rem; }
+  .skill-block:last-child { margin-bottom: -1.2rem; }
+}
