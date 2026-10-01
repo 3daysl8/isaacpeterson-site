@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSW Workers Compensation Reform Navigator</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white:          #ffffff;
+  --bg:             #F4F6F9;
+  --bg-mid:         #E8ECF2;
+  --border:         #E0E5EE;
+  --border-dark:    #C4CCDB;
+  --ink:            #0F1923;
+  --ink-mid:        #3D4A5C;
+  --ink-dim:        #6B7A8D;
+  --ink-mute:       #9BAABB;
+  --brand:          #1B4F8A;
+  --brand-dark:     #0f2744;
+  --brand-light:    #EDF2F9;
+  --brand-border:   #C8D8EE;
+  --sidebar-bg:     #0f2744;
+  --sidebar-hi:     #1a3358;
+  --sidebar-act:    #1B4F8A;
+  --sidebar-txt:    #A8BEDC;
+  --sidebar-head:   #DDEAF8;
+  --sidebar-bdr:    #ffffff15;
+  --success:        #1A7A45;
+  --success-bg:     #EAF5EE;
+  --success-border: #B8DFC6;
+  --warn:           #8A6010;
+  --warn-bg:        #FEF8E8;
+  --warn-border:    #F0D899;
+  --danger:         #A0202E;
+  --danger-bg:      #FDE8EA;
+  --font: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --shadow-sm: 0 1px 3px rgba(15,25,35,0.07), 0 1px 2px rgba(15,25,35,0.04);
+  --shadow-md: 0 4px 14px rgba(15,25,35,0.10), 0 2px 4px rgba(15,25,35,0.05);
+  --radius: 8px;
+}
+
+html, body { height: 100%; overflow: hidden; font-feature-settings: "kern" 1, "liga" 1; }
+body {
+  font-family: var(--font);
+  background: var(--bg); /* visible as gutter on ultra-wide screens */
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── App container — centres and caps the layout on ultra-wide screens ── */
+#app {
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--bg);
+}
+
+/* ── Skip to content (F-12 accessibility) ── */
+#skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--brand);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 0 0 6px 6px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 200;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+#skip-link:focus { top: 0; }
+
+/* ── HEADER ── */
+#header {
+  background: var(--white);
+  border-top: 3px solid var(--brand);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 64px;
+  gap: 12px;
+  position: relative;
+  z-index: 20;
+}
+
+#brand { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
+
+#brand-mark {
+  width: 38px; height: 38px;
+  background: var(--brand);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  user-select: none; flex-shrink: 0;
+}
+
+#brand-text { display: flex; flex-direction: column; gap: 2px; }
+#brand-name { font-size: 16px; font-weight: 700; color: var(--ink); letter-spacing: -0.4px; line-height: 1.15; }
+#brand-sub  { font-size: 11px; color: var(--ink-dim); }
+
+#mobile-controls { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+#filter-toggle-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg); border: 1px solid var(--border-dark);
+  border-radius: 7px; padding: 8px 14px;
+  font-family: var(--font); font-size: 13px; font-weight: 500; color: var(--ink-mid);
+  cursor: pointer; position: relative;
+}
+
+#filter-badge {
+  display: none; position: absolute; top: -5px; right: -5px;
+  background: var(--brand); color: #fff;
+  font-size: 9px; font-weight: 700; width: 17px; height: 17px;
+  border-radius: 50%; align-items: center; justify-content: center;
+  border: 2px solid var(--white);
+}
+
+/* ── Desktop date + meta band (F-10 last reviewed) ── */
+#header-band {
+  display: none;
+  background: #F7F9FC;
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: 36px;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.date-chip {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 4px; padding: 3px 10px;
+  font-size: 11px; color: var(--ink-dim); white-space: nowrap;
+}
+.date-chip strong { color: var(--ink-mid); font-weight: 600; }
+.date-chip.live { background: var(--success-bg); border-color: var(--success-border); color: var(--success); }
+.date-chip.live strong { color: #155c33; }
+.date-chip.reviewed { background: var(--brand-light); border-color: var(--brand-border); color: var(--brand); margin-left: auto; }
+
+/* ── Exempt worker notice (F-02) — collapsible on mobile ── */
+#exempt-notice {
+  background: var(--warn-bg);
+  border-bottom: 1px solid var(--warn-border);
+  padding: 0;
+  flex-shrink: 0;
+  display: block;
+  overflow: hidden; /* prevent content running off screen */
+}
+
+/* Collapsed summary row — always visible on mobile */
+#exempt-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden; /* contain flex children */
+  min-width: 0;
+}
+
+#exempt-icon {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+#exempt-summary-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4a3006;
+  flex: 1;
+  min-width: 0; /* allow flex item to shrink below content size */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#exempt-toggle {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: rgba(138,96,16,0.12);
+  color: var(--warn);
+  border: none; cursor: pointer;
+  font-size: 14px; font-family: var(--font);
+  transition: transform 0.2s, background 0.12s;
+  padding: 0;
+}
+#exempt-toggle:hover { background: rgba(138,96,16,0.22); }
+
+#exempt-notice.expanded #exempt-toggle { transform: rotate(180deg); }
+
+/* Full detail — hidden when collapsed */
+#exempt-detail {
+  display: none;
+  padding: 0 14px 10px 14px; /* reduced left indent, matches footer padding */
+}
+
+#exempt-notice.expanded #exempt-detail { display: block; }
+
+#exempt-full-text {
+  font-size: 12px;
+  color: #5a3e08;
+  line-height: 1.55;
+  margin-bottom: 6px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Bullet list — mobile inline, desktop structured */
+#exempt-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 6px;
+}
+#exempt-list li {
+  font-size: 12px;
+  color: #5a3e08;
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+  margin-bottom: 6px;
+}
+#exempt-list li:last-child { margin-bottom: 0; }
+#exempt-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--warn);
+  font-weight: 700;
+}
+
+#exempt-note {
+  font-size: 12px;
+  color: #5a3e08;
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+
+/* Short summary text — visible on mobile, hidden on desktop */
+#exempt-short { display: inline; }
+
+#exempt-full-text strong { font-weight: 700; color: #4a3006; }
+
+/* Desktop-only smart toggle button — hidden on mobile */
+#exempt-desktop-toggle {
+  display: none;
+}
+
+#exempt-link {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+  display: inline-block;
+  padding: 3px 9px;
+  background: var(--brand-light);
+  border: 1px solid var(--brand-border);
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+#exempt-link:hover { text-decoration: underline; }
+
+/* ── Mobile stage tabs ── */
+#mobile-stage-tabs {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 12px;
+  flex-shrink: 0;
+  display: flex; gap: 6px;
+  overflow-x: auto; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+#mobile-stage-tabs::-webkit-scrollbar { display: none; }
+
+.stage-tab {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: 20px; padding: 6px 13px;
+  font-family: var(--font); font-size: 12.5px; font-weight: 500;
+  color: var(--ink-dim); cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  transition: all 0.12s;
+}
+.stage-tab:active { transform: scale(0.97); }
+.stage-tab.active { background: var(--brand-dark); border-color: var(--brand-dark); color: var(--sidebar-head); font-weight: 600; }
+.stage-tab-count { font-size: 10.5px; background: rgba(255,255,255,0.15); border-radius: 10px; padding: 0 6px; }
+.stage-tab:not(.active) .stage-tab-count { background: var(--bg-mid); color: var(--ink-mute); }
+
+/* ── Mobile search bar ── */
+#mobile-search-bar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 8px 12px; flex-shrink: 0;
+  display: flex; gap: 8px; align-items: center;
+  position: relative; z-index: 30;
+}
+#mobile-search-wrap { position: relative; flex: 1; }
+.msearch-icon {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  color: var(--ink-mute); font-size: 15px; pointer-events: none;
+}
+#mobile-search {
+  width: 100%; background: var(--bg);
+  border: 1px solid var(--border-dark); border-radius: 7px;
+  padding: 10px 12px 10px 32px; color: var(--ink);
+  font-family: var(--font); font-size: 14px; outline: none; -webkit-appearance: none;
+}
+#mobile-search::placeholder { color: var(--ink-mute); }
+#mobile-search:focus { border-color: var(--brand); background: var(--white); }
+
+#mobile-expand-btn {
+  background: var(--bg); border: 1px solid var(--border-dark); border-radius: 7px;
+  padding: 10px 13px; color: var(--ink-mid);
+  font-family: var(--font); font-size: 12.5px; font-weight: 500;
+  cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  width: 25%;
+  text-align: center;
+}
+
+/* ── Mobile status ── */
+#mobile-status {
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 6px 12px; font-size: 11.5px; color: var(--ink-dim);
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap; flex-shrink: 0; min-height: 34px;
+}
+#mobile-status:empty { display: none; }
+
+.mobile-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--white); border: 1px solid var(--border-dark);
+  border-radius: 4px; padding: 2px 8px; font-size: 11.5px; color: var(--ink-mid);
+}
+.mobile-chip-x {
+  background: none; border: none; cursor: pointer;
+  color: var(--ink-mute); font-size: 15px; line-height: 1; padding: 0;
+}
+
+/* ── Layout ── */
+#layout { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+
+/* ── Sidebar ── */
+#sidebar {
+  display: none;
+  width: 224px; flex-shrink: 0;
+  background: var(--sidebar-bg);
+  flex-direction: column; overflow: hidden;
+}
+
+#sidebar-inner {
+  overflow-y: auto; flex: 1;
+  padding: 12px 0 12px;
+  scrollbar-width: thin; scrollbar-color: #2d4060 transparent;
+}
+
+/* Section labels — tinted background + separator so they read as structural headers */
+.sb-section-label {
+  padding: 8px 16px 7px;
+  font-size: 10px; font-weight: 800; letter-spacing: 1.3px;
+  text-transform: uppercase; color: #9ABBD4;
+  background: rgba(255,255,255,0.055);
+  border-top: 1px solid rgba(255,255,255,0.09);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  margin-bottom: 3px;
+}
+
+.sb-btn {
+  width: 100%; display: flex; align-items: center; gap: 9px;
+  padding: 9px 16px; background: transparent;
+  border: none; border-left: 3px solid transparent;
+  cursor: pointer; text-align: left; color: var(--sidebar-txt);
+  font-family: var(--font); font-size: 12.5px; line-height: 1.3;
+  transition: background 0.1s, color 0.1s;
+}
+.sb-btn:hover { background: var(--sidebar-hi); color: var(--sidebar-head); }
+.sb-btn.active { background: rgba(27,79,138,0.35); border-left-color: #6aA4e0; color: #ddeaf8; }
+.sb-btn:focus-visible { outline: 2px solid #6aA4e0; outline-offset: -2px; }
+
+/* Stage number pill — visually distinct from area label items */
+.sb-icon {
+  font-size: 9px; font-weight: 700; font-variant-numeric: tabular-nums;
+  color: #5A7898;
+  min-width: 24px; flex-shrink: 0; text-align: center;
+  background: rgba(255,255,255,0.07);
+  border-radius: 3px; padding: 2px 4px;
+}
+.sb-btn:hover .sb-icon { color: #8AAFD4; background: rgba(255,255,255,0.1); }
+.sb-btn.active .sb-icon { color: #6aA4e0; background: rgba(106,164,224,0.18); }
+
+.sb-label { flex: 1; }
+.sb-count { font-size: 10px; background: #0a1828; border-radius: 10px; padding: 1px 6px; color: #3d5070; flex-shrink: 0; }
+.sb-btn.active .sb-count { background: rgba(27,79,138,0.5); color: #7aA8d8; }
+
+/* Area dots — slightly larger, boosted vibrancy for dark background */
+.area-dot {
+  width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+  filter: saturate(1.5) brightness(1.25);
+}
+.sb-btn.active .area-dot { filter: saturate(1.7) brightness(1.35); }
+
+/* Divider reduced — section labels now carry the visual weight */
+.sb-divider { height: 1px; background: rgba(255,255,255,0.04); margin: 8px 0; }
+
+/* ── Main ── */
+#main { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+/* ── Desktop toolbar ── */
+#toolbar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 9px 20px; display: none; align-items: center;
+  gap: 8px; flex-wrap: wrap; flex-shrink: 0;
+}
+
+#search-wrap { position: relative; flex: 1; min-width: 160px; max-width: 300px; }
+.search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--ink-mute); font-size: 15px; pointer-events: none; }
+#search {
+  width: 100%; background: var(--bg); border: 1px solid var(--border-dark);
+  border-radius: 7px; padding: 8px 12px 8px 32px; color: var(--ink);
+  font-family: var(--font); font-size: 13px; outline: none; transition: border-color 0.15s, background 0.15s;
+}
+#search:focus { border-color: var(--brand); background: var(--white); }
+#search::placeholder { color: var(--ink-mute); }
+
+#stakeholder-select {
+  background: var(--bg); border: 1px solid var(--border-dark);
+  border-radius: 7px; padding: 8px 12px; color: var(--ink-mid);
+  font-family: var(--font); font-size: 13px; cursor: pointer; outline: none;
+}
+#stakeholder-select:focus { border-color: var(--brand); }
+
+#toolbar-right { display: flex; gap: 8px; margin-left: auto; }
+
+.toolbar-btn {
+  background: var(--bg); border: 1px solid var(--border-dark);
+  border-radius: 7px; padding: 8px 13px; color: var(--ink-mid);
+  font-family: var(--font); font-size: 12.5px; font-weight: 500;
+  cursor: pointer; white-space: nowrap; transition: background 0.1s;
+}
+.toolbar-btn:hover { background: var(--bg-mid); }
+.toolbar-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+/* Print button (F-16) */
+#print-btn {
+  background: var(--bg); border: 1px solid var(--border-dark);
+  border-radius: 7px; padding: 8px 13px; color: var(--ink-dim);
+  font-family: var(--font); font-size: 12.5px; font-weight: 500;
+  cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 6px;
+}
+#print-btn:hover { background: var(--bg-mid); }
+
+/* ── Status bar ── */
+#status-bar {
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 6px 20px; display: none; align-items: center;
+  gap: 6px; flex-wrap: wrap; flex-shrink: 0;
+}
+#status-bar.visible { display: flex; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--white); border: 1px solid var(--border-dark);
+  border-radius: 4px; padding: 3px 8px 3px 7px;
+  font-size: 11.5px; color: var(--ink-mid);
+}
+.chip-x { background: none; border: none; cursor: pointer; color: var(--ink-mute); font-size: 15px; line-height: 1; padding: 0; margin-left: 1px; }
+.chip-x:hover { color: var(--ink); }
+.chip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+#status-summary { font-size: 12px; color: var(--ink-dim); margin-left: auto; }
+
+/* ── Stage banner ── */
+#stage-banner {
+  background: var(--brand-light); border-bottom: 1px solid var(--brand-border);
+  padding: 9px 20px; flex-shrink: 0; display: none;
+  align-items: center; gap: 10px; flex-wrap: wrap;
+}
+#stage-banner.visible { display: flex; }
+#stage-banner-icon { font-size: 11px; font-weight: 700; color: var(--brand); background: #d4e4f8; border-radius: 4px; padding: 3px 7px; flex-shrink: 0; }
+#stage-banner-text { font-size: 12.5px; color: #1a3d74; font-weight: 500; flex: 1; }
+#stage-banner-meta { font-size: 11.5px; color: #4a6a9a; }
+
+/* ── Commencement notice (F-07) ── */
+#commence-notice {
+  background: var(--brand-light); border-bottom: 1px solid var(--brand-border);
+  padding: 7px 20px; flex-shrink: 0; display: none;
+  align-items: center; gap: 8px; font-size: 11.5px; color: #1a3d74;
+}
+#commence-notice.visible { display: flex; }
+#commence-notice a { color: var(--brand); font-weight: 600; text-decoration: none; }
+#commence-notice a:hover { text-decoration: underline; }
+
+/* ── Scroll area ── */
+#scroll-area { flex: 1; min-height: 0; overflow-y: auto; padding: 16px 14px 20px; -webkit-overflow-scrolling: touch; }
+#scroll-area:focus { outline: none; }
+
+/* ── No results ── */
+#no-results { display: none; text-align: center; padding: 60px 20px; color: var(--ink-mute); }
+#no-results p { font-size: 14px; margin-top: 10px; }
+
+/* ── Reform list — max-width for readable line length on wide screens ── */
+#reform-list { max-width: 820px; }
+
+/* ── Stage group headers ── */
+.stage-group { margin-bottom: 24px; }
+
+.stage-group-header {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--brand-light); border: 1px solid var(--brand-border);
+  border-radius: 6px; padding: 8px 14px; margin-bottom: 10px;
+}
+.sg-num { font-size: 10px; font-weight: 800; color: var(--brand); background: #d4e4f8; border-radius: 4px; padding: 2px 6px; flex-shrink: 0; }
+.sg-title { font-size: 11px; font-weight: 700; color: var(--brand); letter-spacing: 1.1px; text-transform: uppercase; flex: 1; }
+.sg-count { font-size: 10.5px; font-weight: 600; color: #fff; background: var(--brand); border-radius: 10px; padding: 2px 8px; flex-shrink: 0; }
+
+/* ── Reform cards ── */
+.reform-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-left-width: 5px; border-radius: var(--radius);
+  overflow: hidden; margin-bottom: 8px; box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s;
+}
+
+.card-btn {
+  width: 100%; background: none; border: none; cursor: pointer;
+  text-align: left; padding: 14px 16px 12px;
+  font-family: var(--font); display: block;
+  -webkit-tap-highlight-color: transparent;
+}
+.card-btn:hover { background: #FAFBFD; }
+.card-btn:active { background: #F5F7FB; }
+.card-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; border-radius: var(--radius); }
+
+.card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 9px; }
+
+.tag-area { font-size: 10.5px; font-weight: 600; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.2px; }
+
+/* F-13: outlined tags use dot + text, no colour-only dependency */
+.tag-outline {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10.5px; font-weight: 600; padding: 3px 8px; border-radius: 4px;
+  border: 1px solid var(--border-dark); background: transparent; color: var(--ink-mid);
+}
+.tdot { font-size: 8px; line-height: 1; flex-shrink: 0; }
+
+/* F-07: unconfirmed commencement tag */
+.tag-unconfirmed {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10.5px; font-weight: 600; padding: 3px 8px; border-radius: 4px;
+  background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn-border);
+}
+
+.card-row { display: flex; align-items: flex-start; gap: 10px; }
+.card-main { flex: 1; min-width: 0; }
+
+.card-title {
+  font-size: 15px; font-weight: 600; color: var(--ink);
+  line-height: 1.4; margin-bottom: 6px; letter-spacing: -0.1px;
+  transition: color 0.12s; max-width: 68ch;
+}
+
+.card-preview {
+  font-size: 13px; color: var(--ink-dim); line-height: 1.6; margin-bottom: 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  max-width: 72ch;
+}
+.card-preview.hidden { display: none; }
+
+.card-meta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.meta-date { font-size: 11.5px; color: var(--ink-dim); }
+.meta-date strong { color: var(--ink-mid); font-weight: 600; }
+.meta-bill { font-size: 11px; color: var(--ink-mute); }
+
+/* F-07: unconfirmed date note */
+.meta-date-note {
+  font-size: 10.5px; color: var(--warn); font-style: italic;
+  display: flex; align-items: center; gap: 3px;
+}
+
+.card-chevron {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--ink-mute); font-size: 14px;
+  background: var(--bg); transition: transform 0.2s, background 0.12s; margin-top: 2px;
+}
+.card-chevron.open { transform: rotate(180deg); }
+.card-btn:hover .card-chevron { background: var(--bg-mid); color: var(--ink-mid); }
+
+/* ── Card detail ── */
+.card-detail { display: none; }
+.card-detail.open { display: block; }
+
+/* Max-width on detail inner prevents sections stretching to full card width on large screens */
+.card-detail-inner { border-top: 1px solid var(--border); padding: 15px 16px 14px; max-width: 800px; }
+
+.applies-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 13px; align-items: center; }
+.applies-label { font-size: 10px; font-weight: 700; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.8px; }
+.applies-tag { font-size: 11.5px; padding: 2px 8px; border-radius: 4px; background: var(--bg); color: var(--ink-dim); border: 1px solid var(--border-dark); }
+
+.detail-sections { display: flex; flex-direction: column; gap: 7px; }
+
+.detail-section { border-radius: 6px; padding: 11px 13px; border: 1px solid var(--border); }
+.ds-what      { background: #F8F9FB; border-color: var(--border); }
+.ds-practical { background: #F5FAF6; border-color: #C0DCC8; }
+.ds-audit     { background: #F4F5FF; border-color: #C4C8EC; }
+.ds-interim   { background: #FEF8E8; border-color: #F0D899; }
+
+.detail-label { font-size: 11px; font-weight: 700; color: var(--ink-dim); letter-spacing: 0.4px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.dl-practical  { color: #2a6a45; }
+.dl-audit      { color: #3a48a0; }
+.dl-interim    { color: #7A5010; }
+
+.dl-icon { width: 16px; height: 16px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; }
+.dl-icon-what      { background: #DDE2EC; color: var(--ink-mid); }
+.dl-icon-practical { background: #C0E0CC; color: #1a5a35; }
+.dl-icon-audit     { background: #C8CCE8; color: #282e78; }
+.dl-icon-interim   { background: #F0D899; color: #7A5010; }
+
+/* Prose text — ch units scale with font size, ~72 chars keeps lines comfortable */
+.detail-text { font-size: 13px; color: var(--ink-mid); line-height: 1.75; max-width: 72ch; }
+
+.qa-row { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--border); }
+.qa-label { font-size: 10px; font-weight: 700; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.8px; }
+.qa-tag { font-size: 11px; padding: 3px 9px; border-radius: 4px; background: #EEEDF8; color: #4a3a8a; border: 1px solid #D0CDF0; font-weight: 500; }
+
+/* F-15: QA framework link */
+.qa-framework-link { font-size: 10.5px; color: var(--brand); text-decoration: none; margin-left: auto; padding: 2px 7px; background: var(--brand-light); border: 1px solid var(--brand-border); border-radius: 4px; }
+.qa-framework-link:hover { text-decoration: underline; }
+
+/* ── Mobile filter sheet ── */
+#sheet-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(15,25,35,0.4); z-index: 100;
+  animation: fadeIn 0.18s ease;
+}
+#sheet-overlay.visible { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+#filter-sheet {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--white); border-radius: 18px 18px 0 0;
+  z-index: 101; max-height: 80vh; overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.26s cubic-bezier(0.32, 0, 0.67, 0);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+#filter-sheet.open { transform: translateY(0); transition: transform 0.28s cubic-bezier(0.33, 1, 0.68, 1); }
+
+#sheet-handle { display: flex; justify-content: center; padding: 14px 0 4px; cursor: pointer; }
+#sheet-handle-bar { width: 40px; height: 5px; background: var(--border-dark); border-radius: 3px; }
+
+#sheet-header { display: flex; align-items: center; justify-content: space-between; padding: 6px 18px 13px; border-bottom: 1px solid var(--border); }
+#sheet-title { font-size: 16px; font-weight: 700; color: var(--ink); }
+#sheet-close { background: var(--bg); border: 1px solid var(--border); border-radius: 7px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--ink-dim); }
+
+#sheet-body { padding: 18px 18px 8px; }
+.sheet-section { margin-bottom: 22px; }
+.sheet-section-label { font-size: 11px; font-weight: 700; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 11px; }
+
+#sheet-stakeholder-options { display: flex; flex-wrap: wrap; gap: 8px; }
+#sheet-area-options { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.sh-pill { background: var(--bg); border: 1.5px solid var(--border-dark); border-radius: 22px; padding: 8px 16px; font-family: var(--font); font-size: 13.5px; font-weight: 500; color: var(--ink-mid); cursor: pointer; transition: all 0.12s; }
+.sh-pill:active { transform: scale(0.96); }
+.sh-pill.active { background: var(--brand-dark); border-color: var(--brand-dark); color: var(--sidebar-head); font-weight: 600; }
+.sh-pill:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.area-pill { display: flex; align-items: center; gap: 7px; background: var(--bg); border: 1.5px solid var(--border-dark); border-radius: 22px; padding: 8px 16px; font-family: var(--font); font-size: 13.5px; font-weight: 500; color: var(--ink-mid); cursor: pointer; transition: all 0.12s; }
+.area-pill:active { transform: scale(0.96); }
+.area-pill.active { color: #fff; font-weight: 600; }
+.area-pill-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.area-pill:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+#sheet-apply { width: 100%; background: var(--brand); color: #fff; border: none; border-radius: 10px; padding: 15px; font-family: var(--font); font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 4px; letter-spacing: -0.1px; }
+#sheet-apply:active { background: var(--brand-dark); }
+#sheet-apply:focus-visible { outline: 2px solid #6aA4e0; outline-offset: 2px; }
+
+/* ── Footer — fixed at viewport bottom, always visible ── */
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 7px 18px;
+  font-size: 10.5px;
+  color: var(--ink-mute);
+}
+
+#footer-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+#footer-sources-label {
+  font-size: 10px; font-weight: 700; color: var(--ink-mute);
+  text-transform: uppercase; letter-spacing: 0.6px; margin-right: 2px;
+}
+
+.footer-src { font-size: 10.5px; color: var(--brand); text-decoration: none; }
+.footer-src:hover { text-decoration: underline; }
+
+/* Disclaimer — hidden by default, shown on desktop via media query */
+#footer-disclaimer {
+  display: none;
+  font-size: 10.5px; color: var(--ink-mute); line-height: 1.55;
+  padding-top: 5px; border-top: 1px solid var(--border);
+}
+#footer-disclaimer p { margin: 0 0 5px 0; }
+#footer-disclaimer p:last-child { margin-bottom: 0; }
+#footer-disclaimer strong { color: var(--ink-dim); }
+#footer-disclaimer a { color: var(--brand); }
+
+/* Toggle — hidden by default, shown on mobile via media query */
+#footer-disclaimer-toggle {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 5px 0 0;
+  cursor: pointer;
+  font-family: var(--font);
+  text-align: left;
+}
+#footer-disclaimer-toggle:hover #footer-disclaimer-chevron { background: var(--bg-mid); color: var(--ink-mid); }
+
+#footer-disclaimer-toggle-label {
+  font-size: 11px; font-weight: 700; color: var(--ink-dim); flex: 1;
+}
+
+/* Circular chevron — matches card expand toggles */
+#footer-disclaimer-chevron {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: var(--bg);
+  color: var(--ink-mute);
+  font-size: 14px;
+  transition: transform 0.2s, background 0.12s;
+}
+
+#footer.disclaimer-open #footer-disclaimer-chevron { transform: rotate(180deg); }
+#footer.disclaimer-open #footer-disclaimer { display: block; }
+
+/* Desktop smart toggle — hidden on mobile */
+#footer-desktop-toggle { display: none; }
+
+/* Collapsed bar — hidden by default, shown only in footer-collapsed state */
+#footer-collapsed-bar {
+  display: none;
+  font-size: 10.5px; color: var(--ink-mute);
+  cursor: pointer; flex: 1;
+}
+#footer-collapsed-bar:hover { color: var(--ink-dim); }
+
+/* ── Scrollbars ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 3px; }
+#sidebar-inner::-webkit-scrollbar-thumb { background: #2d4060; }
+
+/* ── Focus visible global ── */
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+/* ── Desktop ≥ 768px ── */
+@media (min-width: 768px) {
+  #header               { height: 68px; padding: 0 22px; }
+  #header-band          { display: flex; }
+  #mobile-controls      { display: none; }
+  #mobile-stage-tabs    { display: none; }
+  #mobile-search-bar    { display: none; }
+  #mobile-status        { display: none; }
+  #sidebar              { display: flex; }
+  #toolbar              { display: flex; }
+  #scroll-area          { padding: 18px 22px 20px; }
+  #sheet-overlay,
+  #filter-sheet         { display: none !important; }
+  .reform-card:hover    { box-shadow: var(--shadow-md); }
+  .card-btn:hover .card-title { color: var(--brand); }
+  /* ── Scope limitation notice — single column, smart toggle ── */
+  /* Expanded (default): stacked column, symmetrical padding, relative for abs button */
+  #exempt-notice        { display: block; position: relative; padding: 20px; }
+
+  /* Header row: icon + heading, padded right to clear the Hide button */
+  #exempt-summary {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    cursor: default;
+    padding: 0 80px 10px 0;
+    border-right: none;
+    width: auto;
+    overflow: visible;
+    min-width: 0;
+  }
+  #exempt-icon          { font-size: 16px; display: inline; flex-shrink: 0; margin-bottom: 0; }
+  #exempt-summary-text  { display: block; white-space: normal; overflow: visible; min-width: 0; }
+  #exempt-heading strong { font-size: 14px; font-weight: 800; color: #4a3006; letter-spacing: -0.2px; }
+  #exempt-short         { display: none; }
+  #exempt-toggle        { display: none; }
+
+  /* Content block below heading — full width, no extra padding */
+  #exempt-detail        { display: block !important; padding: 0; min-width: 0; }
+  #exempt-full-text     { font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
+  #exempt-list          { margin-bottom: 0; }
+  #exempt-list li       { font-size: 13px; line-height: 1.5; margin-bottom: 6px; padding: 0 0 0 14px; }
+  #exempt-list li:last-child { margin-bottom: 0; }
+  #exempt-note          { font-size: 13px; line-height: 1.5; margin-bottom: 0; }
+  #exempt-link          { display: inline-block; margin-top: 10px; }
+
+  /* Smart toggle — absolute, top-right corner of the amber box */
+  #exempt-desktop-toggle {
+    display: flex;
+    position: absolute;
+    top: 14px; right: 14px;
+    align-items: center;
+    margin: 0;
+    padding: 4px 10px;
+    background: rgba(138,96,16,0.10);
+    border: 1px solid var(--warn-border);
+    border-radius: 4px;
+    font-size: 11px; font-weight: 700; color: var(--warn);
+    cursor: pointer; font-family: var(--font); white-space: nowrap;
+    transition: background 0.12s;
+  }
+  #exempt-desktop-toggle:hover { background: rgba(138,96,16,0.18); }
+
+  /* ── Collapsed (smart toggle) state — compact single bar ── */
+  #exempt-notice.exempt-collapsed { display: flex; flex-direction: row; align-items: center; padding: 0; }
+  #exempt-notice.exempt-collapsed #exempt-summary {
+    flex: 1; flex-direction: row; align-items: center;
+    padding: 9px 14px; cursor: pointer; gap: 8px; border-right: none; width: auto;
+  }
+  #exempt-notice.exempt-collapsed #exempt-summary:hover { background: rgba(255,255,255,0.06); }
+  #exempt-notice.exempt-collapsed #exempt-icon          { font-size: 13px; display: inline; margin-bottom: 0; flex-shrink: 0; }
+  #exempt-notice.exempt-collapsed #exempt-summary-text  { display: block; }
+  #exempt-notice.exempt-collapsed #exempt-heading strong { font-size: 12px; }
+  #exempt-notice.exempt-collapsed #exempt-short  { display: inline; color: #5a3e08; font-weight: 400; font-size: 12px; }
+  #exempt-notice.exempt-collapsed #exempt-detail { display: none !important; }
+  #exempt-notice.exempt-collapsed #exempt-desktop-toggle {
+    position: static; margin: 0 12px 0 0; align-self: center;
+  }
+  /* Commencement notice visible on desktop when needed */
+  #commence-notice      { display: none; }
+  #commence-notice.visible { display: flex; }
+  /* Footer — desktop: align with sidebar, flex row so button sits alongside content */
+  #footer               { left: 224px; padding: 8px 22px; display: flex; flex-direction: row; align-items: flex-start; gap: 10px; }
+  #footer-main          { flex: 1; min-width: 0; }
+  #footer-disclaimer    { display: block; }
+  #footer-disclaimer-toggle { display: none; }
+  /* Scroll area bottom padding clears the fixed footer */
+  #scroll-area          { padding: 18px 22px 90px; }
+  /* Desktop smart toggle — flex sibling, always top-right */
+  #footer-desktop-toggle {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+    padding: 4px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    font-size: 11px; font-weight: 700;
+    color: var(--ink-dim);
+    cursor: pointer; font-family: var(--font);
+    white-space: nowrap;
+    transition: background 0.12s;
+  }
+  #footer-desktop-toggle:hover { background: var(--bg-mid); color: var(--ink-mid); }
+  /* Collapsed state */
+  #footer.footer-collapsed                        { align-items: center; padding: 7px 22px; }
+  #footer.footer-collapsed #footer-main           { display: flex; align-items: center; gap: 0; }
+  #footer.footer-collapsed #footer-sources        { display: none; }
+  #footer.footer-collapsed #footer-disclaimer     { display: none !important; }
+  #footer.footer-collapsed #footer-collapsed-bar  { display: inline; }
+  #footer.footer-collapsed #footer-desktop-toggle { margin-top: 0; align-self: center; }
+}
+
+@media (min-width: 1100px) {
+  #sidebar { width: 232px; }
+  #footer  { left: 232px; }
+}
+
+/* ── Ultra-wide: keep footer inside the centred 1400px container ── */
+@media (min-width: 1401px) {
+  #footer {
+    left:  calc((100vw - 1400px) / 2 + 232px);
+    right: calc((100vw - 1400px) / 2);
+  }
+}
+
+/* ── Mobile-only overrides ── */
+@media (max-width: 767px) {
+  #commence-notice { display: none !important; }
+  #header { height: 56px; }
+  #scroll-area { padding: 16px 14px 80px; }
+  #footer { padding: 7px 14px; }
+  #footer-sources { display: none; }
+  #footer-disclaimer-toggle { display: flex; }
+  #footer.disclaimer-open #footer-sources {
+    display: flex; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border);
+  }
+  #footer-disclaimer-heading { display: none; }
+  /* Search 75% / Expand all 25% */
+  #mobile-search-wrap { flex: none; width: 75%; }
+}
+
+/* ── Print stylesheet (F-16) ── */
+@media print {
+  #skip-link, #mobile-controls, #mobile-stage-tabs, #mobile-search-bar,
+  #mobile-status, #sidebar, #toolbar, #status-bar, #stage-banner,
+  #commence-notice, #sheet-overlay, #filter-sheet,
+  .card-chevron, .toolbar-btn, #print-btn { display: none !important; }
+
+  html, body { height: auto; overflow: visible; background: #fff; }
+  #layout { display: block; overflow: visible; }
+  #main  { overflow: visible; display: block; }
+  #scroll-area { overflow: visible; padding: 0; height: auto; }
+  body { display: block; }
+
+  #header { border-top: 3px solid #1B4F8A; height: auto; padding: 12px 20px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #header-band { display: flex !important; height: auto; padding: 6px 20px; -webkit-print-color-adjust: exact; }
+  #exempt-notice { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .reform-card { break-inside: avoid; box-shadow: none; margin-bottom: 12px; border: 1px solid #ddd; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .card-detail { display: block !important; }
+  .card-preview { display: none !important; }
+  .stage-group-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .tag-area, .tag-outline, .tag-on, .tag-unconfirmed { -webkit-print-color-adjust: exact; }
+
+  #footer { position: static; border-top: 1px solid #ddd; font-size: 9px; left: 0; }
+
+  @page { margin: 1.5cm; }
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+<!-- F-12: Skip to content -->
+<a href="#reform-list" id="skip-link">Skip to content</a>
+
+<!-- ── HEADER ── -->
+<div id="header" role="banner">
+  <div id="brand">
+    <div id="brand-mark" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="8.5" cy="8.5" r="5.25" stroke="white" stroke-width="2" fill="none"/>
+      <line x1="12.5" y1="12.5" x2="17" y2="17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+    <div id="brand-text">
+      <div id="brand-name">NSW WC Reform Navigator</div>
+      <div id="brand-sub">Workers Compensation · Bills 1 &amp; 2, 2025–2026</div>
+    </div>
+  </div>
+  <div id="mobile-controls">
+    <button id="filter-toggle-btn" onclick="openSheet()" aria-label="Open filters" aria-haspopup="dialog">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" style="flex-shrink:0">
+        <path d="M1 3h12M3 7h8M5 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Filters
+      <span id="filter-badge" aria-live="polite" aria-label="active filters"></span>
+    </button>
+  </div>
+</div>
+
+<!-- ── DESKTOP DATE BAND (F-10: last reviewed) ── -->
+<div id="header-band" role="complementary" aria-label="Key dates">
+  <div class="date-chip">Bill 1 passed &nbsp;<strong>18 Nov 2025</strong></div>
+  <div class="date-chip">Bill 2 passed &nbsp;<strong>4 Feb 2026</strong></div>
+  <div class="date-chip live">Commenced &nbsp;<strong>27 Mar 2026</strong></div>
+  <div class="date-chip">Expected changes &nbsp;<strong>1 Jul 2026</strong></div>
+  <div class="date-chip reviewed">Content reviewed: <strong>June 2026</strong></div>
+</div>
+
+<!-- ── MOBILE STAGE TABS ── -->
+<nav id="mobile-stage-tabs" aria-label="Filter by claim stage"></nav>
+
+<!-- ── MOBILE SEARCH BAR ── -->
+<div id="mobile-search-bar">
+  <div id="mobile-search-wrap">
+    <span class="msearch-icon" aria-hidden="true">⌕</span>
+    <input id="mobile-search" type="search" placeholder="Search reforms..." autocomplete="off" aria-label="Search reforms">
+  </div>
+  <button id="mobile-expand-btn" onclick="toggleExpandAll()" aria-label="Expand all reform cards">Expand all</button>
+</div>
+
+<!-- ── MOBILE STATUS ── -->
+<div id="mobile-status" aria-live="polite"></div>
+
+<!-- ── LAYOUT ── -->
+<div id="layout">
+
+  <!-- Sidebar -->
+  <nav id="sidebar" aria-label="Filter navigation">
+    <div id="sidebar-inner">
+      <div class="sb-section-label" id="stage-nav-label">Claim Stage</div>
+      <div id="stage-nav" role="group" aria-labelledby="stage-nav-label"></div>
+      <div class="sb-divider"></div>
+      <div class="sb-section-label" id="area-nav-label">Reform Area</div>
+      <div id="area-nav" role="group" aria-labelledby="area-nav-label"></div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main id="main">
+
+    <!-- Desktop toolbar -->
+    <div id="toolbar" role="search">
+      <div id="search-wrap">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="search" type="text" placeholder="Search reforms..." aria-label="Search reforms">
+      </div>
+      <label for="stakeholder-select" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden">Filter by stakeholder</label>
+      <select id="stakeholder-select" aria-label="Filter by stakeholder"></select>
+      <div id="toolbar-right">
+        <button class="toolbar-btn" id="expand-all-btn" onclick="toggleExpandAll()" aria-label="Expand all cards">Expand all</button>
+        <button class="toolbar-btn" id="clear-btn" style="display:none" onclick="clearAllFilters()" aria-label="Clear all filters">Clear filters</button>
+        <button id="print-btn" onclick="printView()" aria-label="Print or save as PDF">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <rect x="1" y="4" width="11" height="7" rx="1" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M3 4V2h7v2" stroke="currentColor" stroke-width="1.3"/>
+            <rect x="3" y="7" width="7" height="4" fill="currentColor" opacity="0.2"/>
+          </svg>
+          Print / PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- ── SCOPE LIMITATION NOTICE — two-column on desktop, collapsible on mobile ── -->
+    <div id="exempt-notice" role="note" aria-label="Scope limitation">
+      <div id="exempt-summary" onclick="toggleExempt()" aria-expanded="false" aria-controls="exempt-detail">
+        <span id="exempt-icon" aria-hidden="true">⚠</span>
+        <span id="exempt-summary-text">
+          <span id="exempt-heading"><strong>Scope limitation</strong></span>
+          <span id="exempt-short"> — exempt workers, coal miners &amp; volunteers excluded</span>
+        </span>
+        <button id="exempt-toggle" aria-label="Expand scope limitation details" aria-hidden="true">▾</button>
+      </div>
+      <div id="exempt-detail" aria-live="polite">
+        <p id="exempt-full-text">These reforms apply to workers covered under the NSW Workers Compensation Acts. They do not apply to:</p>
+        <ul id="exempt-list">
+          <li>Exempt workers (police officers, paramedics, firefighters)</li>
+          <li>Coal miners</li>
+          <li>Volunteers</li>
+        </ul>
+        <p id="exempt-note">Practitioners managing claims in these sectors must refer to the relevant exempt worker provisions.</p>
+        <a href="https://www.sira.nsw.gov.au/workers-compensation/workers-compensation-reform-faqs" target="_blank" rel="noopener" id="exempt-link">SIRA FAQ ↗</a>
+      </div>
+      <!-- Desktop-only smart toggle — hidden on mobile -->
+      <button id="exempt-desktop-toggle" onclick="toggleExemptDesktop()" aria-label="Hide scope limitation details">Hide ▲</button>
+    </div>
+
+    <!-- Desktop status chips -->
+    <div id="status-bar" aria-live="polite"></div>
+
+    <!-- Commencement notice (F-07) -->
+    <div id="commence-notice" role="note">
+      <span aria-hidden="true">ℹ</span>
+      <span>Commencement dates shown as <strong>1 July 2026</strong> are expected but subject to NSW Government confirmation. Check the
+        <a href="https://www.sira.nsw.gov.au/workers-compensation/workers-compensation-reform-faqs" target="_blank" rel="noopener">SIRA Reform FAQ</a>
+        for the current position before relying on these dates.
+      </span>
+    </div>
+
+    <!-- Stage context banner -->
+    <div id="stage-banner" role="status">
+      <span id="stage-banner-icon" aria-hidden="true"></span>
+      <span id="stage-banner-text"></span>
+      <span id="stage-banner-meta"></span>
+    </div>
+
+    <!-- Content -->
+    <div id="scroll-area" tabindex="-1">
+      <div id="no-results" role="status" aria-live="polite">
+        <p style="font-size:32px;color:var(--border-dark)" aria-hidden="true">◎</p>
+        <p>No reforms match your current filters.</p>
+      </div>
+      <div id="reform-list"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer id="footer" role="contentinfo">
+  <div id="footer-main">
+    <div id="footer-sources">
+      <span id="footer-sources-label">Sources</span>
+      <a href="https://www.sira.nsw.gov.au/workers-compensation/workers-compensation-reform-faqs" target="_blank" rel="noopener" class="footer-src">SIRA Reform FAQ</a>
+      <span style="color:var(--border-dark)">·</span>
+      <a href="https://www.icare.nsw.gov.au/employers/employer-obligations/workers-compensation-reform-faqs" target="_blank" rel="noopener" class="footer-src">icare Reform FAQ</a>
+      <span style="color:var(--border-dark)">·</span>
+      <a href="https://www.legislation.nsw.gov.au/" target="_blank" rel="noopener" class="footer-src">legislation.nsw.gov.au</a>
+      <span style="color:var(--border-dark)">·</span>
+      <a href="https://www.hsfkramer.com/notes/employment/2026-posts/australia-significant-reforms-to-the-nsw-compensation-scheme-passed" target="_blank" rel="noopener" class="footer-src">Herbert Smith Freehills (Feb 2026)</a>
+      <span style="color:var(--border-dark)">·</span>
+      <a href="https://global.lockton.com/au/en/news-insights/nsw-workers-compensation-reforms-second-reform-bill-passed-providing-further" target="_blank" rel="noopener" class="footer-src">Lockton (Feb 2026)</a>
+    </div>
+    <button id="footer-disclaimer-toggle" onclick="toggleDisclaimer()" aria-expanded="false" aria-controls="footer-disclaimer">
+      <span id="footer-disclaimer-toggle-label">Disclaimer</span>
+      <span id="footer-disclaimer-chevron" aria-hidden="true">▾</span>
+    </button>
+    <div id="footer-disclaimer" role="note">
+      <p id="footer-disclaimer-heading"><strong>Disclaimer</strong></p>
+      <p>This tool is for general information and educational reference only. It does not constitute legal advice and must not replace independent legal or professional advice.</p>
+      <p>Content reflects publicly available information about the <em>Workers Compensation Legislation Amendment Act 2025 (NSW)</em> and the <em>Workers Compensation Legislation Amendment (Reform and Modernisation) Act 2025 (NSW)</em> as at June 2026. Commencement dates are subject to NSW Government confirmation. These reforms do not apply to exempt workers, coal miners, or volunteers — refer to <a href="https://www.sira.nsw.gov.au" target="_blank" rel="noopener">SIRA</a> and <a href="https://www.icare.nsw.gov.au" target="_blank" rel="noopener">icare</a> for current guidance.</p>
+      <p>No warranty is made as to the accuracy, completeness or currency of this information. Legislative provisions, regulatory guidance and court decisions may change without notice. Where any inconsistency exists, official legislation, regulations and regulator guidance prevail. Always verify against current official sources before relying on this information.</p>
+      <p>External links are provided for convenience only. The publisher does not endorse or accept responsibility for third-party content. Portions of this tool used AI assistance for content organisation and presentation. To the maximum extent permitted by law, the publisher excludes all liability for any loss, damage, cost or expense arising from use of or reliance on this information.</p>
+    </div>
+    <div id="footer-collapsed-bar" onclick="if(window.innerWidth>=768)toggleFooterDesktop()" role="button" tabindex="0" aria-label="Show disclaimer details">
+      General information only. Not legal advice. Verify against official legislation and regulator guidance.
+    </div>
+  </div>
+  <!-- Desktop smart toggle — hidden on mobile -->
+  <button id="footer-desktop-toggle" onclick="toggleFooterDesktop()" aria-label="Hide disclaimer details">Hide ▲</button>
+</footer>
+
+</div><!-- /#app -->
+
+<!-- ── MOBILE FILTER SHEET (F-12: ARIA dialog) ── -->
+<div id="sheet-overlay" onclick="closeSheet()" aria-hidden="true"></div>
+<div id="filter-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+  <div id="sheet-handle" onclick="closeSheet()" aria-hidden="true">
+    <div id="sheet-handle-bar"></div>
+  </div>
+  <div id="sheet-header">
+    <span id="sheet-title">Filter Reforms</span>
+    <button id="sheet-close" onclick="closeSheet()" aria-label="Close filters">✕</button>
+  </div>
+  <div id="sheet-body">
+    <div class="sheet-section">
+      <div class="sheet-section-label" id="stage-options-label">Claim Stage</div>
+      <div id="sheet-stage-options" role="group" aria-labelledby="stage-options-label"></div>
+    </div>
+    <div class="sheet-section">
+      <div class="sheet-section-label" id="sh-options-label">Stakeholder</div>
+      <div id="sheet-stakeholder-options" role="group" aria-labelledby="sh-options-label"></div>
+    </div>
+    <div class="sheet-section">
+      <div class="sheet-section-label" id="area-options-label">Reform Area</div>
+      <div id="sheet-area-options" role="group" aria-labelledby="area-options-label"></div>
+    </div>
+    <button id="sheet-apply" onclick="clearAllFilters();closeSheet()">Clear Filters</button>
+  </div>
+</div>
+
+<script>
+/* ── DATA ───────────────────────────────────────────────────────── */
+
+const STAGES = [
+  { id:"all",              label:"All Stages",               icon:"◈"  },
+  { id:"pre-injury",       label:"Pre-Injury & Premium",     icon:"01" },
+  { id:"notification",     label:"Injury Notification",      icon:"02" },
+  { id:"liability",        label:"Liability Decision",       icon:"03" },
+  { id:"rtw",              label:"RTW & Injury Mgmt",        icon:"04" },
+  { id:"weekly-benefits",  label:"Weekly Benefits",          icon:"05" },
+  { id:"medical",          label:"Medical Treatment",        icon:"06" },
+  { id:"impairment",       label:"Permanent Impairment",     icon:"07" },
+  { id:"damages",          label:"Work Injury Damages",      icon:"08" },
+  { id:"disputes",         label:"Dispute Resolution",       icon:"09" },
+  { id:"closure",          label:"Claim Closure",            icon:"10" },
+];
+
+const STAKEHOLDERS = [
+  { id:"all",           label:"All Stakeholders" },
+  { id:"employer",      label:"Employer" },
+  { id:"insurer",       label:"Insurer / CSP" },
+  { id:"rtw-coord",     label:"RTW Coordinator" },
+  { id:"injury-mgr",    label:"Injury Manager" },
+  { id:"self-insurer",  label:"Self-Insurer" },
+  { id:"worker",        label:"Worker" },
+];
+
+const REFORM_AREAS = [
+  { id:"all",       label:"All Areas",                color:"#6b7a90" },
+  { id:"psych",     label:"Psych Injury",             color:"#c0394a" },
+  { id:"benefits",  label:"Benefits",                 color:"#b07a1a" },
+  { id:"disputes",  label:"Disputes",                 color:"#7256c0" },
+  { id:"rtw",       label:"RTW & Recovery",           color:"#2a8a60" },
+  { id:"premium",   label:"Premium & Costs",          color:"#2a61c9" },
+  { id:"wpi",       label:"WPI & Impairment",         color:"#c06020" },
+  { id:"medical",   label:"Medical Treatment",        color:"#1a8a9a" },
+];
+
+// F-07: flag for unconfirmed commencement dates
+const UNCONFIRMED_DATE = "1 July 2026 (expected)";
+
+const REFORMS = [
+  /* 1 */ {
+    id:1, stage:"pre-injury", stageName:"Pre-Injury & Premium",
+    reformArea:"premium", reformAreaLabel:"Premium & Costs",
+    title:"Nominal Insurer Premium Rate Freeze",
+    bill:"Bill 2 — Reform and Modernisation",
+    effectiveDate:"30 Jun 2026 – 30 Jun 2028", commenced:true, dateConfirmed:true,
+    applicableTo:["employer","insurer","self-insurer"],
+    what:"icare must not file premiums with SIRA that would increase the target collection rate above the 2025–26 level of 1.99%. The freeze applies for the 2026–27 and 2027–28 policy years.",
+    practical:"Individual employer premiums can still change — wage increases, business activity changes, or claims experience can all affect the final amount. The freeze is scheme-wide, not a guarantee on each employer's bill. Review renewal notices closely and challenge any increases that cannot be attributed to those three factors.",
+    auditNote:"SIRA will monitor icare's premium filings for compliance with the freeze mechanism. Employers should retain documentation of any premium changes to confirm they align with the approved premium-setting method filed with SIRA.",
+    auditThemes:["Claim Management","Data Accuracy"], impact:"medium" },
+
+  /* 2 — F-04: commencement date updated */ {
+    id:2, stage:"pre-injury", stageName:"Pre-Injury & Premium",
+    reformArea:"premium", reformAreaLabel:"Premium & Costs",
+    title:"New Employer Excess at Claim Commencement",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:"Claims under policies issued or renewed from 4:00pm, 30 Jun 2026",
+    commenced:false, dateConfirmed:true,
+    applicableTo:["employer","insurer","self-insurer"],
+    what:"A fixed excess requires employers to fund up to two weeks of income support at the start of a claim. The commencement trigger is confirmed: the excess applies to all claims made under Nominal Insurer policies issued or renewed on or after 4:00pm on 30 June 2026. The exact excess amount is subject to regulation.",
+    practical:"Employers need to account for this upfront liability in payroll and cost centre planning now, even though the amount is not yet prescribed. Self-insurers must ensure claims protocols trigger the correct excess payment at acceptance. Finance teams should be briefed and systems configured before 30 June 2026.",
+    auditNote:"icare audit theme: Payments. The QA framework will check that excess amounts are correctly applied at the claim start point. Auditors will verify that neither employers nor insurers are incorrectly charged or exempted based on policy issue or renewal date.",
+    auditThemes:["Payments","Claim Management"], impact:"high" },
+
+  /* 3 — F-06: relevant event definition expanded */ {
+    id:3, stage:"notification", stageName:"Injury Notification",
+    reformArea:"psych", reformAreaLabel:"Psychological Injury",
+    title:"Relevant Event Test — New Gateway for Psychological Claims",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["employer","insurer","self-insurer","injury-mgr","rtw-coord","worker"],
+    what:"A primary psychological injury is only compensable if it arises from a defined 'relevant event'. Conduct events include bullying, excessive work demands (defined as demands beyond the worker's role, repeated or persistent, and unreasonable in the circumstances), racial harassment, and sexual harassment. Traumatic events include: experiencing or being threatened with violence; witnessing a traumatic incident or a dead or seriously injured person at the scene; experiencing vicarious trauma within the legislative definition; or being involved in a serious workplace accident. Additional events may be prescribed by regulation. General work stress and interpersonal conflict are excluded.",
+    practical:"Injury managers and claims teams must classify the type of event at notification — conduct or traumatic. Claims presenting as generalised stress or poor workplace relationships without a qualifying event will not meet the gateway. Note that conduct claims and traumatic event claims follow different insurer obligation pathways: see the separate Liability Decision cards for each.",
+    auditNote:"SIRA audit theme: Liability. Insurers must demonstrate the relevant event test was applied consistently at lodgment and that the correct claim type (conduct or traumatic) was recorded. SIRA's supervision plan flags inconsistent liability decision-making as a priority concern.",
+    auditThemes:["Liability","Initial Stakeholder Contact"], impact:"high" },
+
+  /* 4 */ {
+    id:4, stage:"notification", stageName:"Injury Notification",
+    reformArea:"psych", reformAreaLabel:"Psychological Injury",
+    title:"Employment Must Be the Main Contributing Factor",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["employer","insurer","self-insurer","injury-mgr"],
+    what:"Employment must be the main contributing factor to a primary psychological injury — a higher standard than the previous 'significant contributing factor' test. This requires an objective weighing of all contributing factors at the liability stage.",
+    practical:"Investigations need to actively assess and document all contributing factors — personal circumstances, pre-existing conditions, non-work stressors — and weigh them against employment contribution. A claim with prominent personal life factors is more likely to be declined under this test.",
+    auditNote:"SIRA audits will look for documented causal analysis, not just symptom confirmation. A file that accepts liability without demonstrating the weighing process will be a finding.",
+    auditThemes:["Liability"], impact:"high" },
+
+  /* 5 */ {
+    id:5, stage:"notification", stageName:"Injury Notification",
+    reformArea:"psych", reformAreaLabel:"Psychological Injury",
+    title:"Reasonable Management Action Defence Strengthened",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["employer","insurer","self-insurer","injury-mgr"],
+    what:"Compensation is not payable where reasonable management action, taken reasonably, is the significant cause of the psychological injury. The defence applies where both the action itself and the manner in which it was taken were reasonable. Corresponding amendments were made to Section 11A of the Workers Compensation Act 1987 (NSW).",
+    practical:"Evidence gathering at notification is critical. Employers and insurers should document performance reviews, restructuring communications, disciplinary processes, and management decisions contemporaneously. The manner of delivery matters as much as the action — a justified performance management process conducted aggressively may not sustain the defence.",
+    auditNote:"SIRA audit theme: Liability. Insurers need to show the defence was actively considered and either applied or ruled out with documented reasoning. Blanket acceptance without analysis will not withstand scrutiny.",
+    auditThemes:["Liability","Strategic Planning"], impact:"high" },
+
+  /* 6 — F-01: interim payments added */ {
+    id:6, stage:"liability", stageName:"Liability Decision",
+    reformArea:"psych", reformAreaLabel:"Psychological Injury",
+    title:"42-Day Liability Decision Window — Conduct Claims",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer","injury-mgr"],
+    what:"Insurers must determine liability for conduct-based psychological injury claims (bullying, harassment, excessive work demands) within 42 days of lodgment. During the 42-day assessment period, workers are legally entitled to interim weekly payments at 75% of PIAWE, regardless of the final liability outcome. Workers can also access up to $7,500 in reasonable and necessary medical treatment during this period. If no liability decision is made within 42 days, the claim may be deemed accepted.",
+    practical:"The 42-day window and the interim payment obligations must be managed in parallel from day one. Payment processing must be configured to commence interim payments immediately at lodgment — not after the liability decision. PIAWE calculations should be prepared at notification. Claims teams must triage conduct-based psychological injury claims immediately and assign investigative resources at the first contact. Delays in requesting employer information are the single biggest risk to the 42-day deadline.",
+    auditNote:"This is one of SIRA's primary audit focuses. The icare Supervision Plan identifies extended liability decision timeframes and incorrect interim payment processing as compliance risks. Both the 42-day decision and the interim payment obligations are auditable separately. Late decisions and unpaid interim entitlements will each be reportable findings.",
+    auditThemes:["Liability","Payments","Initial Stakeholder Contact"], impact:"high",
+    interimNote:"Workers receive 75% PIAWE + up to $7,500 medical during the 42-day assessment period — regardless of outcome." },
+
+  /* 7 */ {
+    id:7, stage:"liability", stageName:"Liability Decision",
+    reformArea:"psych", reformAreaLabel:"Psychological Injury",
+    title:"21-Day Back-Payment Obligation After Acceptance",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer"],
+    what:"Once a conduct-based psychological injury claim is accepted, the insurer must back-pay all outstanding weekly benefits and medical expenses within 21 days of the acceptance decision.",
+    practical:"Payment processing must be pre-configured and ready to execute the moment an acceptance decision is made. PIAWE calculations should be prepared in parallel with the liability investigation — not after the decision. Any delay beyond 21 days creates a regulatory compliance gap.",
+    auditNote:"SIRA audit theme: Payments. Prompt and accurate payment after acceptance has been a consistent focus in SIRA and icare audits. Late back-payment is a reportable finding.",
+    auditThemes:["Payments"], impact:"high" },
+
+  /* 8 — F-08: new card for traumatic event claim pathway */ {
+    id:8, stage:"liability", stageName:"Liability Decision",
+    reformArea:"psych", reformAreaLabel:"Psychological Injury",
+    title:"Traumatic Event Claims — Provisional Payment Obligations",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer","injury-mgr"],
+    what:"Traumatic event claims (violence, witnessing traumatic incidents, vicarious trauma, serious workplace accidents) follow a different pathway to conduct-based claims. Where an insurer cannot make an eligibility determination from initial information, they must commence provisional weekly payments within 7 days — not 42 days — unless they have a reasonable excuse. Insurers may also fund up to $10,000 in reasonable and necessary medical treatment during the assessment period.",
+    practical:"Claims triage must distinguish traumatic event claims from conduct-based claims at lodgment. These are different claim types with different insurer obligation timelines. For trauma-based claims where an immediate determination is not possible, the 7-day provisional payment clock starts at lodgment. Systems and workflows need separate processes for each claim type to avoid incorrect payment timing.",
+    auditNote:"SIRA audit theme: Payments and Liability. Conflating traumatic event and conduct-based claim pathways is a systemic error that produces incorrect payment timing for one or both types. The 7-day provisional payment obligation carries no flexibility where the insurer cannot demonstrate a reasonable excuse for non-payment.",
+    auditThemes:["Liability","Payments","Initial Stakeholder Contact"], impact:"high",
+    interimNote:"Traumatic event claims: provisional payments within 7 days + up to $10,000 medical. Conduct claims: interim payments within 42 days + up to $7,500 medical." },
+
+  /* 9 — was 8 */ {
+    id:9, stage:"liability", stageName:"Liability Decision",
+    reformArea:"benefits", reformAreaLabel:"Benefits & Entitlements",
+    title:"PIAWE Decisions No Longer Classified as Work Capacity Decisions",
+    bill:"Bill 2 — Reform and Modernisation",
+    effectiveDate:"27 March 2026", commenced:true, dateConfirmed:true,
+    applicableTo:["insurer","self-insurer","injury-mgr"],
+    what:"Decisions about a worker's pre-injury average weekly earnings are no longer classified as work capacity decisions. This removes the rigid dispute pathway previously attached to PIAWE and gives insurers more flexibility to adjust figures when new earnings data becomes available.",
+    practical:"PIAWE can now be corrected and updated as payroll data comes in, without triggering the full work capacity dispute process. Claims teams should review existing PIAWE records on active claims and update where the current figure does not reflect accurate earnings.",
+    auditNote:"SIRA audit theme: Payments and Data Accuracy. Accurate PIAWE underpins correct weekly benefit calculations. Inaccurate PIAWE remains a significant audit finding risk regardless of the procedural change.",
+    auditThemes:["Payments","Data Accuracy"], impact:"medium" },
+
+  /* 10 */ {
+    id:10, stage:"rtw", stageName:"Early RTW & Injury Management",
+    reformArea:"rtw", reformAreaLabel:"RTW & Recovery",
+    title:"Intensive RTW Program for Psychological Injury",
+    bill:"Bill 2 — Reform and Modernisation",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["employer","insurer","self-insurer","rtw-coord","injury-mgr"],
+    what:"A new Return to Work Intensive Program is established for workers with a primary psychological injury. It provides an additional year of medical benefits and income replacement for workers who do not meet the higher WPI thresholds for extended weekly payments — primarily targeting workers assessed at 21–25% WPI who also meet the earnings condition.",
+    practical:"RTW coordinators should understand the eligibility pathway clearly: workers who fall below the main extended benefits threshold but sit at 21% WPI or above (and meet the earnings condition) can access this program rather than losing benefits at 130 weeks entirely. Case plans should incorporate vocational rehabilitation and a structured RTW pathway within the additional year's support.",
+    auditNote:"SIRA audit themes: Strategic Planning and Injury Management Planning. SIRA expects insurers to actively facilitate RTW through evidence-based programs. Passive case management at this stage will be identified in audit.",
+    auditThemes:["Strategic Planning","Injury Management Planning"], impact:"high" },
+
+  /* 11 */ {
+    id:11, stage:"rtw", stageName:"Early RTW & Injury Management",
+    reformArea:"rtw", reformAreaLabel:"RTW & Recovery",
+    title:"Updated SIRA RTW Program Guidelines",
+    bill:"SIRA Regulatory Guideline",
+    effectiveDate:"2026 — post-consultation", commenced:false, dateConfirmed:false,
+    applicableTo:["employer","rtw-coord","injury-mgr","self-insurer"],
+    what:"SIRA released updated RTW program guidelines with clearer separation between mandatory requirements and explanatory guidance. All NSW employers must have a written RTW program meeting SIRA's 8 requirements. Consultation closed February 2026.",
+    practical:"Employers should review existing RTW programs against the updated guidelines now. Category 1 employers must ensure programs are current, aligned with the insurer's injury management program, and developed in genuine consultation with workers and unions. Programs must reflect real operational practice — not a box-ticking document.",
+    auditNote:"RTW program compliance is a standard SIRA inspector audit item. Auditors check that programs exist, are current, align with injury management plans, and that workers actually know they exist.",
+    auditThemes:["Strategic Planning","Injury Management Planning","Claim Management"], impact:"medium" },
+
+  /* 12 — F-05: WPI thresholds with earnings condition */ {
+    id:12, stage:"weekly-benefits", stageName:"Weekly Benefits",
+    reformArea:"wpi", reformAreaLabel:"WPI & Impairment",
+    title:"WPI Thresholds for Weekly Payments Beyond 130 Weeks — Phased Increases",
+    bill:"Bill 2 — Reform and Modernisation",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer","injury-mgr","worker"],
+    what:"For primary psychological injuries, weekly payments beyond 130 weeks continue based on WPI band. Workers below 21% WPI receive no weekly payments beyond 130 weeks. Workers at 21–25% WPI who have current weekly earnings of at least $225 per week receive the additional 52-week transitional program at 60% PIAWE. Workers above the threshold — over 25% WPI from 1 July 2026, over 26% from 1 July 2027, over 28% from 1 July 2029 — continue to receive standard extended weekly benefits beyond 130 weeks.",
+    practical:"Claims approaching the 130-week mark require proactive WPI assessment and financial planning well before week 100. The $225 per week current earnings condition for the 21–25% WPI cohort must be assessed and documented. Reserve calculations across all psychological injury claims require immediate revision under this tiered structure.",
+    auditNote:"SIRA audit theme: Payments and Claim Management. Auditors will check that the correct benefit tier is applied based on WPI level, injury notification date, and the earnings condition. Errors in either direction — paying beyond entitlement or cutting off entitled workers — are audit findings.",
+    auditThemes:["Payments","Claim Management"], impact:"high" },
+
+  /* 13 */ {
+    id:13, stage:"weekly-benefits", stageName:"Weekly Benefits",
+    reformArea:"benefits", reformAreaLabel:"Benefits & Entitlements",
+    title:"Transitional Support: Additional 52 Weeks at 21–25% WPI",
+    bill:"Bill 2 — Reform and Modernisation",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer","injury-mgr","rtw-coord","worker"],
+    what:"Workers with a primary psychological injury assessed at 21% WPI or above — but below the main extended benefits threshold — who have current weekly earnings of at least $225 per week may receive an additional 52 weeks of weekly payments at 60% of their PIAWE (or the maximum weekly compensation amount, whichever is lower), plus continued medical support. This transitional entitlement bridges the gap between the 130-week cap and full extended benefits eligibility.",
+    practical:"This is a separate entitlement from standard weekly benefits and must be calculated at the 60% rate — not the standard tier. The $225 per week current earnings condition must be assessed and documented before access is granted. Case plans for this cohort should treat the 52-week period as a structured recovery and RTW window, not an extension of the status quo.",
+    auditNote:"SIRA audit theme: Payments. The earnings condition, the correct 60% rate, and the 52-week duration limit are all individually auditable compliance points. Both under- and over-payment are audit findings. See also card: WPI Thresholds for the full threshold structure.",
+    auditThemes:["Payments"], impact:"high" },
+
+  /* 14 */ {
+    id:14, stage:"medical", stageName:"Medical Treatment",
+    reformArea:"medical", reformAreaLabel:"Medical Treatment",
+    title:"'Reasonable and Necessary' — New Medical Treatment Test",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:UNCONFIRMED_DATE+" (incl. existing claims)", commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer","injury-mgr"],
+    what:"The liability test for medical treatment entitlements changes from 'reasonably necessary' to 'reasonable and necessary'. The new test requires treatment to align with value-based and evidence-based care. This applies to treatment requests made on or after commencement, including on existing claims.",
+    practical:"Open-ended allied health referrals or treatment plans without a clinical rationale documenting expected outcomes will be harder to sustain. Injury managers approving treatment should require clear goals and timeframes from providers. This applies to requests on existing claims from commencement — not just new claims.",
+    auditNote:"SIRA will audit consistent application of the new test. The standard cannot be used to arbitrarily refuse clinically appropriate care — auditors will look for documented reasoning on both approvals and declines.",
+    auditThemes:["Claim Management","Payments"], impact:"high" },
+
+  /* 15 */ {
+    id:15, stage:"medical", stageName:"Medical Treatment",
+    reformArea:"medical", reformAreaLabel:"Medical Treatment",
+    title:"Strategic Review of Health Provider Regulation",
+    bill:"SIRA Regulatory Initiative",
+    effectiveDate:"2026 ongoing", commenced:true, dateConfirmed:true,
+    applicableTo:["insurer","self-insurer","injury-mgr"],
+    what:"SIRA commenced an independent Strategic Review of Health Provider Regulation in January 2026, examining providers across workers compensation and CTP, assessing their roles in recovery, RTW outcomes, and scheme costs.",
+    practical:"Watch for potential changes to provider approval, remuneration, and audit processes. This may affect provider referral pathways and what treatment funding can be approved. Insurers should document their provider selection rationale to demonstrate scheme alignment.",
+    auditNote:"Provider selection and treatment approval are existing audit considerations. Review findings may generate new guidelines or restrictions. Track outputs from the review as they are released.",
+    auditThemes:["Claim Management"], impact:"medium" },
+
+  /* 16 */ {
+    id:16, stage:"impairment", stageName:"Permanent Impairment Assessment",
+    reformArea:"wpi", reformAreaLabel:"WPI & Impairment",
+    title:"Single WPI Assessment — Finality Strengthened",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:"TBC — applies to assessments after commencement", commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer","injury-mgr"],
+    what:"Changes limit repeat or appeal-driven WPI reassessments, strengthening the finality of assessment outcomes.",
+    practical:"Initial WPI assessments carry more weight than before. Insurers and legal representatives should approach first assessments fully prepared — with complete clinical documentation, appropriate specialist referrals, and an agreed methodology. The opportunity to revisit will be significantly more restricted.",
+    auditNote:"SIRA audit themes: Claim Management and Data Accuracy. Files that repeatedly seek reassessment post-reform without compliant justification will attract scrutiny.",
+    auditThemes:["Claim Management","Data Accuracy"], impact:"medium" },
+
+  /* 17 */ {
+    id:17, stage:"impairment", stageName:"Permanent Impairment Assessment",
+    reformArea:"wpi", reformAreaLabel:"WPI & Impairment",
+    title:"Chief Psychiatrist Review of the PIRS",
+    bill:"Bill 2 — Reform and Modernisation",
+    effectiveDate:"Within 18 months of Royal Assent (by ~Sep 2027)", commenced:true, dateConfirmed:true,
+    applicableTo:["insurer","self-insurer","injury-mgr"],
+    what:"The Chief Psychiatrist (or a nominated expert) must review the Psychiatric Impairment Rating Scale (PIRS) and report within 18 months of Royal Assent (11 February 2026), assessing whether PIRS is appropriate and reliable and advising on alternative methodologies.",
+    practical:"PIRS currently drives WPI ratings for psychological injuries and therefore determines whether workers meet the new extended benefits thresholds. If the review recommends a replacement tool, the implications for thresholds, reserves, and assessment methodology will be significant. Monitor review outputs closely.",
+    auditNote:"Existing PIRS-based assessments remain valid while the review is underway. Insurers should track the review timeline and prepare for potential methodology changes affecting active claims.",
+    auditThemes:["Claim Management"], impact:"medium" },
+
+  /* 18 */ {
+    id:18, stage:"damages", stageName:"Work Injury Damages",
+    reformArea:"wpi", reformAreaLabel:"WPI & Impairment",
+    title:"Work Injury Damages WPI Threshold — Phased Increases",
+    bill:"Bill 2 — Reform and Modernisation",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer","injury-mgr","worker"],
+    what:"The existing 15% WPI threshold for Work Injury Damages remains for primary psychological injuries notified before commencement. For injuries notified on or after 1 July 2026, the threshold increases to align with the extended benefits schedule: over 25% WPI from 1 July 2026, over 26% from 1 July 2027, over 28% from 1 July 2029.",
+    practical:"WID exposure on the psychological injury portfolio will reduce significantly. Workers with lower WPI ratings will no longer access common law damages on new claims. Reserve setting across the psychological injury portfolio needs revision to reflect the new WID eligibility floor, applied by injury notification date.",
+    auditNote:"SIRA audits will check that WID eligibility assessments apply the correct threshold against the injury notification date. Applying the wrong threshold in either direction is an audit finding.",
+    auditThemes:["Liability","Claim Management"], impact:"high" },
+
+  /* 19 — F-03: IRC/PIC pathway rewritten for accuracy */ {
+    id:19, stage:"disputes", stageName:"Dispute Resolution",
+    reformArea:"disputes", reformAreaLabel:"Dispute Resolution",
+    title:"IRC Determines 'Relevant Conduct' in Disputed Conduct Claims",
+    bill:"Bill 2 — Reform and Modernisation",
+    effectiveDate:"27 March 2026", commenced:true, dateConfirmed:true,
+    applicableTo:["insurer","self-insurer","injury-mgr","worker"],
+    what:"The Industrial Relations Commission (IRC) has exclusive jurisdiction to determine whether the conduct at issue in a disputed conduct-based psychological injury claim is 'relevant conduct'. This gateway applies after internal review — not as the first step in the claim process. The primary pathway for conduct claims is the insurer's 42-day liability determination. IRC only enters when the insurer disputes whether the conduct qualifies as a relevant event and internal review has not resolved the matter. Once the IRC determines conduct IS relevant, the insurer has 7 days to accept the claim or escalate to the Personal Injury Commission (PIC). Workers cannot apply to PIC until this IRC determination has been made. This provision commenced 27 March 2026.",
+    practical:"Dispute timelines for conduct-based claims are fundamentally restructured but the IRC step is not the first step — it follows the 42-day insurer determination and internal review. Legal strategies and claims plans must account for all three stages. Evidence compilation should begin at notification, not at the dispute stage. Claims files must document internal review, IRC referral and outcome, and the post-IRC 7-day insurer decision window before any PIC application is made. Note: The IRC's jurisdiction over conduct disputes is newly established. As at June 2026, no procedural rules, practice directions, or binding caselaw have been published to guide how the IRC will approach these determinations.",
+    auditNote:"SIRA audit theme: Claim Management. Insurers must demonstrate compliant internal review was completed before any IRC referral. Claims that bypass internal review or proceed to PIC without a documented IRC determination will be non-compliant.",
+    auditThemes:["Claim Management","Strategic Planning"], impact:"high" },
+
+  /* 20 — F-03: dispute pathway rewritten */ {
+    id:20, stage:"disputes", stageName:"Dispute Resolution",
+    reformArea:"disputes", reformAreaLabel:"Dispute Resolution",
+    title:"Full Dispute Pathway: Internal Review → IRC → 7-Day Window → PIC",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:UNCONFIRMED_DATE, commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer","injury-mgr","rtw-coord","worker"],
+    what:"Disputed conduct-based psychological injury claims follow a four-stage pathway: (1) Insurer's 42-day liability determination (with interim payments to worker); (2) Internal review by the insurer if liability is disputed; (3) IRC assessment of whether the conduct is a relevant event; (4) If IRC determines conduct is relevant, the insurer has 7 days to accept the claim or escalate to the PIC. Ongoing unresolved disputes are determined by PIC. Each step must be completed before the next begins.",
+    practical:"Internal review processes must be genuinely robust — they are a mandatory precondition for IRC referral, not a procedural formality. Insurers need formal internal review procedures documented in their claims systems. The IRC step and the post-IRC 7-day window add significant time to dispute resolution. Evidence compilation and strategic planning must begin at notification. The post-IRC 7-day decision window is a hard deadline — be prepared to act.",
+    auditNote:"SIRA audit theme: Claim Management. Insurers must demonstrate that each step was completed in the correct sequence. A claim that bypasses internal review, proceeds to PIC without an IRC determination, or misses the 7-day post-IRC window is a systemic compliance risk.",
+    auditThemes:["Claim Management","Strategic Planning"], impact:"high" },
+
+  /* 21 */ {
+    id:21, stage:"closure", stageName:"Claim Closure",
+    reformArea:"benefits", reformAreaLabel:"Benefits & Entitlements",
+    title:"New Commutation Framework — Psychological Injuries",
+    bill:"Bill 1 — Amendment Bill 2025",
+    effectiveDate:"TBC — regulations pending", commenced:false, dateConfirmed:false,
+    applicableTo:["insurer","self-insurer","injury-mgr","worker"],
+    what:"A new time-limited commutation framework allows workers with a primary psychological injury and a WPI of 30% or below to commute ongoing weekly payments to a single lump sum.",
+    practical:"Commutation offers a structured pathway to claim closure for an otherwise complex cohort. Insurers should understand the eligibility criteria and consent requirements once regulations are finalised. Workers must receive independent financial advice before accepting commutation.",
+    auditNote:"SIRA audit themes: Payments and Claim Management. Commutation processes must comply strictly with regulatory requirements — including timing, consent, and calculation methodology.",
+    auditThemes:["Payments","Claim Management"], impact:"high" },
+];
+
+/* ── STATE ─────────────────────────────────────────────────────── */
+let S = { stage:"all", stakeholder:"all", area:"all", search:"", expanded:new Set(), allExpanded:false };
+let _sheetTrigger = null; // F-12: store focus trigger for sheet
+
+const STAGE_ORDER = STAGES.filter(s=>s.id!=="all").map(s=>s.id);
+function areaColor(id)  { return (REFORM_AREAS.find(a=>a.id===id)||{}).color||"#6b7a90"; }
+function stageLabel(id) { return (STAGES.find(s=>s.id===id)||{}).label||id; }
+function stageIcon(id)  { return (STAGES.find(s=>s.id===id)||{}).icon||""; }
+function shLabel(id)    { return (STAKEHOLDERS.find(s=>s.id===id)||{}).label||id; }
+
+function getFiltered() {
+  const q = S.search.toLowerCase();
+  return REFORMS.filter(r => {
+    if (S.stage!=="all" && r.stage!==S.stage) return false;
+    if (S.stakeholder!=="all" && !r.applicableTo.includes(S.stakeholder)) return false;
+    if (S.area!=="all" && r.reformArea!==S.area) return false;
+    if (q && !r.title.toLowerCase().includes(q) && !r.what.toLowerCase().includes(q) && !r.practical.toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function hasFilters() { return S.stage!=="all"||S.stakeholder!=="all"||S.area!=="all"||S.search!==""; }
+function activeFilterCount() { let n=0; if(S.stage!=="all")n++; if(S.stakeholder!=="all")n++; if(S.area!=="all")n++; if(S.search)n++; return n; }
+
+/* ── BUILD CARD (F-07 date notes, F-12 ARIA, F-13 non-colour tags) ── */
+function buildCard(r) {
+  const color  = areaColor(r.reformArea);
+  const isOpen = S.expanded.has(r.id);
+
+  const areaTag = `<span class="tag-area" style="background:${color}16;color:${color};border:1px solid ${color}38">${r.reformAreaLabel}</span>`;
+
+  const impactTag = r.impact==="high"
+    ? `<span class="tag-outline"><span class="tdot" style="color:#A0202E" aria-hidden="true">●</span>High Impact</span>`
+    : `<span class="tag-outline"><span class="tdot" style="color:#B07A1A" aria-hidden="true">●</span>Medium Impact</span>`;
+
+  let statusTag;
+  if (r.commenced) {
+    statusTag = `<span class="tag-outline"><span class="tdot" style="color:#1A7A45" aria-hidden="true">●</span>In Force</span>`;
+  } else if (!r.dateConfirmed && r.effectiveDate !== "TBC — regulations pending" && !r.effectiveDate.startsWith("TBC")) {
+    // F-07: flag unconfirmed 1 July 2026 dates
+    statusTag = `<span class="tag-unconfirmed" title="Date subject to NSW Government confirmation">⚑ Date unconfirmed</span>`;
+  } else {
+    statusTag = `<span class="tag-outline"><span class="tdot" style="color:#9BAABB" aria-hidden="true">●</span>${r.effectiveDate.startsWith("TBC")?"Reg. Pending":"Pending"}</span>`;
+  }
+
+  const previewCls = isOpen ? "card-preview hidden" : "card-preview";
+  const applies = r.applicableTo.map(sid=>`<span class="applies-tag">${shLabel(sid)}</span>`).join("");
+  const qaThemes = r.auditThemes.map(t=>`<span class="qa-tag">${t}</span>`).join("");
+
+  // F-01/F-08: interim payment highlight box
+  const interimSection = r.interimNote ? `
+    <div class="detail-section ds-interim">
+      <div class="detail-label dl-interim"><span class="dl-icon dl-icon-interim" aria-hidden="true">$</span>Interim Payment Obligation</div>
+      <p class="detail-text">${r.interimNote}</p>
+    </div>` : "";
+
+  const detail = `<div class="card-detail${isOpen?" open":""}" id="detail-${r.id}">
+    <div class="card-detail-inner">
+      <div class="applies-row"><span class="applies-label">Applies to</span>${applies}</div>
+      <div class="detail-sections">
+        <div class="detail-section ds-what">
+          <div class="detail-label"><span class="dl-icon dl-icon-what" aria-hidden="true">↳</span>What Changed</div>
+          <p class="detail-text">${r.what}</p>
+        </div>
+        ${interimSection}
+        <div class="detail-section ds-practical">
+          <div class="detail-label dl-practical"><span class="dl-icon dl-icon-practical" aria-hidden="true">⚡</span>Practical Implication</div>
+          <p class="detail-text">${r.practical}</p>
+        </div>
+        <div class="detail-section ds-audit">
+          <div class="detail-label dl-audit"><span class="dl-icon dl-icon-audit" aria-hidden="true">◎</span>Audit Relevance — icare / SIRA</div>
+          <p class="detail-text">${r.auditNote}</p>
+        </div>
+      </div>
+      <div class="qa-row">
+        <span class="qa-label">icare QA Themes</span>
+        ${qaThemes}
+        <a href="https://www.icare.nsw.gov.au/about-us/statistics/claims-service-provider-performance" target="_blank" rel="noopener" class="qa-framework-link" aria-label="View icare QA Framework (opens in new tab)">QA Framework ↗</a>
+      </div>
+    </div>
+  </div>`;
+
+  return `<div class="reform-card" id="card-${r.id}" style="border-left-color:${color}">
+    <button class="card-btn" data-action="toggle" data-id="${r.id}"
+      aria-expanded="${isOpen}"
+      aria-controls="detail-${r.id}"
+      aria-label="${r.title} — ${isOpen?"collapse":"expand"} details">
+      <div class="card-tags">${areaTag}${impactTag}${statusTag}</div>
+      <div class="card-row">
+        <div class="card-main">
+          <div class="card-title">${r.title}</div>
+          <div class="${previewCls}" id="preview-${r.id}" aria-hidden="${isOpen}">${r.practical}</div>
+          <div class="card-meta">
+            <span class="meta-date">Effective: <strong>${r.effectiveDate.replace(UNCONFIRMED_DATE,"1 Jul 2026")}</strong></span>
+            ${!r.dateConfirmed && !r.commenced && !r.effectiveDate.startsWith("TBC") ? '<span class="meta-date-note" title="Subject to NSW Government confirmation">⚑ date unconfirmed</span>' : ""}
+            <span class="meta-bill">${r.bill}</span>
+          </div>
+        </div>
+        <div class="card-chevron${isOpen?" open":""}" id="chev-${r.id}" aria-hidden="true">▾</div>
+      </div>
+    </button>
+    ${detail}
+  </div>`;
+}
+
+/* ── RENDER LIST ── */
+function renderList() {
+  const f = getFiltered();
+  const listEl = document.getElementById("reform-list");
+  const noRes  = document.getElementById("no-results");
+  if (f.length===0) { listEl.innerHTML=""; noRes.style.display="block"; return; }
+  noRes.style.display="none";
+
+  const groups={};
+  for (const r of f) {
+    if(!groups[r.stage]) groups[r.stage]={stageName:r.stageName,reforms:[]};
+    groups[r.stage].reforms.push(r);
+  }
+
+  listEl.innerHTML = STAGE_ORDER.filter(s=>groups[s]).map(sid=>{
+    const g=groups[sid], si=STAGES.find(s=>s.id===sid);
+    return `<div class="stage-group" role="region" aria-label="${g.stageName}">
+      <div class="stage-group-header">
+        <span class="sg-num" aria-hidden="true">${si.icon}</span>
+        <span class="sg-title">${g.stageName}</span>
+        <span class="sg-count" aria-label="${g.reforms.length} change${g.reforms.length!==1?"s":""}">${g.reforms.length} change${g.reforms.length!==1?"s":""}</span>
+      </div>
+      ${g.reforms.map(r=>buildCard(r)).join("")}
+    </div>`;
+  }).join("");
+}
+
+/* ── RENDER SIDEBAR ── */
+function renderSidebar() {
+  document.getElementById("stage-nav").innerHTML = STAGES.map(s=>{
+    const cnt = s.id==="all" ? REFORMS.length : REFORMS.filter(r=>r.stage===s.id).length;
+    return `<button class="sb-btn${S.stage===s.id?" active":""}" data-action="stage" data-id="${s.id}"
+      aria-pressed="${S.stage===s.id}" aria-label="Filter by ${s.label} (${cnt} change${cnt!==1?"s":""})">
+      <span class="sb-icon" aria-hidden="true">${s.icon}</span>
+      <span class="sb-label">${s.label}</span>
+      <span class="sb-count" aria-hidden="true">${cnt}</span>
+    </button>`;
+  }).join("");
+
+  document.getElementById("area-nav").innerHTML = REFORM_AREAS.map(a=>{
+    const dot = a.id!=="all" ? `<span class="area-dot" style="background:${a.color}" aria-hidden="true"></span>` : "";
+    const pad = a.id==="all" ? "style='padding-left:6px'" : "";
+    return `<button class="sb-btn${S.area===a.id?" active":""}" data-action="area" data-id="${a.id}"
+      aria-pressed="${S.area===a.id}" aria-label="Filter by reform area: ${a.label}">
+      ${dot}<span class="sb-label" ${pad}>${a.label}</span>
+    </button>`;
+  }).join("");
+}
+
+/* ── RENDER MOBILE TABS ── */
+function renderMobileTabs() {
+  document.getElementById("mobile-stage-tabs").innerHTML = STAGES.map(s=>{
+    const cnt = s.id==="all" ? REFORMS.length : REFORMS.filter(r=>r.stage===s.id).length;
+    return `<button class="stage-tab${S.stage===s.id?" active":""}" data-action="stage" data-id="${s.id}"
+      aria-pressed="${S.stage===s.id}" aria-label="${s.label}: ${cnt} changes">
+      ${s.label}<span class="stage-tab-count" aria-hidden="true">${cnt}</span>
+    </button>`;
+  }).join("");
+}
+
+/* ── RENDER SELECT ── */
+function renderSelect() {
+  document.getElementById("stakeholder-select").innerHTML =
+    STAKEHOLDERS.map(s=>`<option value="${s.id}"${S.stakeholder===s.id?" selected":""}>${s.label}</option>`).join("");
+}
+
+/* ── RENDER SHEET ── */
+function renderSheet() {
+  document.getElementById("sheet-stage-options").innerHTML =
+    STAGES.map(s=>`<button class="sh-pill${S.stage===s.id?" active":""}" data-action="stage" data-id="${s.id}" aria-pressed="${S.stage===s.id}">${s.label}</button>`).join("");
+  document.getElementById("sheet-stakeholder-options").innerHTML =
+    STAKEHOLDERS.map(s=>`<button class="sh-pill${S.stakeholder===s.id?" active":""}" data-action="sh" data-id="${s.id}" aria-pressed="${S.stakeholder===s.id}">${s.label}</button>`).join("");
+  document.getElementById("sheet-area-options").innerHTML =
+    REFORM_AREAS.map(a=>{
+      const dot = a.id!=="all" ? `<span class="area-pill-dot" style="background:${a.color}" aria-hidden="true"></span>` : "";
+      const activeStyle = S.area===a.id
+        ? (a.id==="all"
+            ? `style="background:var(--brand-dark);border-color:var(--brand-dark)"`
+            : `style="background:${a.color};border-color:${a.color}"`)
+        : "";
+      return `<button class="area-pill${S.area===a.id?" active":""}" data-action="area" data-id="${a.id}" ${activeStyle} aria-pressed="${S.area===a.id}">${dot}${a.label}</button>`;
+    }).join("");
+}
+
+/* ── RENDER STATUS BAR ── */
+function renderStatusBar() {
+  const bar=document.getElementById("status-bar"), clearBtn=document.getElementById("clear-btn");
+  if(!hasFilters()){bar.classList.remove("visible");if(clearBtn)clearBtn.style.display="none";return;}
+  if(clearBtn)clearBtn.style.display="inline-block";
+  bar.classList.add("visible");
+  const mkChip=(label,action,color)=>{
+    const dot=color?`<span class="chip-dot" style="background:${color}" aria-hidden="true"></span>`:"";
+    return `<span class="chip">${dot}${label}<button class="chip-x" data-action="${action}" aria-label="Remove ${label} filter">×</button></span>`;
+  };
+  let html=`<span style="font-size:11px;color:var(--ink-mute)">Active filters:</span>`;
+  if(S.stage!=="all")       html+=mkChip(stageLabel(S.stage),"clear-stage");
+  if(S.stakeholder!=="all") html+=mkChip(shLabel(S.stakeholder),"clear-stakeholder");
+  if(S.area!=="all")        html+=mkChip((REFORM_AREAS.find(a=>a.id===S.area)||{}).label,"clear-area",areaColor(S.area));
+  if(S.search)              html+=mkChip(`"${S.search}"`,"clear-search");
+  const f=getFiltered();
+  html+=`<span id="status-summary">${f.length} result${f.length!==1?"s":""}</span>`;
+  bar.innerHTML=html;
+}
+
+/* ── RENDER MOBILE STATUS ── */
+function renderMobileStatus() {
+  const el=document.getElementById("mobile-status"), f=getFiltered();
+  let html="";
+  if(S.stakeholder!=="all") html+=`<span class="mobile-chip">${shLabel(S.stakeholder)}<button class="mobile-chip-x" data-action="clear-stakeholder" aria-label="Remove stakeholder filter">×</button></span>`;
+  if(S.area!=="all")        html+=`<span class="mobile-chip"><span style="width:6px;height:6px;border-radius:50%;background:${areaColor(S.area)};display:inline-block;margin-right:3px" aria-hidden="true"></span>${(REFORM_AREAS.find(a=>a.id===S.area)||{}).label}<button class="mobile-chip-x" data-action="clear-area" aria-label="Remove area filter">×</button></span>`;
+  if(hasFilters()) html+=`<span style="margin-left:auto;font-size:11.5px;color:var(--ink-dim)" role="status">${f.length} result${f.length!==1?"s":""}</span>`;
+  el.innerHTML=html;
+}
+
+/* ── RENDER FILTER BADGE ── */
+function renderFilterBadge() {
+  const badge=document.getElementById("filter-badge"), n=activeFilterCount();
+  badge.style.display=n>0?"flex":"none";
+  badge.textContent=n>0?String(n):"";
+  badge.setAttribute("aria-label", n>0?`${n} active filter${n>1?"s":""}` : "");
+}
+
+/* ── RENDER STAGE BANNER ── */
+function renderStageBanner() {
+  const banner=document.getElementById("stage-banner");
+  const commNotice=document.getElementById("commence-notice");
+  if(S.stage==="all"){banner.classList.remove("visible");commNotice.classList.remove("visible");return;}
+  banner.classList.add("visible");
+  const f=getFiltered(), high=f.filter(r=>r.impact==="high").length;
+  const hasUnconfirmed=f.some(r=>!r.dateConfirmed&&!r.commenced);
+  if(hasUnconfirmed)commNotice.classList.add("visible");
+  else commNotice.classList.remove("visible");
+  document.getElementById("stage-banner-icon").textContent=stageIcon(S.stage);
+  document.getElementById("stage-banner-text").textContent=`${stageLabel(S.stage)} — cards expanded for quick reference`;
+  document.getElementById("stage-banner-meta").textContent=`${f.length} change${f.length!==1?"s":""} · ${high} high impact`;
+}
+
+/* ── RENDER EXPAND BTNS ── */
+function renderExpandBtns() {
+  const label=S.allExpanded?"Collapse all":"Expand all";
+  ["expand-all-btn","mobile-expand-btn"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){ el.textContent=label; el.setAttribute("aria-label",`${label} reform cards`); }
+  });
+}
+
+/* ── FULL RENDER ── */
+function render() {
+  renderSidebar(); renderMobileTabs(); renderSelect(); renderSheet();
+  renderStatusBar(); renderMobileStatus(); renderFilterBadge();
+  renderStageBanner(); renderExpandBtns(); renderList();
+}
+
+/* ── TOGGLE CARD ── */
+function toggleCard(id) {
+  const detail=document.getElementById("detail-"+id);
+  const chev=document.getElementById("chev-"+id);
+  const preview=document.getElementById("preview-"+id);
+  const btn=document.querySelector(`[data-action="toggle"][data-id="${id}"]`);
+  if(!detail)return;
+  if(S.expanded.has(id)){
+    S.expanded.delete(id); detail.classList.remove("open"); chev.classList.remove("open");
+    if(preview){preview.classList.remove("hidden");preview.removeAttribute("aria-hidden");}
+    if(btn)btn.setAttribute("aria-expanded","false");
+  } else {
+    S.expanded.add(id); detail.classList.add("open"); chev.classList.add("open");
+    if(preview){preview.classList.add("hidden");preview.setAttribute("aria-hidden","true");}
+    if(btn)btn.setAttribute("aria-expanded","true");
+  }
+  const f=getFiltered(); S.allExpanded=f.every(r=>S.expanded.has(r.id)); renderExpandBtns();
+}
+
+/* ── EXPAND / COLLAPSE ALL ── */
+function toggleExpandAll() {
+  const f=getFiltered();
+  if(S.allExpanded){f.forEach(r=>S.expanded.delete(r.id));S.allExpanded=false;}
+  else{f.forEach(r=>S.expanded.add(r.id));S.allExpanded=true;}
+  renderList(); renderExpandBtns();
+}
+
+/* ── AUTO EXPAND ON STAGE ── */
+function autoExpandStage() {
+  if (window.innerWidth < 768) return; // mobile: keep cards collapsed
+  if(S.stage!=="all"){getFiltered().forEach(r=>S.expanded.add(r.id));S.allExpanded=true;}
+  else{S.expanded.clear();S.allExpanded=false;}
+}
+
+/* ── CLEAR ALL ── */
+function clearAllFilters() {
+  S.stage="all";S.stakeholder="all";S.area="all";S.search="";
+  S.expanded.clear();S.allExpanded=false;
+  const si=document.getElementById("search");if(si)si.value="";
+  const mi=document.getElementById("mobile-search");if(mi)mi.value="";
+  render();
+}
+
+/* ── SHEET (F-12: focus trap, escape key) ── */
+function getFocusableInSheet() {
+  return [...document.getElementById("filter-sheet").querySelectorAll(
+    'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  )].filter(el => el.offsetParent !== null);
+}
+
+function openSheet() {
+  _sheetTrigger = document.activeElement;
+  renderSheet();
+  document.getElementById("sheet-overlay").classList.add("visible");
+  const sheet=document.getElementById("filter-sheet");
+  sheet.classList.add("open");
+  sheet.removeAttribute("aria-hidden");
+  document.body.style.overflow="hidden";
+  setTimeout(()=>{ const f=getFocusableInSheet(); if(f.length)f[0].focus(); }, 300);
+}
+
+function closeSheet() {
+  document.getElementById("sheet-overlay").classList.remove("visible");
+  const sheet=document.getElementById("filter-sheet");
+  sheet.classList.remove("open");
+  sheet.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+  if(_sheetTrigger)_sheetTrigger.focus();
+}
+
+// F-12: keyboard trap inside sheet
+document.addEventListener("keydown", e => {
+  const sheet=document.getElementById("filter-sheet");
+  if(!sheet.classList.contains("open")) return;
+  if(e.key==="Escape"){ closeSheet(); return; }
+  if(e.key==="Tab"){
+    const focusable=getFocusableInSheet();
+    if(!focusable.length) return;
+    const first=focusable[0], last=focusable[focusable.length-1];
+    if(e.shiftKey){ if(document.activeElement===first){e.preventDefault();last.focus();} }
+    else{ if(document.activeElement===last){e.preventDefault();first.focus();} }
+  }
+});
+
+/* ── F-16: Print / PDF ── */
+function printView() {
+  const f=getFiltered();
+  f.forEach(r=>S.expanded.add(r.id));
+  S.allExpanded=true;
+  renderList();
+  renderExpandBtns();
+  setTimeout(()=>window.print(), 150);
+}
+
+/* ── Exempt notice toggle ──────────────────────────────────────────
+   toggleExempt()        — mobile only (tap the summary row)
+   toggleExemptDesktop() — desktop smart toggle with session memory
+   initExemptNotice()    — called on load to restore session state
+─────────────────────────────────────────────────────────────────── */
+function toggleExempt() {
+  // On desktop: clicking a collapsed summary row expands it
+  if (window.innerWidth >= 768) {
+    const notice = document.getElementById('exempt-notice');
+    if (notice.classList.contains('exempt-collapsed')) {
+      toggleExemptDesktop();
+    }
+    return; // no-op if already expanded (use the Hide button)
+  }
+  // Mobile: expand / collapse the detail section
+  const notice  = document.getElementById("exempt-notice");
+  const summary = document.getElementById("exempt-summary");
+  const toggle  = document.getElementById("exempt-toggle");
+  const isExpanded = notice.classList.toggle("expanded");
+  summary.setAttribute("aria-expanded", isExpanded);
+  toggle.setAttribute("aria-label", isExpanded ? "Collapse scope limitation" : "Expand scope limitation details");
+}
+
+function toggleExemptDesktop() {
+  const notice = document.getElementById('exempt-notice');
+  const btn    = document.getElementById('exempt-desktop-toggle');
+  const isNowCollapsed = notice.classList.toggle('exempt-collapsed');
+
+  // Persist preference for this session
+  try { sessionStorage.setItem('exemptCollapsed', isNowCollapsed ? '1' : '0'); } catch(e) {}
+
+  if (btn) {
+    btn.textContent     = isNowCollapsed ? 'Show details ▾' : 'Hide ▲';
+    btn.setAttribute('aria-label', isNowCollapsed ? 'Show scope limitation details' : 'Hide scope limitation details');
+  }
+  // Update summary aria-expanded
+  const summary = document.getElementById('exempt-summary');
+  if (summary) summary.setAttribute('aria-expanded', !isNowCollapsed);
+}
+
+function initExemptNotice() {
+  if (window.innerWidth < 768) return; // mobile handles its own state
+  const notice = document.getElementById('exempt-notice');
+  const btn    = document.getElementById('exempt-desktop-toggle');
+  if (!notice || !btn) return;
+
+  let collapsed = false;
+  try { collapsed = sessionStorage.getItem('exemptCollapsed') === '1'; } catch(e) {}
+
+  if (collapsed) {
+    notice.classList.add('exempt-collapsed');
+    btn.textContent = 'Show details ▾';
+    btn.setAttribute('aria-label', 'Show scope limitation details');
+    const summary = document.getElementById('exempt-summary');
+    if (summary) summary.setAttribute('aria-expanded', 'false');
+  } else {
+    // Default: expanded — session state is clean or explicitly expanded
+    notice.classList.remove('exempt-collapsed');
+    btn.textContent = 'Hide ▲';
+    btn.setAttribute('aria-label', 'Hide scope limitation details');
+    const summary = document.getElementById('exempt-summary');
+    if (summary) summary.setAttribute('aria-expanded', 'true');
+  }
+}
+
+/* ── Footer disclaimer desktop smart toggle ── */
+function toggleFooterDesktop() {
+  const footer = document.getElementById('footer');
+  const btn    = document.getElementById('footer-desktop-toggle');
+  const bar    = document.getElementById('footer-collapsed-bar');
+  const isNowCollapsed = footer.classList.toggle('footer-collapsed');
+
+  try { sessionStorage.setItem('disclaimerCollapsed', isNowCollapsed ? '1' : '0'); } catch(e) {}
+
+  if (btn) {
+    btn.textContent = isNowCollapsed ? 'Show details ▾' : 'Hide ▲';
+    btn.setAttribute('aria-label', isNowCollapsed ? 'Show disclaimer details' : 'Hide disclaimer details');
+  }
+  if (bar) bar.setAttribute('aria-label', isNowCollapsed ? 'Show disclaimer details' : '');
+}
+
+function initFooterNotice() {
+  if (window.innerWidth < 768) return;
+  const footer = document.getElementById('footer');
+  const btn    = document.getElementById('footer-desktop-toggle');
+  if (!footer || !btn) return;
+
+  let collapsed = false;
+  try { collapsed = sessionStorage.getItem('disclaimerCollapsed') === '1'; } catch(e) {}
+
+  if (collapsed) {
+    footer.classList.add('footer-collapsed');
+    btn.textContent = 'Show details ▾';
+    btn.setAttribute('aria-label', 'Show disclaimer details');
+  } else {
+    btn.textContent = 'Hide ▲';
+    btn.setAttribute('aria-label', 'Hide disclaimer details');
+  }
+}
+
+/* ── Footer disclaimer toggle (mobile only) ── */
+function toggleDisclaimer() {
+  const footer = document.getElementById("footer");
+  const btn    = document.getElementById("footer-disclaimer-toggle");
+  const isOpen = footer.classList.toggle("disclaimer-open");
+  btn.setAttribute("aria-expanded", isOpen);
+}
+
+/* ── EVENT DELEGATION ── */
+document.addEventListener("click", e => {
+  const btn=e.target.closest("[data-action]");
+  if(!btn) return;
+  const action=btn.dataset.action, id=btn.dataset.id;
+
+  if(action==="stage"){
+    S.stage=id; autoExpandStage(); render();
+    const t=document.querySelector(".stage-tab.active");
+    if(t)t.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+  }
+  if(action==="area"){
+    S.area=id; renderSheet(); renderSidebar(); renderStatusBar(); renderMobileStatus(); renderFilterBadge(); renderList();
+  }
+  if(action==="sh"){
+    S.stakeholder=id; renderSheet(); renderSelect(); renderStatusBar(); renderMobileStatus(); renderFilterBadge(); renderList();
+  }
+  if(action==="toggle") toggleCard(parseInt(id));
+  if(action==="clear-stage")       {S.stage="all";S.expanded.clear();S.allExpanded=false;render();}
+  if(action==="clear-stakeholder") {S.stakeholder="all";render();}
+  if(action==="clear-area")        {S.area="all";render();}
+  if(action==="clear-search")      {
+    S.search="";
+    const si=document.getElementById("search");if(si)si.value="";
+    const mi=document.getElementById("mobile-search");if(mi)mi.value="";
+    render();
+  }
+});
+
+const searchEl=document.getElementById("search");
+if(searchEl) searchEl.addEventListener("input",e=>{S.search=e.target.value;renderStatusBar();renderList();renderFilterBadge();});
+
+const mSearchEl=document.getElementById("mobile-search");
+if(mSearchEl) mSearchEl.addEventListener("input",e=>{S.search=e.target.value;renderMobileStatus();renderList();renderFilterBadge();});
+
+const selEl=document.getElementById("stakeholder-select");
+if(selEl) selEl.addEventListener("change",e=>{S.stakeholder=e.target.value;renderStatusBar();renderMobileStatus();renderList();renderFilterBadge();});
+
+/* ── INIT ── */
+// Show commencement notice on desktop only — mobile uses per-card badges instead
+document.addEventListener("DOMContentLoaded",()=>{
+  const hasUnconfirmed = REFORMS.some(r=>!r.dateConfirmed&&!r.commenced&&!r.effectiveDate.startsWith("TBC"));
+  if(hasUnconfirmed && window.innerWidth >= 768) {
+    document.getElementById("commence-notice").classList.add("visible");
+  }
+  // Restore desktop smart toggle state from session
+  initExemptNotice();
+  initFooterNotice();
+});
+
+render();
+</script>
+</body>
+</html>

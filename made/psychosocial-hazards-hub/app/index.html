@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psychosocial Hazards Employer Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:        #1a2744;
+  --navy-mid:    #253255;
+  --sky:         #0ea5e9;
+  --sky-soft:    #e0f2fe;
+  --amber:       #d97706;
+  --amber-soft:  #fef3c7;
+  --rose:        #be123c;
+  --rose-soft:   #ffe4e6;
+  --emerald:     #059669;
+  --emerald-soft:#d1fae5;
+  --slate:       #475569;
+  --slate-light: #6b7280;
+  --bg:          #f1f5f9;
+  --card:        #ffffff;
+  --border:      #e2e8f0;
+  --text:        #1e293b;
+  --text-soft:   #475569;
+  --yes:         #059669;
+  --no:          #b45309;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ────────────────────────────────── */
+.site-header {
+  background: var(--navy);
+  color: white;
+  padding: 36px 20px 32px;
+}
+.header-inner { max-width: 960px; margin: 0 auto; }
+.header-mission {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(22px, 4.5vw, 36px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: white;
+  max-width: 680px;
+  margin-bottom: 14px;
+}
+.header-mission span { color: #7dd3fc; }
+.header-sub {
+  font-size: 14px;
+  color: #94a3b8;
+  max-width: 560px;
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+.header-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.header-tag {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.09);
+  color: #cbd5e1;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* ── ENTRY STRIP ───────────────────────────── */
+.entry-strip {
+  background: #0f172a;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.entry-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.entry-icon { font-size: 18px; flex-shrink: 0; }
+.entry-text {
+  font-size: 13px;
+  color: #e2e8f0;
+  flex: 1;
+  min-width: 240px;
+}
+.entry-text strong { color: #7dd3fc; }
+
+/* ── ABOUT TOOL ────────────────────────────── */
+.about-tool {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 18px 20px;
+}
+.about-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  background: #f8fafc;
+  border: 1px solid #bae6fd;
+  border-left: 4px solid var(--sky);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.about-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.about-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0369a1;
+  margin-bottom: 5px;
+}
+.about-body { font-size: 13px; color: var(--text-soft); line-height: 1.65; }
+.about-body strong { color: var(--text); font-weight: 600; }
+.about-meta {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--slate-light);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  align-items: center;
+}
+.about-meta a { color: var(--sky); text-decoration: none; font-weight: 500; }
+.about-meta a:hover { text-decoration: underline; }
+.about-divider { color: var(--border); }
+
+/* ── WHERE DO I START ──────────────────────── */
+.start-section {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 26px 20px;
+}
+.start-inner { max-width: 960px; margin: 0 auto; }
+.start-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 12px;
+}
+.start-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+}
+.start-card {
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  background: var(--bg);
+  text-align: left;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.start-card:hover { border-color: var(--sky); background: var(--sky-soft); transform: translateY(-1px); }
+.start-card-icon { font-size: 20px; margin-bottom: 6px; display: block; }
+.start-card-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.start-card-desc { font-size: 11.5px; color: var(--text-soft); line-height: 1.4; }
+
+/* ── JURISDICTION NAV ──────────────────────── */
+.jx-nav-wrap {
+  background: white;
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.jx-nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+.jx-nav-inner::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  background: linear-gradient(to right, transparent, white);
+  pointer-events: none;
+}
+.jx-pills {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scrollbar-width: none;
+}
+.jx-pills::-webkit-scrollbar { display: none; }
+.jx-pill {
+  flex-shrink: 0;
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: white;
+  color: var(--text-soft);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.jx-pill:hover { border-color: var(--sky); color: var(--text); }
+.jx-pill.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: white;
+  font-weight: 600;
+}
+
+/* ── SEARCH BAR ────────────────────────────── */
+.search-bar {
+  max-width: 960px;
+  margin: 24px auto 0;
+  padding: 0 20px;
+}
+.search-input-wrap {
+  position: relative;
+  max-width: 480px;
+}
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-family: inherit;
+  background: white;
+  color: var(--text);
+  transition: border-color 0.15s;
+}
+.search-input:focus { outline: none; border-color: var(--sky); }
+.search-input::placeholder { color: var(--slate-light); }
+
+/* ── MAIN ──────────────────────────────────── */
+.main { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── SECTION HEADER ────────────────────────── */
+.section-hd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 36px 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.section-hd:first-child { margin-top: 8px; }
+.section-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.section-hd-text { flex: 1; }
+.section-hd-title { font-size: 17px; font-weight: 700; color: var(--text); }
+.section-hd-sub { font-size: 12.5px; color: var(--text-soft); margin-top: 1px; }
+
+/* ── STATE HEADER CARD ─────────────────────── */
+.state-hero {
+  background: var(--navy);
+  border-radius: 14px;
+  padding: 24px;
+  color: white;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.state-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.state-abbr {
+  font-family: 'Syne', sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  color: white;
+  opacity: 0.15;
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  line-height: 1;
+}
+.state-hero-name { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #7dd3fc; margin-bottom: 6px; }
+.state-hero-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 12px; }
+.state-hero-facts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.state-fact {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  color: #e2e8f0;
+}
+.state-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.badge-yes { background: var(--emerald-soft); color: var(--emerald); }
+.badge-no  { background: var(--amber-soft);   color: var(--amber); }
+.badge-special { background: var(--sky-soft);  color: #0369a1; }
+.badge-warn { background: #fee2e2; color: #b91c1c; }
+
+/* ── CARDS ─────────────────────────────────── */
+.cards { display: grid; gap: 12px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: box-shadow 0.15s;
+}
+.card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 9px;
+}
+.card-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.35; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 5px; flex-shrink: 0; }
+.tag {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.tag-law    { background: var(--amber-soft);   color: var(--amber); }
+.tag-code   { background: #f3e8ff;             color: #7c3aed; }
+.tag-tool   { background: var(--emerald-soft); color: var(--emerald); }
+.tag-natl   { background: #e0f2fe;             color: #0369a1; }
+.tag-qld    { background: #cffafe;             color: #0e7490; }
+.tag-warn   { background: #fee2e2;             color: #b91c1c; }
+
+.card-desc { font-size: 13.5px; color: var(--text-soft); line-height: 1.6; margin-bottom: 14px; }
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.card-meta { font-size: 11.5px; color: var(--slate-light); }
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--sky);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1.5px solid var(--sky);
+  transition: all 0.15s;
+}
+.card-link:hover { background: var(--sky); color: white; }
+
+/* ── ALERT BANNER ──────────────────────────── */
+.alert {
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.alert-red  { background: #fef2f2; border: 1px solid #fecaca; color: #7f1d1d; }
+.alert-amber{ background: var(--amber-soft); border: 1px solid #fcd34d; color: #78350f; }
+.alert-blue { background: var(--sky-soft); border: 1px solid #bae6fd; color: #0c4a6e; }
+
+/* ── COMPARISON TABLE ──────────────────────── */
+.compare-section { margin-top: 8px; }
+.compare-intro {
+  font-size: 14px;
+  color: var(--text-soft);
+  margin-bottom: 20px;
+  max-width: 620px;
+}
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+.jx-card {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.jx-card:hover { border-color: var(--sky); box-shadow: 0 4px 16px rgba(0,0,0,0.07); transform: translateY(-1px); }
+.jx-card-abbr {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--navy);
+  opacity: 0.08;
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  line-height: 1;
+}
+.jx-card-name { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: var(--sky); margin-bottom: 4px; }
+.jx-card-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.jx-card-reg { font-size: 12px; color: var(--text-soft); margin-bottom: 10px; }
+.jx-card-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.jx-card-distinction { font-size: 12px; color: var(--slate); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px; }
+.jx-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sky);
+  margin-top: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+.jx-card.primary { border-color: var(--sky); background: linear-gradient(135deg, #f0f9ff, white); }
+
+/* ── HAZARDS GRID ──────────────────────────── */
+.hazards-intro { font-size: 14px; color: var(--text-soft); margin-bottom: 16px; max-width: 620px; }
+.hazards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 9px;
+}
+.hazard {
+  background: white;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--rose);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.hazard.cth-only { border-left-color: #a855f7; }
+.hazard-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.hazard-note { font-size: 11px; color: var(--slate-light); margin-top: 2px; line-height: 1.4; }
+.hazard-badge {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-top: 4px;
+  background: #f3e8ff;
+  color: #7c3aed;
+}
+
+/* ── MIN VIABLE STATE ──────────────────────── */
+.min-viable-body {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+}
+.min-viable-body p { font-size: 13.5px; color: var(--text-soft); line-height: 1.65; margin-bottom: 14px; }
+.min-viable-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+.fact-item { display: flex; flex-direction: column; gap: 2px; }
+.fact-label { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-light); }
+.fact-value { font-size: 13px; font-weight: 500; color: var(--text); }
+.distinctions { margin-top: 16px; }
+.distinction-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+.distinction-icon { flex-shrink: 0; font-size: 16px; }
+
+/* ── HAZARDS LINK ──────────────────────────── */
+.hazards-link-card {
+  background: linear-gradient(135deg, #1a2744, #253255);
+  border-radius: 12px;
+  padding: 18px 22px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 28px;
+}
+.hazards-link-text { flex: 1; }
+.hazards-link-title { font-size: 14px; font-weight: 600; color: white; margin-bottom: 3px; }
+.hazards-link-sub { font-size: 12px; color: #94a3b8; }
+.hazards-link-btn {
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.hazards-link-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* ── VIEW TRANSITION ───────────────────────── */
+.view { display: none; }
+.view.active {
+  display: block;
+  animation: viewFadeIn 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes viewFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── FOCUS VISIBLE ─────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.jx-pill:focus-visible,
+.start-card:focus-visible,
+.jx-card:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+.card-link:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+
+/* ── REDUCED MOTION ────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .view.active { animation: none; }
+  .jx-pill, .start-card, .card, .jx-card, .card-link { transition: none; }
+}
+
+/* ── HIDDEN ────────────────────────────────── */
+.no-results { text-align: center; padding: 40px 20px; color: var(--text-soft); font-size: 14px; display: none; }
+
+/* ── FOOTER ────────────────────────────────── */
+.site-footer {
+  background: var(--navy);
+  color: #94a3b8;
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 12px;
+  line-height: 1.75;
+}
+.site-footer a { color: #7dd3fc; }
+
+.search-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--slate-light);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* ── RESPONSIVE ────────────────────────────── */
+@media (max-width: 600px) {
+  .card-top { flex-direction: column; }
+  .start-grid { grid-template-columns: 1fr 1fr; }
+  .header-mission { font-size: 20px; }
+  .state-abbr { font-size: 32px; }
+  .hazards-link-card { flex-direction: column; align-items: flex-start; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .jx-pill { min-height: 44px; display: inline-flex; align-items: center; }
+  .start-card { min-height: 44px; }
+  .card-link { min-height: 44px; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <h1 class="header-mission">Every Australian employer is now legally required to manage <span>psychosocial risks</span> at work.</h1>
+    <p class="header-sub">This tool tells you what that means in your state — the law, your obligations, and where to go for help. Queensland-based, nationally complete.</p>
+    <div class="header-tags">
+      <span class="header-tag">All 9 Jurisdictions</span>
+      <span class="header-tag">Employer Reference</span>
+      <span class="header-tag">Curated Directory</span>
+      <span class="header-tag">Updated June 2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- ENTRY STRIP -->
+<div class="entry-strip">
+  <div class="entry-inner">
+    <span class="entry-icon">⚖️</span>
+    <p class="entry-text">Psychosocial obligations are now enforceable in every Australian jurisdiction. <strong>Victoria was the last to act — its regulations came into force December 2025.</strong> There are no more opt-outs.</p>
+  </div>
+</div>
+
+<!-- ABOUT THIS TOOL -->
+<section class="about-tool">
+  <div class="about-inner">
+    <span class="about-icon">ℹ️</span>
+    <div>
+      <div class="about-title">About this tool</div>
+      <p class="about-body">Built by a personal injury professional with 14 years across insurers, brokers, and employers — <strong>not a lawyer.</strong> Content is AI-assisted and manually reviewed against primary legislation and regulator websites. Every obligation links to its official source so you can verify it directly. <strong>This is a reference directory, not legal advice.</strong> Always verify your specific obligations with your state regulator or a qualified WHS professional. This is a personal project and is <strong>not associated with AGL Energy or any other organisation.</strong></p>
+      <div class="about-meta">
+        <span>Last reviewed: June 2026</span>
+        <span class="about-divider">·</span>
+        <a href="mailto:hello@isaacpeterson.au?subject=Psychosocial%20Hazards%20Hub%20-%20Error%20Report&body=Jurisdiction%3A%0ACard%20title%3A%0AError%20description%3A">Report an error</a>
+        <span class="about-divider">·</span>
+        <span>Content sourced from primary legislation and official regulator websites</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHERE DO I START -->
+<section class="start-section">
+  <div class="start-inner">
+    <p class="start-label">Where do I start?</p>
+    <div class="start-grid">
+      <button class="start-card" onclick="showView('national'); setTimeout(()=>document.getElementById('compare-anchor').scrollIntoView({behavior:'smooth'}),50)">
+        <span class="start-card-icon">🗺️</span>
+        <div class="start-card-title">Compare all states</div>
+        <div class="start-card-desc">See how every jurisdiction stacks up side by side</div>
+      </button>
+      <button class="start-card" onclick="document.getElementById('jx-nav').scrollIntoView({behavior:'smooth'})">
+        <span class="start-card-icon">⚖️</span>
+        <div class="start-card-title">Find my state's obligations</div>
+        <div class="start-card-desc">Use the jurisdiction bar to select your state</div>
+      </button>
+      <button class="start-card" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">
+        <span class="start-card-icon">🔍</span>
+        <div class="start-card-title">What hazards must I manage?</div>
+        <div class="start-card-desc">The 14 psychosocial hazards every employer must address</div>
+      </button>
+      <button class="start-card" onclick="showView('national'); setTimeout(()=>document.getElementById('resources-anchor').scrollIntoView({behavior:'smooth'}),50)">
+        <span class="start-card-icon">🛠️</span>
+        <div class="start-card-title">Find tools and resources</div>
+        <div class="start-card-desc">Free assessment tools, guidance documents and training</div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- JURISDICTION NAV -->
+<nav class="jx-nav-wrap" id="jx-nav" role="navigation" aria-label="Select jurisdiction">
+  <div class="jx-nav-inner">
+    <div class="jx-pills" role="list">
+      <button class="jx-pill active" role="listitem" aria-current="true" onclick="showView('national', this)">🌏 National</button>
+      <button class="jx-pill" role="listitem" onclick="showView('qld', this)">QLD</button>
+      <button class="jx-pill" role="listitem" onclick="showView('nsw', this)">NSW</button>
+      <button class="jx-pill" role="listitem" onclick="showView('vic', this)">VIC</button>
+      <button class="jx-pill" role="listitem" onclick="showView('sa', this)">SA</button>
+      <button class="jx-pill" role="listitem" onclick="showView('wa', this)">WA</button>
+      <button class="jx-pill" role="listitem" onclick="showView('tas', this)">TAS</button>
+      <button class="jx-pill" role="listitem" onclick="showView('nt', this)">NT</button>
+      <button class="jx-pill" role="listitem" onclick="showView('act', this)">ACT</button>
+      <button class="jx-pill" role="listitem" onclick="showView('cth', this)">Commonwealth</button>
+    </div>
+  </div>
+</nav>
+
+<!-- SEARCH BAR -->
+<div class="search-bar">
+  <div class="search-input-wrap">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="search-input" id="search-input" placeholder="Search across all content..." oninput="doSearch(this.value)" aria-label="Search within current jurisdiction view">
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main" id="main-content">
+
+<!-- ══════════════════════════════════════════
+     NATIONAL VIEW
+══════════════════════════════════════════ -->
+<div class="view active" id="view-national">
+
+  <div class="section-hd">
+    <div class="section-dot" style="background:var(--sky)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">National Overview</div>
+      <div class="section-hd-sub">How Australia's psychosocial reform landscape sits across all jurisdictions</div>
+    </div>
+  </div>
+
+  <div class="card searchable" style="margin-bottom:0">
+    <div class="card-title" style="margin-bottom:8px">The national framework — how we got here</div>
+    <p class="card-desc" style="margin-bottom:0">Australia's psychosocial reform framework originated from the 2018 Boland Review of the model WHS Act. Safe Work Australia released model regulations and a Code of Practice in 2022. Most states adopted them through 2022–2023. Victoria, which operates under a separate OHS framework, introduced its own standalone regulations effective December 2025 — completing a national picture where every Australian employer now has enforceable psychosocial obligations. The core duty existed before these reforms; what changed is the explicit framework for identifying, assessing and controlling psychosocial risks, and the regulator machinery to enforce it.</p>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div id="compare-anchor" style="padding-top:8px"></div>
+  <div class="section-hd" style="margin-top:32px">
+    <div class="section-dot" style="background:var(--navy)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">Jurisdiction Comparison</div>
+      <div class="section-hd-sub">The things that actually vary by state — at a glance</div>
+    </div>
+  </div>
+
+  <p class="compare-intro">Most jurisdictions have near-identical obligations. The real differences are narrow but consequential — particularly the hierarchy of controls and prevention plan requirements. Two jurisdictions do not require the hierarchy of controls.</p>
+
+  <div class="compare-grid">
+
+    <div class="jx-card primary searchable" onclick="showView('qld')">
+      <div class="jx-card-abbr">QLD</div>
+      <div class="jx-card-name">Queensland</div>
+      <div class="jx-card-title">Most prescriptive</div>
+      <div class="jx-card-reg">Regulator: WHSQ · In force: April 2023</div>
+      <div class="jx-card-badges">
+        <span class="badge badge-yes">✓ Hierarchy required</span>
+        <span class="badge badge-yes">✓ Prevention plan</span>
+        <span class="badge badge-special">Full depth →</span>
+      </div>
+      <div class="jx-card-distinction">Documented rationale required for chosen controls. Sexual harassment prevention plan required from March 2025. Inspectors check documentation, not just policy statements.</div>
+      <button class="jx-card-cta">View full details →</button>
+    </div>
+
+    <div class="jx-card searchable" onclick="showView('nsw')">
+      <div class="jx-card-abbr">NSW</div>
+      <div class="jx-card-name">New South Wales</div>
+      <div class="jx-card-title">Code becomes law July 2026</div>
+      <div class="jx-card-reg">Regulator: SafeWork NSW · In force: August 2025</div>
+      <div class="jx-card-badges">
+        <span class="badge badge-yes">✓ Hierarchy required</span>
+        <span class="badge badge-warn">⚠ Code enforceable Jul 2026</span>
+      </div>
+      <div class="jx-card-distinction">From 1 July 2026, Codes of Practice become legally enforceable benchmarks under s26A. Active workplace inspections underway since mid-2025.</div>
+      <button class="jx-card-cta">View full details →</button>
+    </div>
+
+    <div class="jx-card searchable" onclick="showView('vic')">
+      <div class="jx-card-abbr">VIC</div>
+      <div class="jx-card-name">Victoria</div>
+      <div class="jx-card-title">Training alone won't satisfy compliance</div>
+      <div class="jx-card-reg">Regulator: WorkSafe VIC · In force: December 2025</div>
+      <div class="jx-card-badges">
+        <span class="badge badge-yes">✓ Hierarchy required</span>
+        <span class="badge badge-special">Standalone OHS Act</span>
+      </div>
+      <div class="jx-card-distinction">Operates under OHS Act 2004, not harmonised WHS. Training and information cannot be the sole or predominant control measure. Work design must be addressed.</div>
+      <button class="jx-card-cta">View full details →</button>
+    </div>
+
+    <div class="jx-card searchable" onclick="showView('sa')">
+      <div class="jx-card-abbr">SA</div>
+      <div class="jx-card-name">South Australia</div>
+      <div class="jx-card-title">Industrial manslaughter provisions</div>
+      <div class="jx-card-reg">Regulator: SafeWork SA · In force: April 2023</div>
+      <div class="jx-card-badges">
+        <span class="badge badge-yes">✓ Hierarchy required</span>
+      </div>
+      <div class="jx-card-distinction">Industrial manslaughter laws strengthened from July 2024. Psychosocial risk exposure could contribute to manslaughter liability in serious cases.</div>
+      <button class="jx-card-cta">View details →</button>
+    </div>
+
+    <div class="jx-card searchable" onclick="showView('wa')">
+      <div class="jx-card-abbr">WA</div>
+      <div class="jx-card-name">Western Australia</div>
+      <div class="jx-card-title">Hierarchy of controls NOT required</div>
+      <div class="jx-card-reg">Regulator: WorkSafe WA · In force: 2022</div>
+      <div class="jx-card-badges">
+        <span class="badge badge-no">✗ Hierarchy not required</span>
+      </div>
+      <div class="jx-card-distinction">WA and Tasmania are the only two jurisdictions where lower-order measures like EAPs may satisfy compliance without higher-order controls being required.</div>
+      <button class="jx-card-cta">View details →</button>
+    </div>
+
+    <div class="jx-card searchable" onclick="showView('tas')">
+      <div class="jx-card-abbr">TAS</div>
+      <div class="jx-card-name">Tasmania</div>
+      <div class="jx-card-title">Hierarchy of controls NOT required</div>
+      <div class="jx-card-reg">Regulator: WorkSafe TAS · In force: January 2023</div>
+      <div class="jx-card-badges">
+        <span class="badge badge-no">✗ Hierarchy not required</span>
+      </div>
+      <div class="jx-card-distinction">Same position as WA on the hierarchy. Explicit bullying provisions in the 2022 Regulations. Education-focused enforcement approach.</div>
+      <button class="jx-card-cta">View details →</button>
+    </div>
+
+    <div class="jx-card searchable" onclick="showView('nt')">
+      <div class="jx-card-abbr">NT</div>
+      <div class="jx-card-name">Northern Territory</div>
+      <div class="jx-card-title">Aligned with national model</div>
+      <div class="jx-card-reg">Regulator: NT WorkSafe · In force: July 2023</div>
+      <div class="jx-card-badges">
+        <span class="badge badge-yes">✓ Hierarchy required</span>
+      </div>
+      <div class="jx-card-distinction">Fully aligned with the national harmonised WHS framework. Same risk management process applies to psychosocial hazards as all other hazard types.</div>
+      <button class="jx-card-cta">View details →</button>
+    </div>
+
+    <div class="jx-card searchable" onclick="showView('act')">
+      <div class="jx-card-abbr">ACT</div>
+      <div class="jx-card-name">Australian Capital Territory</div>
+      <div class="jx-card-title">Active compliance audits</div>
+      <div class="jx-card-reg">Regulator: WorkSafe ACT · In force: 2022</div>
+      <div class="jx-card-badges">
+        <span class="badge badge-yes">✓ Hierarchy required</span>
+      </div>
+      <div class="jx-card-distinction">Psychosocial risk management is now standard in WorkSafe ACT compliance audits. Policies must demonstrate measurable action, not intent.</div>
+      <button class="jx-card-cta">View details →</button>
+    </div>
+
+    <div class="jx-card searchable" onclick="showView('cth')">
+      <div class="jx-card-abbr">CTH</div>
+      <div class="jx-card-name">Commonwealth</div>
+      <div class="jx-card-title">Three additional hazards</div>
+      <div class="jx-card-reg">Regulator: Comcare · In force: April 2023</div>
+      <div class="jx-card-badges">
+        <span class="badge badge-yes">✓ Hierarchy required</span>
+        <span class="badge badge-special">Federal only</span>
+      </div>
+      <div class="jx-card-distinction">Applies to federal agencies and Comcare self-insurers. Code of Practice 2024 adds fatigue, intrusive surveillance, and job insecurity as named hazards.</div>
+      <button class="jx-card-cta">View details →</button>
+    </div>
+
+  </div><!-- /compare-grid -->
+
+  <!-- HAZARDS -->
+  <div id="hazards-anchor" style="padding-top:8px"></div>
+  <div class="section-hd" style="margin-top:40px">
+    <div class="section-dot" style="background:var(--rose)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">Psychosocial Hazards</div>
+      <div class="section-hd-sub">Consistent across all harmonised jurisdictions — these are what every employer must identify, assess and control</div>
+    </div>
+  </div>
+
+  <div class="card searchable" style="margin-bottom:16px">
+    <div class="card-title" style="margin-bottom:8px">What counts as a psychosocial hazard?</div>
+    <p class="card-desc" style="margin-bottom:8px">A psychosocial hazard is any aspect of work design, the work environment, or workplace interactions that may cause psychological or physical harm. Employers must identify all hazards present in their workplace — not just the obvious ones. Most workplaces contain several. Hazards can accumulate at low levels over time or cause immediate harm through a single event.</p>
+    <a href="https://www.safeworkaustralia.gov.au/safety-topic/managing-health/mental-health/psychosocial-hazards" target="_blank" class="card-link">Safe Work Australia guidance →</a>
+  </div>
+
+  <div class="hazards-grid">
+    <div class="hazard searchable"><div class="hazard-name">High or low job demands</div><div class="hazard-note">Unrealistic deadlines, excessive workload, inadequate recovery</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Low job control</div><div class="hazard-note">Limited autonomy over how or when work is done</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Poor support</div><div class="hazard-note">Insufficient information, resources, or management backing</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Low role clarity</div><div class="hazard-note">Uncertain responsibilities, expectations, or reporting lines</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Poor change management</div><div class="hazard-note">Poorly communicated or consulted organisational change</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Low reward and recognition</div><div class="hazard-note">Insufficient acknowledgement of effort or contribution</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Poor organisational justice</div><div class="hazard-note">Unfair treatment, decisions, or processes</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Traumatic events or material</div><div class="hazard-note">Exposure to incidents, violence, or distressing content</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Remote or isolated work</div><div class="hazard-note">Physical or social isolation from colleagues</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Poor physical environment</div><div class="hazard-note">Noise, temperature, ergonomics, hazardous conditions</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Violence and aggression</div><div class="hazard-note">Threats or acts of harm — includes client-facing roles</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Bullying</div><div class="hazard-note">Repeated unreasonable behaviour creating a risk to health</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Harassment (incl. sexual)</div><div class="hazard-note">Unwanted conduct based on protected attributes</div></div>
+    <div class="hazard searchable"><div class="hazard-name">Conflict or poor relationships</div><div class="hazard-note">Interpersonal tension, dysfunction, or exclusion at work</div></div>
+    <div class="hazard cth-only searchable"><div class="hazard-name">Fatigue</div><div class="hazard-note">Extended hours, shift work, insufficient recovery time</div><span class="hazard-badge">Commonwealth Code only</span></div>
+    <div class="hazard cth-only searchable"><div class="hazard-name">Intrusive surveillance</div><div class="hazard-note">Monitoring that creates psychological harm or distress</div><span class="hazard-badge">Commonwealth Code only</span></div>
+    <div class="hazard cth-only searchable"><div class="hazard-name">Job insecurity</div><div class="hazard-note">Uncertainty about continuity of employment</div><span class="hazard-badge">Commonwealth Code only</span></div>
+  </div>
+  <p style="font-size:11.5px; color:var(--text-soft); margin-top:10px; font-style:italic;">Purple border hazards appear in the Commonwealth Code 2024 but not separately named in most state codes. They remain relevant as aspects of work design that can cause harm.</p>
+
+  <!-- NATIONAL RESOURCES -->
+  <div id="resources-anchor" style="padding-top:8px"></div>
+  <div class="section-hd" style="margin-top:40px">
+    <div class="section-dot" style="background:var(--emerald)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">National Resources</div>
+      <div class="section-hd-sub">Free tools, assessment guides and official guidance for all employers</div>
+    </div>
+  </div>
+
+  <div class="cards">
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">People at Work — Psychosocial Risk Survey</div>
+        <div class="card-tags"><span class="tag tag-natl">National</span><span class="tag tag-tool">Assessment</span></div>
+      </div>
+      <p class="card-desc">A validated, evidence-based survey jointly developed by Safe Work Australia, Comcare, and state regulators. Free for any Australian employer.</p>
+      <div class="alert alert-amber" style="margin-bottom:12px">⚠️ <strong>Decommissioning 2 October 2026.</strong> If your processes rely on this tool, plan for a replacement before that date.</div>
+      <div class="card-footer">
+        <span class="card-meta">Safe Work Australia · Free</span>
+        <a href="https://www.peopleatwork.gov.au/" target="_blank" class="card-link">Visit tool →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Safe Work Australia — Psychosocial Hazards Hub</div>
+        <div class="card-tags"><span class="tag tag-natl">National</span><span class="tag tag-tool">Official</span></div>
+      </div>
+      <p class="card-desc">The national body's guidance covering the model regulations, Code of Practice, and supporting resources. Primary reference for employers operating across multiple states.</p>
+      <div class="card-footer">
+        <span class="card-meta">Safe Work Australia</span>
+        <a href="https://www.safeworkaustralia.gov.au/safety-topic/managing-health/mental-health" target="_blank" class="card-link">View guidance →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Heads Up — Mentally Healthy Workplaces</div>
+        <div class="card-tags"><span class="tag tag-natl">National</span><span class="tag tag-tool">Employer Resource</span></div>
+      </div>
+      <p class="card-desc">A Beyond Blue initiative providing practical tools and guidance for employers creating mentally healthy workplaces. Includes manager conversation guides, action plans, and industry resources.</p>
+      <div class="card-footer">
+        <span class="card-meta">Beyond Blue · Free</span>
+        <a href="https://www.headsup.org.au/" target="_blank" class="card-link">Visit Heads Up →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Mentally Healthy Workplaces — Government Hub</div>
+        <div class="card-tags"><span class="tag tag-natl">National</span><span class="tag tag-tool">Employer Resource</span></div>
+      </div>
+      <p class="card-desc">Government-backed national hub consolidating resources from Safe Work Australia, Beyond Blue, and others. Includes self-assessment tools, action plans, and industry-specific guidance for employers of all sizes.</p>
+      <div class="card-footer">
+        <span class="card-meta">Australian Government · Free</span>
+        <a href="https://www.mentallyhealthyworkplaces.gov.au/" target="_blank" class="card-link">Visit hub →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">ISO 45003:2021 — International Standard</div>
+        <div class="card-tags"><span class="tag tag-natl">International</span><span class="tag tag-code">Standard</span></div>
+      </div>
+      <p class="card-desc">The international standard for managing psychological health and safety within an OH&S management system. Increasingly referenced in Australian reform materials and expected in large-employer and tendering contexts.</p>
+      <div class="card-footer">
+        <span class="card-meta">ISO · Published 2021</span>
+        <a href="https://www.iso.org/standard/64283.html" target="_blank" class="card-link">View standard →</a>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /view-national -->
+
+
+<!-- ══════════════════════════════════════════
+     QLD VIEW — FULL DEPTH
+══════════════════════════════════════════ -->
+<div class="view" id="view-qld">
+
+  <div class="state-hero">
+    <div class="state-abbr">QLD</div>
+    <div class="state-hero-name">Queensland</div>
+    <div class="state-hero-title">Most prescriptive harmonised jurisdiction</div>
+    <div class="state-hero-facts">
+      <span class="state-fact">WHS Act 2011 (Qld)</span>
+      <span class="state-fact">Regs 55A–55D + 55BA + 55E–55H</span>
+      <span class="state-fact">Code effective 1 April 2023</span>
+    </div>
+    <div class="state-badges">
+      <span class="badge badge-yes">✓ Hierarchy required</span>
+      <span class="badge badge-yes">✓ Prevention plan required</span>
+      <span class="badge badge-special">Regulator: WHSQ</span>
+      <span class="badge badge-warn">⚠ Prevention plan deadline passed</span>
+    </div>
+  </div>
+
+  <div class="alert alert-red">
+    ⚠️ <div><strong>Overdue obligation:</strong> A documented sexual harassment and sex/gender-based harassment prevention plan was required by <strong>1 March 2025</strong>. If not in place, this is now overdue and subject to regulatory action.</div>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-dot" style="background:var(--amber)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">Employer Obligations</div>
+      <div class="section-hd-sub">What Queensland law requires you to do</div>
+    </div>
+  </div>
+
+  <div class="cards">
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">General Duty of Care — Psychological Safety</div>
+        <div class="card-tags"><span class="tag tag-qld">QLD</span><span class="tag tag-law">Legislation</span></div>
+      </div>
+      <p class="card-desc">Under s19 of the WHS Act 2011 (Qld), a PCBU must ensure, so far as is reasonably practicable, the health, safety and welfare of workers. Health explicitly includes psychological health. This is the foundation of all psychosocial obligations — it predates the specific regulations and has always applied.</p>
+      <div class="card-footer">
+        <span class="card-meta">WHS Act 2011 (Qld) — s19</span>
+        <a href="https://www.legislation.qld.gov.au/view/html/inforce/current/act-2011-018" target="_blank" class="card-link">View legislation →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Psychosocial Risk Regulations — Identify, Assess and Control</div>
+        <div class="card-tags"><span class="tag tag-qld">QLD</span><span class="tag tag-law">Legislation</span></div>
+      </div>
+      <p class="card-desc">Regulations 55A–55D + 55BA (unique to QLD) require PCBUs to manage psychosocial risks using the hierarchy of controls — the same process applied to physical hazards. QLD's additional Reg 55BA addresses specific controls for psychosocial hazards. Inspectors expect documented rationale for the controls chosen, not just a policy statement that controls exist.</p>
+      <div class="card-footer">
+        <span class="card-meta">WHS Regulation 2011 (Qld) — Regs 55A–55D, 55BA</span>
+        <a href="https://www.legislation.qld.gov.au/view/html/inforce/current/sl-2011-0240" target="_blank" class="card-link">View regulation →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Code of Practice — Managing Psychosocial Hazards</div>
+        <div class="card-tags"><span class="tag tag-qld">QLD</span><span class="tag tag-code">Code of Practice</span></div>
+      </div>
+      <p class="card-desc">In force from 1 April 2023, this is the primary practical guide for QLD employers. It covers hazard identification, risk assessment, the hierarchy of controls, consultation obligations, and documentation requirements. Following the Code is not mandatory, but compliance with it demonstrates compliance with the WHS Act. Policies and training alone will not satisfy an inspector — documented higher-order controls are expected.</p>
+      <div class="card-footer">
+        <span class="card-meta">Effective 1 April 2023</span>
+        <a href="https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0025/104857/managing-the-risk-of-psychosocial-hazards-at-work-code-of-practice.pdf" target="_blank" class="card-link">Download Code →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Sexual Harassment Prevention Plan — Mandatory Documentation</div>
+        <div class="card-tags"><span class="tag tag-qld">QLD</span><span class="tag tag-warn">Deadline Passed</span></div>
+      </div>
+      <p class="card-desc">Amended regulations (September 2024) require employers to proactively manage the risk of sexual harassment and sex or gender-based harassment. A documented prevention plan identifying specific risks, controls, timelines, responsible persons, and review dates was required by 1 March 2025. A policy statement is not sufficient — the plan must demonstrate a genuine risk management process.</p>
+      <div class="card-footer">
+        <span class="card-meta">Regs 55E–55H · Required by 1 March 2025</span>
+        <a href="https://www.worksafe.qld.gov.au/laws-and-compliance/workplace-harassment/sexual-harassment-and-sex-or-gender-based-harassment" target="_blank" class="card-link">WHSQ guidance →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Officer Due Diligence — Board and Executive Accountability</div>
+        <div class="card-tags"><span class="tag tag-qld">QLD</span><span class="tag tag-law">Legislation</span></div>
+      </div>
+      <p class="card-desc">Under s27, officers of a PCBU have a personal due diligence obligation to ensure the business meets its WHS duties. This includes staying informed about psychosocial obligations, understanding the business's exposures, and verifying that appropriate resources and processes are in place. Officers can be held personally liable separate to the PCBU.</p>
+      <div class="card-footer">
+        <span class="card-meta">WHS Act 2011 (Qld) — s27</span>
+        <a href="https://www.worksafe.qld.gov.au/laws-and-compliance/overview-of-whs-laws/duties-of-officers" target="_blank" class="card-link">Officer duties →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">WHS and Other Legislation Amendment Act 2024</div>
+        <div class="card-tags"><span class="tag tag-qld">QLD</span><span class="tag tag-law">Legislation</span></div>
+      </div>
+      <p class="card-desc">In force from 29 July 2025. Introduced further amendments to Queensland's WHS framework including changes to HSR elections and consultation obligations. WHSQ has released updated guidance materials to reflect the changes. Employers should review existing procedures against updated requirements.</p>
+      <div class="card-footer">
+        <span class="card-meta">Effective 29 July 2025</span>
+        <a href="https://www.worksafe.qld.gov.au/laws-and-compliance/work-health-and-safety-and-other-legislation-amendment-act-2024" target="_blank" class="card-link">WHSQ update →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Resources Industry — Separate RSHQ Obligations</div>
+        <div class="card-tags"><span class="tag tag-qld">QLD</span><span class="tag tag-law">Resources Sector</span></div>
+      </div>
+      <p class="card-desc">Mines and quarries in Queensland are regulated by Resources Safety and Health Queensland (RSHQ) under separate resources safety legislation. A 2025 discussion paper proposed expanded reporting obligations for traumatic events, bullying and harassment specific to the resources sector. Employers in this sector should monitor RSHQ separately to WHSQ.</p>
+      <div class="card-footer">
+        <span class="card-meta">RSHQ · Resources Safety and Health Legislation</span>
+        <a href="https://www.rshq.qld.gov.au/occupational-health/psychological-health/psychosocial-hazards" target="_blank" class="card-link">RSHQ guidance →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-hd">
+    <div class="section-dot" style="background:var(--emerald)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">QLD Resources</div>
+      <div class="section-hd-sub">Queensland-specific tools and official guidance</div>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">WHSQ Psychosocial Hazards Hub</div>
+        <div class="card-tags"><span class="tag tag-qld">QLD</span><span class="tag tag-tool">Official</span></div>
+      </div>
+      <p class="card-desc">The central landing page for all WHSQ psychosocial guidance. Includes Code of Practice, updated small business guidance (August 2025), prevention plan requirements, and supporting templates. Start here for QLD-specific practical guidance.</p>
+      <div class="card-footer">
+        <span class="card-meta">Workplace Health and Safety Queensland</span>
+        <a href="https://www.worksafe.qld.gov.au/laws-and-compliance/workers-health-and-wellbeing/psychological-health-and-safety" target="_blank" class="card-link">Go to hub →</a>
+      </div>
+    </div>
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">WHSQ Psychosocial Risk Assessment Tool</div>
+        <div class="card-tags"><span class="tag tag-qld">QLD</span><span class="tag tag-tool">Assessment</span></div>
+      </div>
+      <p class="card-desc">A practical PDF tool to help employers assess psychosocial risks in their workplace. Aligned with the Code of Practice. Widely used as a starting point for risk assessment documentation.</p>
+      <div class="card-footer">
+        <span class="card-meta">WHSQ · Free · PDF</span>
+        <a href="https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0004/104859/psychosocial-risk-assessment-tool.pdf" target="_blank" class="card-link">Download tool →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hazards-link-card">
+    <div class="hazards-link-text">
+      <div class="hazards-link-title">View the 14 psychosocial hazards</div>
+      <div class="hazards-link-sub">The complete list every employer must assess — consistent across all jurisdictions</div>
+    </div>
+    <button class="hazards-link-btn" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">View hazards →</button>
+  </div>
+
+</div><!-- /view-qld -->
+
+
+<!-- ══════════════════════════════════════════
+     NSW VIEW — FULL DEPTH
+══════════════════════════════════════════ -->
+<div class="view" id="view-nsw">
+
+  <div class="state-hero">
+    <div class="state-abbr">NSW</div>
+    <div class="state-hero-name">New South Wales</div>
+    <div class="state-hero-title">Code becomes legally enforceable from 1 July 2026</div>
+    <div class="state-hero-facts">
+      <span class="state-fact">WHS Regulation 2025 (NSW)</span>
+      <span class="state-fact">Regs 55A–55D</span>
+      <span class="state-fact">In force August 2025</span>
+    </div>
+    <div class="state-badges">
+      <span class="badge badge-yes">✓ Hierarchy required</span>
+      <span class="badge badge-warn">⚠ Code enforceable Jul 2026</span>
+      <span class="badge badge-special">Regulator: SafeWork NSW</span>
+    </div>
+  </div>
+
+  <div class="alert alert-blue">
+    ℹ️ <div><strong>Key change incoming — 1 July 2026:</strong> Under the Industrial Relations and Other Legislation Amendment Act 2025, Codes of Practice including the Managing Psychosocial Hazards Code become legally enforceable compliance benchmarks. A PCBU must either comply with the Code or demonstrate an equivalent or higher standard. Regulators won't need to prove harm occurred — falling short of the Code may constitute a breach.</div>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-dot" style="background:var(--amber)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">Employer Obligations</div>
+      <div class="section-hd-sub">What NSW law requires you to do</div>
+    </div>
+  </div>
+
+  <div class="cards">
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">WHS Regulation 2025 — Psychosocial Risk Duties</div>
+        <div class="card-tags"><span class="tag tag-law">Legislation</span></div>
+      </div>
+      <p class="card-desc">The WHS Regulation 2025 (NSW) replaced the 2017 Regulation from August 2025, consolidating psychosocial risk duties into a clearer framework. Under ss55C–55D, PCBUs must manage psychosocial risks using the hierarchy of controls — the same systematic approach applied to physical risks. Higher-order controls (work design, supervision, staffing levels, environmental adjustments) are required over policies, training, and EAPs.</p>
+      <div class="card-footer">
+        <span class="card-meta">WHS Regulation 2025 (NSW) — ss55C–55D</span>
+        <a href="https://www.legislation.nsw.gov.au/view/html/inforce/current/sl-2025-0123" target="_blank" class="card-link">View regulation →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Code of Practice — Managing Psychosocial Hazards at Work (NSW)</div>
+        <div class="card-tags"><span class="tag tag-code">Code of Practice</span></div>
+      </div>
+      <p class="card-desc">NSW's Code of Practice consolidates psychosocial hazard guidance and is aligned with the 2025 Regulation. From 1 July 2026, it becomes a legally enforceable benchmark under s26A of the WHS Act. Employers who rely on an earlier version of the Code without integrating the hierarchy of controls obligations under ss55C–55D will not be compliant with current requirements.</p>
+      <div class="card-footer">
+        <span class="card-meta">SafeWork NSW · Updated 2024</span>
+        <a href="https://www.safework.nsw.gov.au/resource-library/list-of-all-codes-of-practice/codes-of-practice/managing-psychosocial-hazards-at-work" target="_blank" class="card-link">Download Code →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Active Inspections — SafeWork NSW Enforcement</div>
+        <div class="card-tags"><span class="tag tag-warn">Enforcement</span></div>
+      </div>
+      <p class="card-desc">SafeWork NSW commenced active workplace inspections for psychosocial risk management from mid-2025. Inspectors are examining whether employers have identified psychosocial hazards, conducted risk assessments, and implemented controls beyond training and policy. Prohibition notices have been issued where psychosocial risks were found unmanaged. The enforcement posture is active, not advisory.</p>
+      <div class="card-footer">
+        <span class="card-meta">SafeWork NSW · Active from mid-2025</span>
+        <a href="https://www.safework.nsw.gov.au/safety-starts-here/mental-health-and-wellbeing/psychosocial-hazards" target="_blank" class="card-link">SafeWork NSW guidance →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Positive Duty — Sexual Harassment (Federal)</div>
+        <div class="card-tags"><span class="tag tag-natl">National</span><span class="tag tag-law">Legislation</span></div>
+      </div>
+      <p class="card-desc">The Respect@Work reforms (Sex Discrimination Act amendment) introduced a positive duty on all Australian employers to take reasonable and proportionate measures to eliminate sexual harassment, discrimination, and victimisation. This sits alongside WHS psychosocial obligations and is enforced by the Australian Human Rights Commission. It applies to all employers regardless of jurisdiction.</p>
+      <div class="card-footer">
+        <span class="card-meta">Sex Discrimination Act 1984 (Cth) — s47C</span>
+        <a href="https://www.humanrights.gov.au/our-work/employers/positive-duty-under-sex-discrimination-act" target="_blank" class="card-link">AHRC guidance →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-hd">
+    <div class="section-dot" style="background:var(--emerald)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">NSW Resources</div>
+      <div class="section-hd-sub">SafeWork NSW tools and official guidance</div>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">SafeWork NSW — Psychosocial Hazards</div>
+        <div class="card-tags"><span class="tag tag-tool">Official</span></div>
+      </div>
+      <p class="card-desc">SafeWork NSW's central page for psychosocial guidance, including the Code of Practice, risk assessment tools, and resources for specific hazard types including bullying and sexual harassment.</p>
+      <div class="card-footer">
+        <span class="card-meta">SafeWork NSW</span>
+        <a href="https://www.safework.nsw.gov.au/safety-starts-here/mental-health-and-wellbeing/psychosocial-hazards" target="_blank" class="card-link">Go to hub →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hazards-link-card">
+    <div class="hazards-link-text">
+      <div class="hazards-link-title">View the 14 psychosocial hazards</div>
+      <div class="hazards-link-sub">The complete list — consistent across all jurisdictions</div>
+    </div>
+    <button class="hazards-link-btn" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">View hazards →</button>
+  </div>
+
+</div><!-- /view-nsw -->
+
+
+<!-- ══════════════════════════════════════════
+     VIC VIEW — FULL DEPTH
+══════════════════════════════════════════ -->
+<div class="view" id="view-vic">
+
+  <div class="state-hero">
+    <div class="state-abbr">VIC</div>
+    <div class="state-hero-name">Victoria</div>
+    <div class="state-hero-title">Standalone OHS framework — training alone won't comply</div>
+    <div class="state-hero-facts">
+      <span class="state-fact">OHS Act 2004 (Vic)</span>
+      <span class="state-fact">OHS (Psychological Health) Regs 2025</span>
+      <span class="state-fact">In force 1 December 2025</span>
+    </div>
+    <div class="state-badges">
+      <span class="badge badge-yes">✓ Hierarchy required</span>
+      <span class="badge badge-special">Standalone OHS Act</span>
+      <span class="badge badge-special">Regulator: WorkSafe VIC</span>
+    </div>
+  </div>
+
+  <div class="alert alert-blue">
+    ℹ️ <div><strong>Key distinction:</strong> Victoria operates under the Occupational Health and Safety Act 2004, not the harmonised WHS Act. Its psychosocial obligations are structurally similar but implemented through a separate legislative framework. Multi-state employers with Victorian workers cannot assume QLD or NSW guidance fully applies.</div>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-dot" style="background:var(--amber)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">Employer Obligations</div>
+      <div class="section-hd-sub">What Victorian law requires you to do</div>
+    </div>
+  </div>
+
+  <div class="cards">
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">OHS (Psychological Health) Regulations 2025</div>
+        <div class="card-tags"><span class="tag tag-law">Legislation</span></div>
+      </div>
+      <p class="card-desc">In force from 1 December 2025, these standalone regulations create explicit psychosocial risk management obligations under the OHS Act 2004. Employers must identify hazards from work design, systems of work, and interpersonal interactions. They must assess and control identified risks, consult with workers, and review controls when circumstances change. This completed the national picture — Victoria was the last jurisdiction to act.</p>
+      <div class="card-footer">
+        <span class="card-meta">OHS (Psychological Health) Regulations 2025 (Vic)</span>
+        <a href="https://www.worksafe.vic.gov.au/psychological-health-regulations" target="_blank" class="card-link">View regulations →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Training Limitation — Work Design Must Be Addressed</div>
+        <div class="card-tags"><span class="tag tag-warn">Key Distinction</span></div>
+      </div>
+      <p class="card-desc">Victoria's regulations explicitly prohibit training and information being used as the sole or predominant control measure. If training is used in combination with other controls, it must not be the predominant one. This is Victoria's most significant departure from the approach many employers take. Providing awareness training, EAP access, and policies alone does not meet the obligation — the design of work itself must be addressed.</p>
+      <div class="card-footer">
+        <span class="card-meta">OHS (Psychological Health) Regulations 2025 — Reg 6</span>
+        <a href="https://www.worksafe.vic.gov.au/psychological-health-regulations" target="_blank" class="card-link">Regulation detail →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Compliance Code: Psychological Health</div>
+        <div class="card-tags"><span class="tag tag-code">Compliance Code</span></div>
+      </div>
+      <p class="card-desc">WorkSafe Victoria released the Compliance Code: Psychological Health in September 2025. In Victoria, compliance codes have a higher legal status than Codes of Practice in other jurisdictions — compliance with a WorkSafe Compliance Code is taken to be compliance with the underlying regulation. Employers should treat this as their primary practical reference.</p>
+      <div class="card-footer">
+        <span class="card-meta">WorkSafe Victoria · September 2025</span>
+        <a href="https://www.worksafe.vic.gov.au/psychological-health-compliance-code" target="_blank" class="card-link">View compliance code →</a>
+      </div>
+    </div>
+
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">Review Triggers — When You Must Reassess Controls</div>
+        <div class="card-tags"><span class="tag tag-law">Obligation</span></div>
+      </div>
+      <p class="card-desc">Victorian regulations specify explicit triggers requiring a review of psychosocial controls: before changes to systems of work; after a notifiable incident involving psychological harm; upon request by a health and safety representative; and at any time controls are no longer adequate. These review obligations are more prescriptive than most other jurisdictions.</p>
+      <div class="card-footer">
+        <span class="card-meta">OHS (Psychological Health) Regulations 2025</span>
+        <a href="https://www.worksafe.vic.gov.au/psychological-health-regulations" target="_blank" class="card-link">Regulation detail →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-hd">
+    <div class="section-dot" style="background:var(--emerald)"></div>
+    <div class="section-hd-text">
+      <div class="section-hd-title">VIC Resources</div>
+      <div class="section-hd-sub">WorkSafe Victoria tools and official guidance</div>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card searchable">
+      <div class="card-top">
+        <div class="card-title">WorkSafe Victoria — Psychological Health</div>
+        <div class="card-tags"><span class="tag tag-tool">Official</span></div>
+      </div>
+      <p class="card-desc">WorkSafe Victoria's central page for psychological health obligations, including the Compliance Code, regulations, and supporting guidance for employers of all sizes.</p>
+      <div class="card-footer">
+        <span class="card-meta">WorkSafe Victoria</span>
+        <a href="https://www.worksafe.vic.gov.au/psychological-health" target="_blank" class="card-link">Go to hub →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hazards-link-card">
+    <div class="hazards-link-text">
+      <div class="hazards-link-title">View the 14 psychosocial hazards</div>
+      <div class="hazards-link-sub">The complete list — consistent across all jurisdictions</div>
+    </div>
+    <button class="hazards-link-btn" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">View hazards →</button>
+  </div>
+
+</div><!-- /view-vic -->
+
+
+<!-- ══════════════════════════════════════════
+     MINIMUM VIABLE STATE VIEWS
+══════════════════════════════════════════ -->
+
+<!-- SA -->
+<div class="view" id="view-sa">
+  <div class="state-hero">
+    <div class="state-abbr">SA</div>
+    <div class="state-hero-name">South Australia</div>
+    <div class="state-hero-title">Industrial manslaughter provisions strengthened</div>
+    <div class="state-hero-facts"><span class="state-fact">WHS Regulation (SA)</span><span class="state-fact">Regs 55A–55D</span><span class="state-fact">In force April 2023</span></div>
+    <div class="state-badges"><span class="badge badge-yes">✓ Hierarchy required</span><span class="badge badge-special">Regulator: SafeWork SA</span></div>
+  </div>
+  <div class="min-viable-body searchable">
+    <p>South Australia adopted the model WHS psychosocial regulations in April 2023, with obligations aligned to the national harmonised framework. The hierarchy of controls is required. SafeWork SA's enforcement approach has been education-heavy, with a transition toward compliance campaigns through 2025–2026. Employers should not interpret the education-focused approach as reduced risk — enforcement capacity is increasing.</p>
+    <div class="min-viable-facts">
+      <div class="fact-item"><div class="fact-label">Legislation</div><div class="fact-value">WHS Regulation (SA) — Regs 55A–55D</div></div>
+      <div class="fact-item"><div class="fact-label">Code of Practice</div><div class="fact-value">Model Code adopted</div></div>
+      <div class="fact-item"><div class="fact-label">Hierarchy required</div><div class="fact-value" style="color:var(--yes)">✓ Yes</div></div>
+      <div class="fact-item"><div class="fact-label">Prevention plan</div><div class="fact-value" style="color:var(--no)">✗ No (separate positive duty applies)</div></div>
+    </div>
+    <div class="distinctions">
+      <div class="distinction-item"><span class="distinction-icon">⚠️</span><div>Industrial manslaughter laws were strengthened from July 2024. Unmanaged psychosocial risks that contribute to serious psychological harm could form part of a manslaughter liability case in extreme circumstances.</div></div>
+      <div class="distinction-item"><span class="distinction-icon">📋</span><div>SafeWork SA expects risk registers, consultation evidence, and documented control measures — not just awareness training or EAP provision.</div></div>
+    </div>
+    <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a href="https://www.safework.sa.gov.au/workers-safety/mental-health" target="_blank" class="card-link">SafeWork SA guidance →</a>
+    </div>
+  </div>
+  <div class="hazards-link-card"><div class="hazards-link-text"><div class="hazards-link-title">View the 14 psychosocial hazards</div><div class="hazards-link-sub">Consistent across all jurisdictions</div></div><button class="hazards-link-btn" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">View hazards →</button></div>
+</div>
+
+<!-- WA -->
+<div class="view" id="view-wa">
+  <div class="state-hero">
+    <div class="state-abbr">WA</div>
+    <div class="state-hero-name">Western Australia</div>
+    <div class="state-hero-title">Hierarchy of controls NOT required — key distinction</div>
+    <div class="state-hero-facts"><span class="state-fact">WHS (General) Regs 2022 (WA)</span><span class="state-fact">Regs 55A–55D</span><span class="state-fact">In force 2022</span></div>
+    <div class="state-badges"><span class="badge badge-no">✗ Hierarchy NOT required</span><span class="badge badge-special">Regulator: WorkSafe WA</span></div>
+  </div>
+  <div class="alert alert-amber">⚠️ <div><strong>Important for multi-state employers:</strong> WA and Tasmania are the only jurisdictions where the hierarchy of controls is not explicitly required for psychosocial risks. Lower-order measures like EAPs may satisfy compliance here where they would not in QLD, NSW, or VIC. This creates compliance complexity for employers operating across state lines.</div></div>
+  <div class="min-viable-body searchable">
+    <p>Western Australia adopted the national model WHS laws in 2022 and incorporated psychosocial hazard provisions. Unlike most other states, WA maintains the original model WHS position — the hierarchy of controls is not explicitly required for psychosocial risks. Enforcement has been education-focused, transitioning toward compliance campaigns.</p>
+    <div class="min-viable-facts">
+      <div class="fact-item"><div class="fact-label">Legislation</div><div class="fact-value">WHS (General) Regulations 2022 (WA)</div></div>
+      <div class="fact-item"><div class="fact-label">Code of Practice</div><div class="fact-value">Model Code adopted (2022)</div></div>
+      <div class="fact-item"><div class="fact-label">Hierarchy required</div><div class="fact-value" style="color:var(--no)">✗ Not required</div></div>
+      <div class="fact-item"><div class="fact-label">Prevention plan</div><div class="fact-value" style="color:var(--no)">✗ No</div></div>
+    </div>
+    <div class="distinctions">
+      <div class="distinction-item"><span class="distinction-icon">⚠️</span><div>The hierarchy of controls is not required in WA. Lower-order controls (policies, training, EAPs) may be sufficient for compliance here — unlike QLD, NSW, and VIC where higher-order controls are mandatory.</div></div>
+      <div class="distinction-item"><span class="distinction-icon">🔍</span><div>Safe Work Australia has flagged this inconsistency as problematic for national harmonisation. It may change in future regulatory reviews.</div></div>
+    </div>
+    <div style="margin-top:18px">
+      <a href="https://www.worksafe.wa.gov.au/safety-topics/psychological-safety" target="_blank" class="card-link">WorkSafe WA guidance →</a>
+    </div>
+  </div>
+  <div class="hazards-link-card"><div class="hazards-link-text"><div class="hazards-link-title">View the 14 psychosocial hazards</div><div class="hazards-link-sub">Consistent across all jurisdictions</div></div><button class="hazards-link-btn" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">View hazards →</button></div>
+</div>
+
+<!-- TAS -->
+<div class="view" id="view-tas">
+  <div class="state-hero">
+    <div class="state-abbr">TAS</div>
+    <div class="state-hero-name">Tasmania</div>
+    <div class="state-hero-title">Hierarchy of controls NOT required</div>
+    <div class="state-hero-facts"><span class="state-fact">WHS Regulation 2022 (Tas)</span><span class="state-fact">In force January 2023</span></div>
+    <div class="state-badges"><span class="badge badge-no">✗ Hierarchy NOT required</span><span class="badge badge-special">Regulator: WorkSafe Tasmania</span></div>
+  </div>
+  <div class="min-viable-body searchable">
+    <p>Tasmania introduced its Code of Practice for Managing the Risk of Psychosocial Hazards at Work in January 2023. The 2022 Regulations updated the WHS framework to include explicit psychosocial hazard provisions. Like WA, Tasmania does not require the hierarchy of controls for psychosocial risks — the original model WHS position is maintained. Explicit bullying obligations are included in the 2022 Regulations.</p>
+    <div class="min-viable-facts">
+      <div class="fact-item"><div class="fact-label">Legislation</div><div class="fact-value">WHS Regulation 2022 (Tas)</div></div>
+      <div class="fact-item"><div class="fact-label">Code of Practice</div><div class="fact-value">Effective January 2023</div></div>
+      <div class="fact-item"><div class="fact-label">Hierarchy required</div><div class="fact-value" style="color:var(--no)">✗ Not required</div></div>
+      <div class="fact-item"><div class="fact-label">Prevention plan</div><div class="fact-value" style="color:var(--no)">✗ No</div></div>
+    </div>
+    <div class="distinctions">
+      <div class="distinction-item"><span class="distinction-icon">📋</span><div>Explicit bullying obligations are included in the 2022 Regulations as a named psychosocial hazard requiring proactive management.</div></div>
+      <div class="distinction-item"><span class="distinction-icon">⚠️</span><div>Same position as WA — hierarchy not required. Enforcement is education-focused. Safe Work Australia has flagged this inconsistency in its harmonisation review.</div></div>
+    </div>
+    <div style="margin-top:18px">
+      <a href="https://www.worksafe.tas.gov.au/topics/Health-and-Safety/hazards/psychosocial-hazards" target="_blank" class="card-link">WorkSafe Tasmania guidance →</a>
+    </div>
+  </div>
+  <div class="hazards-link-card"><div class="hazards-link-text"><div class="hazards-link-title">View the 14 psychosocial hazards</div><div class="hazards-link-sub">Consistent across all jurisdictions</div></div><button class="hazards-link-btn" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">View hazards →</button></div>
+</div>
+
+<!-- NT -->
+<div class="view" id="view-nt">
+  <div class="state-hero">
+    <div class="state-abbr">NT</div>
+    <div class="state-hero-name">Northern Territory</div>
+    <div class="state-hero-title">Fully aligned with national harmonised framework</div>
+    <div class="state-hero-facts"><span class="state-fact">WHS (NUL) Regulations 2011 (NT)</span><span class="state-fact">In force 1 July 2023</span></div>
+    <div class="state-badges"><span class="badge badge-yes">✓ Hierarchy required</span><span class="badge badge-special">Regulator: NT WorkSafe</span></div>
+  </div>
+  <div class="min-viable-body searchable">
+    <p>The Northern Territory amended its Work Health and Safety (National Uniform Legislation) Regulations 2011 from 1 July 2023 to address psychosocial hazards. The changes incorporate the model WHS regulation updates. The same risk management process applies to psychosocial hazards as to all other hazard types under Part 3.1. Employers must identify psychosocial hazards, assess the risks, and implement controls using the hierarchy.</p>
+    <div class="min-viable-facts">
+      <div class="fact-item"><div class="fact-label">Legislation</div><div class="fact-value">WHS (NUL) Regulations 2011 (NT) — Regs 55A–55D</div></div>
+      <div class="fact-item"><div class="fact-label">Code of Practice</div><div class="fact-value">Model Code adopted</div></div>
+      <div class="fact-item"><div class="fact-label">Hierarchy required</div><div class="fact-value" style="color:var(--yes)">✓ Yes</div></div>
+      <div class="fact-item"><div class="fact-label">Prevention plan</div><div class="fact-value" style="color:var(--no)">✗ No</div></div>
+    </div>
+    <div class="distinctions">
+      <div class="distinction-item"><span class="distinction-icon">📋</span><div>NT's obligations are substantively the same as QLD, NSW, SA, ACT, and Commonwealth. The hierarchy of controls is required. Psychosocial risks are managed identically to physical risks under the framework.</div></div>
+      <div class="distinction-item"><span class="distinction-icon">🔍</span><div>Remote and isolated work is a particularly relevant hazard in NT workplaces. Employers with remote workers should ensure this hazard is explicitly assessed and controlled.</div></div>
+    </div>
+    <div style="margin-top:18px">
+      <a href="https://worksafe.nt.gov.au/laws-and-compliance/workplace-safety-laws/2023-changes-to-the-work-health-and-safety-regulations-psychosocial-hazards" target="_blank" class="card-link">NT WorkSafe guidance →</a>
+    </div>
+  </div>
+  <div class="hazards-link-card"><div class="hazards-link-text"><div class="hazards-link-title">View the 14 psychosocial hazards</div><div class="hazards-link-sub">Consistent across all jurisdictions</div></div><button class="hazards-link-btn" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">View hazards →</button></div>
+</div>
+
+<!-- ACT -->
+<div class="view" id="view-act">
+  <div class="state-hero">
+    <div class="state-abbr">ACT</div>
+    <div class="state-hero-name">Australian Capital Territory</div>
+    <div class="state-hero-title">Active compliance audits now include psychosocial checks</div>
+    <div class="state-hero-facts"><span class="state-fact">WHS Regulation 2011 (ACT)</span><span class="state-fact">Regs 55A–55D</span><span class="state-fact">In force 2022</span></div>
+    <div class="state-badges"><span class="badge badge-yes">✓ Hierarchy required</span><span class="badge badge-special">Regulator: WorkSafe ACT</span></div>
+  </div>
+  <div class="min-viable-body searchable">
+    <p>The ACT adopted the model WHS regulations in 2022, with the hierarchy of controls required for psychosocial risk management. Psychosocial risk management is now a standard component of WorkSafe ACT compliance audits. Employers operating in the ACT — particularly those in the public sector given Canberra's employer profile — should treat psychosocial compliance as an active audit risk, not a future aspiration.</p>
+    <div class="min-viable-facts">
+      <div class="fact-item"><div class="fact-label">Legislation</div><div class="fact-value">WHS Regulation 2011 (ACT) — Regs 55A–55D</div></div>
+      <div class="fact-item"><div class="fact-label">Code of Practice</div><div class="fact-value">Managing Psychosocial Hazards at Work — Code of Practice</div></div>
+      <div class="fact-item"><div class="fact-label">Hierarchy required</div><div class="fact-value" style="color:var(--yes)">✓ Yes</div></div>
+      <div class="fact-item"><div class="fact-label">Prevention plan</div><div class="fact-value" style="color:var(--no)">✗ No (positive duty applies federally)</div></div>
+    </div>
+    <div class="distinctions">
+      <div class="distinction-item"><span class="distinction-icon">🔍</span><div>ACT compliance audits now routinely include psychosocial risk management as a standard item. Policies must demonstrate measurable action and documented controls, not intent.</div></div>
+      <div class="distinction-item"><span class="distinction-icon">📋</span><div>Given the ACT's significant public sector workforce, Comcare obligations (for Commonwealth agencies) and ACT WHS obligations often apply to adjacent employers and should be understood in parallel.</div></div>
+    </div>
+    <div style="margin-top:18px">
+      <a href="https://www.worksafe.act.gov.au/health-and-safety-portal/safety-topics/psychological-safety-at-work" target="_blank" class="card-link">WorkSafe ACT guidance →</a>
+    </div>
+  </div>
+  <div class="hazards-link-card"><div class="hazards-link-text"><div class="hazards-link-title">View the 14 psychosocial hazards</div><div class="hazards-link-sub">Consistent across all jurisdictions</div></div><button class="hazards-link-btn" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">View hazards →</button></div>
+</div>
+
+<!-- COMMONWEALTH -->
+<div class="view" id="view-cth">
+  <div class="state-hero">
+    <div class="state-abbr">CTH</div>
+    <div class="state-hero-name">Commonwealth (Comcare)</div>
+    <div class="state-hero-title">Three additional hazards — federal employers and self-insurers</div>
+    <div class="state-hero-facts"><span class="state-fact">WHS Regulations 2011 (Cth)</span><span class="state-fact">Regs 55A–55D</span><span class="state-fact">Code of Practice 2024</span></div>
+    <div class="state-badges"><span class="badge badge-yes">✓ Hierarchy required</span><span class="badge badge-special">Regulator: Comcare</span><span class="badge badge-special">Federal employers only</span></div>
+  </div>
+  <div class="alert alert-blue">ℹ️ <div><strong>Who does this apply to?</strong> Comcare covers Commonwealth and ACT government agencies, statutory bodies, and companies that have elected to self-insure under the Safety, Rehabilitation and Compensation Act 1988. If your organisation is a Comcare self-insurer, these obligations apply to you regardless of which state you operate in.</div></div>
+  <div class="min-viable-body searchable">
+    <p>The Commonwealth Code of Practice 2024 adds three psychosocial hazards not separately named in most state codes: fatigue, intrusive surveillance, and job insecurity. These hazards have always existed and were always covered by general WHS duties, but their explicit naming signals Comcare's enforcement focus. A separate Sexual and Gender-based Harassment Code of Practice 2025 applies alongside the main Code. The positive duty under the Respect@Work reforms also applies to all Commonwealth employers.</p>
+    <div class="min-viable-facts">
+      <div class="fact-item"><div class="fact-label">Legislation</div><div class="fact-value">WHS Regulations 2011 (Cth) — Regs 55A–55D</div></div>
+      <div class="fact-item"><div class="fact-label">Code of Practice</div><div class="fact-value">Managing Psychosocial Hazards at Work 2024</div></div>
+      <div class="fact-item"><div class="fact-label">Hierarchy required</div><div class="fact-value" style="color:var(--yes)">✓ Yes</div></div>
+      <div class="fact-item"><div class="fact-label">Additional hazards</div><div class="fact-value">Fatigue, intrusive surveillance, job insecurity</div></div>
+    </div>
+    <div class="distinctions">
+      <div class="distinction-item"><span class="distinction-icon">📋</span><div>The Commonwealth Code of Practice 2024 names 17 hazards versus the 14 in most state codes. Comcare self-insurers should assess all 17 explicitly in their risk management documentation.</div></div>
+      <div class="distinction-item"><span class="distinction-icon">⚖️</span><div>A separate Sexual and Gender-based Harassment Code of Practice 2025 applies alongside the main psychosocial Code. Both require documented risk management processes.</div></div>
+      <div class="distinction-item"><span class="distinction-icon">🔍</span><div>Comcare's enforcement posture has been active for federal agencies. Psychological injury claims in the federal public sector are among the highest-cost and longest-duration claims in Australian workers' compensation.</div></div>
+    </div>
+    <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a href="https://www.comcare.gov.au/preventing/hazards/psychosocial-hazards" target="_blank" class="card-link">Comcare guidance →</a>
+    </div>
+  </div>
+  <div class="hazards-link-card"><div class="hazards-link-text"><div class="hazards-link-title">View all 17 hazards (incl. Commonwealth additions)</div><div class="hazards-link-sub">14 national + 3 Commonwealth-specific</div></div><button class="hazards-link-btn" onclick="showView('national'); setTimeout(()=>document.getElementById('hazards-anchor').scrollIntoView({behavior:'smooth'}),50)">View hazards →</button></div>
+</div>
+
+<div class="no-results" id="no-results">No results found. Try a different search term.</div>
+
+</main><!-- /main -->
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>This is a personal reference tool, not legal advice. Content is summarised from publicly available legislation and links to official sources. Always verify obligations with your state regulator or a qualified WHS professional.</p>
+  <p style="margin-top:6px">Not associated with AGL Energy or any other organisation. Built with AI, manually reviewed. Last reviewed June 2026.</p>
+  <p style="margin-top:6px"><a href="mailto:hello@isaacpeterson.au?subject=Psychosocial%20Hazards%20Hub%20-%20Error%20Report&body=Jurisdiction%3A%0ACard%20title%3A%0AError%20description%3A">Report an error</a> · <a href="https://www.safeworkaustralia.gov.au" target="_blank">Safe Work Australia</a> · <a href="https://www.worksafe.qld.gov.au" target="_blank">WHSQ</a></p>
+</footer>
+
+<script>
+  let currentView = 'national';
+
+  function showView(jxId, pillBtn) {
+    // Hide all views
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    // Show target
+    const target = document.getElementById('view-' + jxId);
+    if (target) target.classList.add('active');
+    currentView = jxId;
+
+    // Update pills + aria-current
+    document.querySelectorAll('.jx-pill').forEach(p => {
+      p.classList.remove('active');
+      p.removeAttribute('aria-current');
+    });
+    if (pillBtn) {
+      pillBtn.classList.add('active');
+      pillBtn.setAttribute('aria-current', 'true');
+      pillBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    } else {
+      document.querySelectorAll('.jx-pill').forEach(p => {
+        if (p.getAttribute('onclick') && p.getAttribute('onclick').includes("'" + jxId + "'")) {
+          p.classList.add('active');
+          p.setAttribute('aria-current', 'true');
+          p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      });
+    }
+
+    // Clear search
+    document.getElementById('search-input').value = '';
+    document.getElementById('no-results').style.display = 'none';
+    document.querySelectorAll('.searchable').forEach(el => el.style.display = '');
+
+    // Scroll to top of content
+    document.getElementById('main-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function doSearch(query) {
+    const q = query.toLowerCase().trim();
+    const currentViewEl = document.getElementById('view-' + currentView);
+    if (!currentViewEl) return;
+
+    const items = currentViewEl.querySelectorAll('.searchable');
+    let visibleCount = 0;
+
+    items.forEach(item => {
+      if (!q) {
+        item.style.display = '';
+        visibleCount++;
+      } else {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(q)) {
+          item.style.display = '';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      }
+    });
+
+    const noResults = document.getElementById('no-results');
+    noResults.style.display = (q && visibleCount === 0) ? 'block' : 'none';
+  }
+</script>
+
+</body>
+</html>

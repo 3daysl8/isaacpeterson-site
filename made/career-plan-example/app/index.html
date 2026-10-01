@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casey Whitfield (demo) — Career Development Plan</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f8fafc; --bg2: #ffffff; --bg3: #eef2f7; --border: #e2e8f0; --border2: #cbd5e1;
+    --text: #1e293b; --heading: #0f172a; --muted: #64748b; --dim: #94a3b8;
+    --blue: #2563eb; --purple: #7c3aed; --green: #059669; --amber: #d97706; --red: #dc2626; --slate: #475569;
+    --header-glow: rgba(37,99,235,0.05);
+    --done-bg: #f0fdf4; --done-border: #bbf7d0; --review-bg: #f0fdf4; --review-border: #bbf7d0;
+    --pathway-open-bg: #eff6ff; --pathway-detail-bg: #f8fafc;
+    --demo-bg: #fffbeb; --demo-border: #fde68a; --demo-text: #92400e;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c0e13; --bg2: #10131a; --bg3: #141820; --border: #1c2233; --border2: #232d42;
+      --text: #e2e8f0; --heading: #f1f5f9; --muted: #64748b; --dim: #3a4558;
+      --blue: #4f9ef8; --purple: #a78bfa; --green: #34d399; --amber: #f59e0b; --red: #f87171; --slate: #94a3b8;
+      --header-glow: rgba(79,158,248,0.03);
+      --done-bg: #101510; --done-border: #1a2a1a; --review-bg: #0d1a0d; --review-border: #1a2d1a;
+      --pathway-open-bg: #111c2c; --pathway-detail-bg: #0c1420;
+      --demo-bg: #1c1608; --demo-border: #4a3a10; --demo-text: #fbbf24;
+    }
+  }
+
+  :root[data-theme="light"] {
+    --bg: #f8fafc; --bg2: #ffffff; --bg3: #eef2f7; --border: #e2e8f0; --border2: #cbd5e1;
+    --text: #1e293b; --heading: #0f172a; --muted: #64748b; --dim: #94a3b8;
+    --blue: #2563eb; --purple: #7c3aed; --green: #059669; --amber: #d97706; --red: #dc2626; --slate: #475569;
+    --header-glow: rgba(37,99,235,0.05);
+    --done-bg: #f0fdf4; --done-border: #bbf7d0; --review-bg: #f0fdf4; --review-border: #bbf7d0;
+    --pathway-open-bg: #eff6ff; --pathway-detail-bg: #f8fafc;
+    --demo-bg: #fffbeb; --demo-border: #fde68a; --demo-text: #92400e;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c0e13; --bg2: #10131a; --bg3: #141820; --border: #1c2233; --border2: #232d42;
+    --text: #e2e8f0; --heading: #f1f5f9; --muted: #64748b; --dim: #3a4558;
+    --blue: #4f9ef8; --purple: #a78bfa; --green: #34d399; --amber: #f59e0b; --red: #f87171; --slate: #94a3b8;
+    --header-glow: rgba(79,158,248,0.03);
+    --done-bg: #101510; --done-border: #1a2a1a; --review-bg: #0d1a0d; --review-border: #1a2d1a;
+    --pathway-open-bg: #111c2c; --pathway-detail-bg: #0c1420;
+    --demo-bg: #1c1608; --demo-border: #4a3a10; --demo-text: #fbbf24;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6;
+  }
+
+  .demo-banner {
+    background: var(--demo-bg); border-bottom: 1px solid var(--demo-border);
+    color: var(--demo-text); font-size: 12px; text-align: center; padding: 8px 20px;
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .header {
+    background: linear-gradient(160deg, var(--bg) 0%, var(--bg3) 60%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border); padding: 44px 32px 36px; position: relative; overflow: hidden;
+  }
+  .header::before {
+    content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px;
+    background: radial-gradient(circle, var(--header-glow) 0%, transparent 70%); pointer-events: none;
+  }
+  .header-inner { max-width: 860px; margin: 0 auto; }
+  .eyebrow {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    font-size: 10px; letter-spacing: 0.2em; color: var(--blue); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .header h1 {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: clamp(26px, 4vw, 40px); font-weight: 400; letter-spacing: -0.02em;
+    text-wrap: balance; color: var(--heading); margin-bottom: 6px;
+  }
+  .header-sub { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+  .progress-label {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    font-size: 11px; color: var(--muted); margin-bottom: 6px;
+  }
+  .progress-track { background: var(--border2); border-radius: 4px; height: 5px; overflow: hidden; margin-bottom: 6px; }
+  .progress-fill { background: linear-gradient(90deg, var(--blue), var(--purple)); height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+  .progress-pct { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 11px; color: var(--muted); }
+  .progress-pct span { color: var(--slate); }
+
+  .tabs { border-bottom: 1px solid var(--border); padding: 0 32px; background: var(--bg); position: sticky; top: 0; z-index: 10; }
+  .tabs-inner { max-width: 860px; margin: 0 auto; display: flex; }
+  .tab-btn {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    font-size: 12px; letter-spacing: 0.04em; background: none; border: none; border-bottom: 2px solid transparent;
+    color: var(--muted); padding: 16px 20px; cursor: pointer; transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: var(--slate); }
+  .tab-btn.active { color: var(--heading); border-bottom-color: var(--blue); }
+
+  .content { max-width: 860px; margin: 0 auto; padding: 32px 32px 64px; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .filter-btn {
+    padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border2); background: none;
+    color: var(--muted); cursor: pointer;
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    font-size: 11px; transition: all 0.2s;
+  }
+  .filter-btn.active-filter { border-color: var(--blue); background: rgba(79,158,248,0.08); color: var(--blue); }
+
+  .milestone-list { display: flex; flex-direction: column; gap: 10px; }
+  .milestone {
+    display: flex; align-items: flex-start; gap: 16px; padding: 16px 20px; background: var(--bg2);
+    border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: border-color 0.2s, background 0.2s;
+  }
+  .milestone:hover { border-color: var(--border2); }
+  .milestone.done { background: var(--done-bg); border-color: var(--done-border); opacity: 0.82; }
+  .check {
+    width: 20px; height: 20px; border-radius: 4px; border: 2px solid var(--dim);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: all 0.2s;
+  }
+  .milestone.done .check { border-color: var(--green); background: rgba(52,211,153,0.1); }
+  .check svg { display: none; }
+  .milestone.done .check svg { display: block; }
+  .milestone-body { flex: 1; }
+  .milestone-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .milestone-label { font-size: 14px; color: var(--text); transition: color 0.2s; }
+  .milestone.done .milestone-label { text-decoration: line-through; color: var(--muted); }
+  .cat-badge {
+    padding: 2px 9px; border-radius: 10px;
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; letter-spacing: 0.04em;
+  }
+  .done-date { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; color: var(--green); }
+  .milestone-note { font-size: 12px; color: var(--dim); }
+
+  .pathway { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 14px; transition: border-color 0.2s; }
+  .pathway.open { border-color: rgba(79,158,248,0.3); }
+  .pathway-header {
+    padding: 20px 24px; background: var(--bg2); cursor: pointer; display: flex; justify-content: space-between;
+    align-items: center; gap: 16px; transition: background 0.2s;
+  }
+  .pathway.open .pathway-header { background: var(--pathway-open-bg); }
+  .pathway-title { font-size: 16px; color: var(--heading); margin-bottom: 3px; }
+  .pathway-sub { font-size: 12px; color: var(--muted); }
+  .conviction-wrap { text-align: right; flex-shrink: 0; }
+  .conviction-label { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; color: var(--muted); margin-bottom: 5px; }
+  .conviction-bar { background: var(--border2); border-radius: 4px; height: 4px; width: 90px; overflow: hidden; }
+  .conviction-fill { height: 100%; border-radius: 4px; }
+  .conviction-num { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; color: var(--slate); margin-top: 4px; }
+  .pathway-detail { display: none; padding: 20px 24px; background: var(--pathway-detail-bg); border-top: 1px solid var(--border); }
+  .pathway.open .pathway-detail { display: block; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 18px; }
+  .detail-key { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; color: var(--blue); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .detail-val { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .target-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .target-tag {
+    padding: 4px 12px; background: var(--border); border-radius: 4px;
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 11px; color: var(--slate);
+  }
+  .pathway-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .pathway-list li { font-size: 13px; color: var(--text); line-height: 1.5; padding-left: 14px; position: relative; }
+  .pathway-list li::before { content: '—'; position: absolute; left: 0; color: var(--red); }
+  .pathway-list-optional li { color: var(--dim); }
+  .pathway-list-optional li::before { color: var(--slate); }
+
+  .risk-card { padding: 20px 24px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; }
+  .risk-top { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .impact-badge {
+    padding: 3px 10px; border-radius: 4px;
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; flex-shrink: 0;
+  }
+  .risk-title { font-size: 14px; color: var(--text); line-height: 1.5; }
+  .risk-mitigation { font-size: 12px; color: var(--dim); line-height: 1.7; padding-left: 52px; }
+
+  .network-card { padding: 20px 24px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 14px; }
+  .network-card-title { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; color: var(--blue); letter-spacing: 0.1em; margin-bottom: 12px; }
+  .event-row { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .event-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .event-name { font-size: 13px; color: var(--text); }
+  .event-meta { font-size: 12px; color: var(--dim); margin-top: 2px; }
+  .connection-template {
+    font-size: 13px; color: var(--text); line-height: 1.6; font-style: italic; padding: 14px 16px;
+    background: var(--bg3); border-left: 2px solid var(--blue); border-radius: 4px; margin: 10px 0;
+  }
+
+  .snapshot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .snap-card { padding: 18px 20px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; }
+  .snap-key { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; color: var(--blue); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .snap-val { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .valueprop-card {
+    padding: 22px 24px; background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid var(--blue);
+    border-radius: 8px; margin-bottom: 18px;
+  }
+  .valueprop-key { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; color: var(--blue); letter-spacing: 0.1em; margin-bottom: 10px; }
+  .valueprop-row { margin-bottom: 14px; }
+  .valueprop-row:last-child { margin-bottom: 0; }
+  .valueprop-pillar {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; color: var(--muted);
+    letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .valueprop-statement { font-size: 14px; color: var(--heading); line-height: 1.6; }
+  .strengths-card { padding: 22px 24px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 14px; }
+  .strength-row { display: flex; gap: 14px; margin-bottom: 10px; }
+  .strength-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 7px; }
+  .strength-name { color: var(--text); font-size: 13px; }
+  .strength-why { color: var(--dim); font-size: 13px; }
+  .review-card { padding: 18px 24px; background: var(--review-bg); border: 1px solid var(--review-border); border-radius: 8px; }
+  .review-key { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Consolas, monospace; font-size: 10px; color: var(--green); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .review-date { font-size: 15px; color: var(--text); margin-bottom: 4px; }
+  .review-note { font-size: 12px; color: var(--dim); }
+
+  .intro-text { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.7; }
+
+  @media (max-width: 600px) {
+    .header, .content { padding-left: 20px; padding-right: 20px; }
+    .tabs { padding: 0 20px; }
+    .snapshot-grid, .detail-grid { grid-template-columns: 1fr; }
+    .tab-btn { padding: 14px 12px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">DEMO — composite persona built from a de-identified LinkedIn profile, not a real person</div>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">Casey Whitfield (demo) · Career Development Plan · July 2026</div>
+    <h1>Workforce Planning Manager</h1>
+    <div class="header-sub">Meridian Energy · Melbourne, VIC · Next move timeframe: 18–24 months</div>
+    <div class="progress-label" id="progress-label">Loading...</div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-pct" id="progress-pct"></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('snapshot', this)">Overview</button>
+    <button class="tab-btn" onclick="showTab('progress', this)">Progress</button>
+    <button class="tab-btn" onclick="showTab('pathways', this)">Pathways</button>
+    <button class="tab-btn" onclick="showTab('network', this)">Network</button>
+    <button class="tab-btn" onclick="showTab('risks', this)">Risks</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="panel" id="panel-progress">
+    <div class="filters" id="filters">
+      <button class="filter-btn active-filter" onclick="filterMilestones('all', this)">All</button>
+    </div>
+    <div class="milestone-list" id="milestone-list"></div>
+  </div>
+
+  <div class="panel" id="panel-pathways">
+    <p class="intro-text">Three real directions from the interview. Click any pathway to expand.</p>
+    <div id="pathways-list"></div>
+  </div>
+
+  <div class="panel" id="panel-network">
+    <p class="intro-text">The networking strategist's output: named events, the matched association, a real LinkedIn strategy, and how to actually ask for an informational interview — not just "network more."</p>
+    <div class="network-card">
+      <div class="network-card-title">EVENTS & CONFERENCES</div>
+      <div id="network-events"></div>
+    </div>
+    <div class="network-card">
+      <div class="network-card-title">PROFESSIONAL ASSOCIATION</div>
+      <div id="network-association"></div>
+    </div>
+    <div class="network-card">
+      <div class="network-card-title">LINKEDIN STRATEGY</div>
+      <div id="network-linkedin"></div>
+    </div>
+    <div class="network-card">
+      <div class="network-card-title">INFORMATIONAL INTERVIEW APPROACH</div>
+      <div id="network-informational"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-risks">
+    <p class="intro-text">The risks worth naming, not burying. Each one has a real mitigation.</p>
+    <div id="risks-list"></div>
+  </div>
+
+  <div class="panel active" id="panel-snapshot">
+    <div class="valueprop-card">
+      <div class="valueprop-key">VALUE PROPOSITION</div>
+      <div id="valueprop-list"></div>
+    </div>
+    <div class="snapshot-grid" id="snapshot-grid"></div>
+    <div class="strengths-card">
+      <div class="snap-key">TRANSFERABLE STRENGTHS</div>
+      <div id="strengths-list" style="margin-top:10px"></div>
+    </div>
+    <div class="review-card">
+      <div class="review-key">PLAN REVIEW DATE</div>
+      <div class="review-date">October 2026</div>
+      <div class="review-note">First check-in: has the Meridian Energy repositioning conversation landed, and has either the LinkedIn cadence or an informational interview produced a real signal? If the Operational Resilience pillar hasn't shown any pull by month 9, deprioritise it explicitly rather than let it drift.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const CATS = {
+  training: { label: 'Training', color: '#f87171' },
+  network:  { label: 'Network',  color: '#f59e0b' },
+  brand:    { label: 'Brand',    color: '#34d399' },
+  strategy: { label: 'Strategy', color: '#94a3b8' }
+};
+
+let MILESTONES = [
+  { id: 'ahri_advanced', label: "Enrol in AHRI's Workforce Planning – Advanced short course", category: 'training', done: false, date: null, note: 'Month 1 — long-lead item for the Talent & Workforce Strategy pillar: demand forecasting, labour-market analysis, scenario planning' },
+  { id: 'swpp_join', label: 'Join SWPP and register for the CWPP certification pathway', category: 'training', done: false, date: null, note: 'Month 1 — 2-year completion window, so starting now keeps it inside the 18–24 month horizon' },
+  { id: 'abn_pi', label: 'Set up an ABN and professional indemnity insurance', category: 'strategy', done: false, date: null, note: 'Month 1 — the basic legal gate for any paid independent consulting work later' },
+  { id: 'linkedin_first_post', label: 'Publish the first public post: one real forecasting story from the 30-year run', category: 'brand', done: false, date: null, note: 'Month 1–2 — starts the visibility track record from zero' },
+  { id: 'info_interview_1', label: "Informational interview with someone in a Head of Talent & Workforce Strategy-type role", category: 'network', done: false, date: null, note: 'Month 2 — ask how they made the jump from pure workforce planning into owning talent acquisition' },
+  { id: 'info_interview_2', label: 'Informational interview with an existing solo workforce-planning consultant', category: 'network', done: false, date: null, note: 'Month 2 — ask how they structured their first 3 clients, not for leads' },
+  { id: 'cx_live_event', label: 'Attend Customer Experience Live Show Australia', category: 'network', done: false, date: null, note: '4–5 Aug 2026, Sydney (found Jul 2026) — closest real, adjacent event to build visibility outside employer names' },
+  { id: 'ahri_complete', label: 'Complete the AHRI Advanced course', category: 'training', done: false, date: null, note: 'Month 4–6' },
+  { id: 'reposition_internal', label: "Have the direct conversation at Meridian Energy: reposition from 'runs the roster' to 'has already run this at strategic scale elsewhere'", category: 'brand', done: false, date: null, note: 'Month 6–9 — the internal value-proposition action for the Head of Talent & Workforce Strategy pillar' },
+  { id: 'swpp_conference', label: 'Consider the SWPP Annual Conference (Nashville, historically late April)', category: 'network', done: false, date: null, note: 'Optional stretch — international travel/cost; aspirational, not a required step (found Jul 2026)' },
+  { id: 'first_paid_engagement', label: 'Take on the first 1–2 small paid consulting engagements', category: 'strategy', done: false, date: null, note: 'Month 12–18 — the actual fix for the access gap on the independent pillar; even small paid work counts' },
+  { id: 'decision_point', label: 'Decision point: commit to whichever pillar has shown real traction', category: 'strategy', done: false, date: null, note: 'Month 18–24 — deprioritise the Operational Resilience pillar explicitly by month 9 if it hasn’t shown any real pull' }
+];
+
+const PATHWAYS = [
+  {
+    id: 'pillar_head_talent_strategy',
+    title: 'Head of Talent & Workforce Strategy',
+    sub: 'Broader strategic remit — internal escalation at Meridian Energy, or an equivalent move to a different employer',
+    conviction: 70,
+    convColor: '#34d399',
+    timeframe: '12–24 months',
+    readiness: 'Confident on the workforce-planning half; would need real ramp-up on the talent-acquisition half',
+    differentiator: 'Already runs the workforce-planning half of this role at Manager level across an AU-plus-international scale (Austral Telecom) and a domestic scale (Meridian Energy) — the talent-acquisition half is the one genuinely new component, not the whole job.',
+    targets: [
+      'Head of Talent & Workforce Strategy — real posting found, large multi-state employer (found Jul 2026)',
+      'Internal Meridian Energy escalation from Workforce Planning Manager',
+      'Workforce Planning Manager, Melbourne — market band $158k–$187k (Seek, found Jul 2026)'
+    ],
+    pathwayNecessary: [
+      'Direct ownership of a talent-acquisition or broader HR-strategy scope, even via a lateral project — real Head-of-level postings in this market bundle workforce planning with talent acquisition (found Jul 2026), not a stand-alone specialism at that level'
+    ],
+    pathwayOptional: [
+      "AHRI 'Workforce Planning – Advanced' short course — demand forecasting, labour-market analysis, scenario planning, stakeholder collaboration (AHRI, found Jul 2026)"
+    ]
+  },
+  {
+    id: 'pillar_independent_consultant',
+    title: 'Independent Workforce Planning & Operations Advisor',
+    sub: 'External consulting/advisory practice built on the same specialism',
+    conviction: 45,
+    convColor: '#f59e0b',
+    timeframe: '18–24 months to first paid engagements',
+    readiness: 'Not confident yet — the work itself isn’t in question, selling and pricing it to a stranger is',
+    differentiator: 'Thirty years across four unrelated industries (insurance, media, telco, energy) is a genuinely rare portability story most solo workforce-planning consultants can’t tell — it currently has zero visibility outside employer names.',
+    targets: [
+      'Solo/independent consulting — day rate from ~$1,400 (floor-rate method, found Jul 2026)',
+      'Interim/executive engagements — annual fee income up to $400k+ at the high end (Professionals Australia, found Jul 2026)'
+    ],
+    pathwayNecessary: [
+      'ABN + professional indemnity insurance — the basic legal gate to operate as a solo consultant'
+    ],
+    pathwayOptional: [
+      'SWPP Certified Workforce Planning Professional (CWPP) — 3 proctored exams + a project, 2-year completion window (SWPP, found Jul 2026) — turns 30 years of tacit expertise into a portable, externally verifiable credential'
+    ]
+  },
+  {
+    id: 'pillar_operational_resilience',
+    title: 'Operational Resilience / Business Continuity Manager',
+    sub: 'A genuinely different room, built on real-time ops experience and an underwriting-era risk instinct',
+    conviction: 30,
+    convColor: '#dc2626',
+    timeframe: '24+ months, contingent on certification',
+    readiness: 'Haven’t tested this against anything real — real-time ops and risk instinct transfer, but there’s no direct BCM experience',
+    differentiator: 'Started the career in underwriting and claims management — a genuine risk background most business-continuity candidates build later, and only from a framework, not lived first.',
+    targets: [
+      'Business Continuity Manager, Australia — market band $125k–$155k, senior (8+ yrs) averaging ~$172k (Glassdoor/PayScale, found Jul 2026)'
+    ],
+    pathwayNecessary: [
+      'CBCI (Certificate of the Business Continuity Institute) — the recognised entry credential most BCM postings expect (found Jul 2026)'
+    ],
+    pathwayOptional: []
+  }
+];
+
+const RISKS = [
+  { risk: 'Thirty years of credibility lives entirely inside employer names, not a personal brand — a consulting pivot could stall at good conversations with no signed client.', impact: 'High', color: '#dc2626', mitigation: 'The LinkedIn cadence and informational-interview plan above exist specifically to build independent visibility before any decision to leave Meridian Energy.' },
+  { risk: 'Meridian Energy could restructure workforce planning during this window — utilities are mid-consolidation, and an internal-only strategy leaves no fallback if the current role disappears.', impact: 'Medium', color: '#f59e0b', mitigation: 'Keep the independent-practice groundwork (ABN, SWPP, first small engagements) moving in parallel with the internal path, not sequenced after it.' },
+  { risk: 'The most recent move (Meridian Energy) actually narrowed scope from Austral Telecom’s AU-plus-international remit to a domestic-only one, even though the title stayed at the same level — an external story that only cites the current role undersells a ceiling already proven.', impact: 'Medium', color: '#f59e0b', mitigation: 'Lead the external-facing story (LinkedIn headline, consulting pitch, any external CV) with the Austral Telecom-era international scope explicitly, not just the current title.' }
+];
+
+const SNAPSHOT = [
+  { label: 'Current Role', value: 'Workforce Planning Manager · Meridian Energy' },
+  { label: 'Experience', value: '31+ years — Head Underwriter & claims (Coastal Mutual Insurance) → Senior Resource Planner (Coastal Mutual Insurance) → Resource Planning/Operations Manager (The Melbourne Chronicle) → Customer Workforce Solutions Manager (Austral Telecom, AU + international) → Workforce Planning Manager (Meridian Energy, current)' },
+  { label: 'Location', value: 'Melbourne, VIC · not open to relocating; open to remote/national work for consulting' },
+  { label: 'Next Move Timeframe', value: '18–24 months' },
+  { label: 'Primary Concern', value: "Thirty years of proven, portable expertise with no personal brand or track record independent of whichever employer's name is on the badge" },
+  { label: 'Desired Direction', value: 'Undecided between broader strategic scope (internal or external) and an independent consulting practice — genuinely exploring both in parallel' }
+];
+
+const STRENGTHS = [
+  ['Cross-industry resource/workforce forecasting', 'Ran resourcing and real-time planning through Coastal Mutual Insurance’s underwriting/claims operations, The Melbourne Chronicle’s daily news-cycle operations, Austral Telecom’s AU-plus-international call and non-call centres, and now Meridian Energy’s energy retail operations — the same underlying skill sold to four buyers who share almost nothing else in common.'],
+  ['Real-time operational recovery under pressure', 'Eight-plus years directly in real-time management (Coastal Mutual Insurance, The Melbourne Chronicle) — the muscle here isn’t forecasting on a spreadsheet, it’s correcting a live operational miss the same day it happens.'],
+  ['Risk fluency from the ground up', 'The career didn’t start in workforce planning — it started as Head Underwriter doing claims management at Coastal Mutual Insurance. That underwriting/risk instinct still sits underneath every resourcing decision made since, even though it’s never been named as its own asset.']
+];
+
+const VALUEPROP = [
+  { pillar: 'Head of Talent & Workforce Strategy', statement: "Internally at Meridian Energy: the case nobody's had to make explicitly yet is that this scope has already been run at strategic scale elsewhere — it isn't a stretch, it's a return. Externally: four unrelated industries (insurance claims, a newsroom, national telco, energy retail) all hired the same underlying skill — that cross-sector pattern, not any single employer's name, is the actual credential." },
+  { pillar: 'Independent Workforce Planning & Operations Advisor', statement: "A first-time client has no way to see thirty years of being the safe internal choice at four different large employers, since none of it lives outside a company name. Lead with the pattern itself: resourcing through the highest-pressure periods across insurance, media, telco, and energy for three decades — not a generic 'workforce planning expert' claim." },
+  { pillar: 'Operational Resilience / Business Continuity Manager', statement: 'Most business-continuity candidates learn risk from a framework. This career lived it first, as an underwriter reading claims before ever building a roster — that ordering is rare and worth saying explicitly, not left as background noise on a CV.' }
+];
+
+const NETWORKSTRATEGY = {
+  events: [
+    { name: 'Customer Experience Live Show Australia 2026', date: '4–5 Aug 2026 (found Jul 2026)', location: 'Sydney' },
+    { name: 'SWPP Annual Conference 2026', date: '27–29 Apr 2026, historically annual in April (found Jul 2026)', location: 'Nashville, USA — international; an aspirational stretch, not the first move' }
+  ],
+  association: {
+    name: 'Society of Workforce Planning Professionals (SWPP)',
+    why: "The only professional body dedicated specifically to cross-industry workforce management practitioners, not a generic HR association — a direct fit for a 30-year contact-centre/resource-planning specialism. US-headquartered with an online community and regional 'SWPP Meets', so membership plus virtual participation is the realistic entry point rather than assuming a local Australian chapter (found Jul 2026)."
+  },
+  linkedin: {
+    searchTargets: ['Head of Talent & Workforce Strategy', 'VP / Director, Workforce Management', 'Principal Workforce Planning Consultant', 'Large AU employers with a contact-centre or operations footprint: utilities, telco, insurance, retail'],
+    connectionTemplate: "I've run resource and workforce planning through call-centre-scale operations across insurance, media, telco and energy — I'm exploring how that plays at [their industry/company], and would value your take on how you made the jump into [their actual scope]. No agenda beyond the conversation.",
+    cadence: 'Starting from zero public visibility: one post a month sharing a real workforce-planning lesson from the 30-year run for the first quarter, building toward fortnightly once it’s a working habit — not an unrealistic daily cadence from a standing start.'
+  },
+  informationalApproach: "Lead with a specific, non-transactional question drawn from the actual gap, not a job ask: ask a Head of Talent & Workforce Strategy how they made the leap from pure workforce planning into owning talent acquisition; ask an existing solo workforce-planning consultant how they structured their first three clients. Value or a real question first, never 'do you know of any roles.'"
+};
+
+let currentFilter = 'all';
+
+function saveData() {
+  localStorage.setItem('career_plan_milestones_robin_demo', JSON.stringify(MILESTONES));
+}
+
+function loadData() {
+  const saved = localStorage.getItem('career_plan_milestones_robin_demo');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    MILESTONES = MILESTONES.map(m => {
+      const s = parsed.find(p => p.id === m.id);
+      return s ? { ...m, done: s.done, date: s.date } : m;
+    });
+  }
+}
+
+function updateProgress() {
+  const done = MILESTONES.filter(m => m.done).length;
+  const total = MILESTONES.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progress-label').textContent = `${done} of ${total} milestones complete`;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-pct').innerHTML = `<span>${pct}% of plan executed</span>`;
+}
+
+function renderFilters() {
+  const wrap = document.getElementById('filters');
+  Object.entries(CATS).forEach(([key, cat]) => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = cat.label;
+    btn.onclick = () => filterMilestones(key, btn);
+    wrap.appendChild(btn);
+  });
+}
+
+function renderMilestones() {
+  const list = document.getElementById('milestone-list');
+  const items = currentFilter === 'all' ? MILESTONES : MILESTONES.filter(m => m.category === currentFilter);
+  list.innerHTML = items.map(m => {
+    const cat = CATS[m.category];
+    return `
+      <div class="milestone ${m.done ? 'done' : ''}" onclick="toggleMilestone('${m.id}')">
+        <div class="check">
+          <svg width="11" height="9" viewBox="0 0 11 9" fill="none">
+            <path d="M1 4L4 7.5L10 1" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="milestone-body">
+          <div class="milestone-top">
+            <span class="milestone-label">${m.label}</span>
+            <span class="cat-badge" style="background:${cat.color}18;color:${cat.color}">${cat.label}</span>
+            ${m.done && m.date ? `<span class="done-date">✓ ${m.date}</span>` : ''}
+          </div>
+          <div class="milestone-note">${m.note}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleMilestone(id) {
+  MILESTONES = MILESTONES.map(m => {
+    if (m.id !== id) return m;
+    const now = !m.done;
+    const date = now ? new Date().toLocaleDateString('en-AU', { month: 'long', year: 'numeric' }) : null;
+    return { ...m, done: now, date };
+  });
+  saveData();
+  renderMilestones();
+  updateProgress();
+}
+
+function filterMilestones(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active-filter'));
+  btn.classList.add('active-filter');
+  renderMilestones();
+}
+
+function renderPathways() {
+  document.getElementById('pathways-list').innerHTML = PATHWAYS.map(p => `
+    <div class="pathway" id="pw-${p.id}">
+      <div class="pathway-header" onclick="togglePathway('${p.id}')">
+        <div>
+          <div class="pathway-title">${p.title}</div>
+          <div class="pathway-sub">${p.sub}</div>
+        </div>
+        <div class="conviction-wrap">
+          <div class="conviction-label">my read</div>
+          <div class="conviction-bar">
+            <div class="conviction-fill" style="width:${p.conviction}%;background:${p.convColor}"></div>
+          </div>
+          <div class="conviction-num">${p.conviction}%</div>
+        </div>
+      </div>
+      <div class="pathway-detail">
+        <div class="detail-grid">
+          <div>
+            <div class="detail-key">TIMEFRAME</div>
+            <div class="detail-val">${p.timeframe}</div>
+          </div>
+          <div>
+            <div class="detail-key">READINESS</div>
+            <div class="detail-val">${p.readiness}</div>
+          </div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div class="detail-key">YOUR DIFFERENTIATOR</div>
+          <div class="detail-val">${p.differentiator}</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div class="detail-key" style="margin-bottom:10px">TARGETS</div>
+          <div class="target-tags">
+            ${p.targets.map(t => `<span class="target-tag">${t}</span>`).join('')}
+          </div>
+        </div>
+        ${(p.pathwayNecessary && p.pathwayNecessary.length) ? `
+        <div style="margin-bottom:14px">
+          <div class="detail-key">NECESSARY PATHWAY</div>
+          <ul class="pathway-list">${p.pathwayNecessary.map(x => `<li>${x}</li>`).join('')}</ul>
+        </div>` : `
+        <div style="margin-bottom:14px">
+          <div class="detail-key">NECESSARY PATHWAY</div>
+          <div class="detail-val">None — already clears the bar for this pillar.</div>
+        </div>`}
+        ${(p.pathwayOptional && p.pathwayOptional.length) ? `
+        <div>
+          <div class="detail-key">VALUE-ADD (OPTIONAL)</div>
+          <ul class="pathway-list pathway-list-optional">${p.pathwayOptional.map(x => `<li>${x}</li>`).join('')}</ul>
+        </div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function togglePathway(id) {
+  document.getElementById('pw-' + id).classList.toggle('open');
+}
+
+function renderRisks() {
+  document.getElementById('risks-list').innerHTML = RISKS.map(r => `
+    <div class="risk-card">
+      <div class="risk-top">
+        <span class="impact-badge" style="background:${r.color}18;color:${r.color}">${r.impact}</span>
+        <div class="risk-title">${r.risk}</div>
+      </div>
+      <div class="risk-mitigation">${r.mitigation}</div>
+    </div>
+  `).join('');
+}
+
+function renderNetwork() {
+  document.getElementById('network-events').innerHTML = NETWORKSTRATEGY.events.map(e => `
+    <div class="event-row">
+      <div class="event-name">${e.name}</div>
+      <div class="event-meta">${e.date} · ${e.location}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('network-association').innerHTML = `
+    <div class="event-name">${NETWORKSTRATEGY.association.name}</div>
+    <div class="event-meta">${NETWORKSTRATEGY.association.why}</div>
+  `;
+
+  document.getElementById('network-linkedin').innerHTML = `
+    <div class="target-tags" style="margin-bottom:12px">
+      ${NETWORKSTRATEGY.linkedin.searchTargets.map(t => `<span class="target-tag">${t}</span>`).join('')}
+    </div>
+    <div class="connection-template">${NETWORKSTRATEGY.linkedin.connectionTemplate}</div>
+    <div class="event-meta">${NETWORKSTRATEGY.linkedin.cadence}</div>
+  `;
+
+  document.getElementById('network-informational').innerHTML = `
+    <div class="event-meta" style="font-size:13px;color:var(--text)">${NETWORKSTRATEGY.informationalApproach}</div>
+  `;
+}
+
+function renderSnapshot() {
+  document.getElementById('valueprop-list').innerHTML = VALUEPROP.map(v => `
+    <div class="valueprop-row">
+      <div class="valueprop-pillar">${v.pillar}</div>
+      <div class="valueprop-statement">${v.statement}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('snapshot-grid').innerHTML = SNAPSHOT.map(s => `
+    <div class="snap-card">
+      <div class="snap-key">${s.label.toUpperCase()}</div>
+      <div class="snap-val">${s.value}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('strengths-list').innerHTML = STRENGTHS.map(([name, why]) => `
+    <div class="strength-row">
+      <div class="strength-dot"></div>
+      <div><span class="strength-name">${name}</span> <span class="strength-why">— ${why}</span></div>
+    </div>
+  `).join('');
+}
+
+function showTab(tab, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+renderFilters();
+loadData();
+renderMilestones();
+renderPathways();
+renderNetwork();
+renderRisks();
+renderSnapshot();
+updateProgress();
+</script>
+</body>
+</html>

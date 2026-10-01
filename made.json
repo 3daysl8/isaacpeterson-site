@@ -9,8 +9,8 @@
       "summary": "A real output of the Claude Interview skill: a fictional composite profile, interviewed, researched, and turned into an interactive plan with career pillars, a value proposition, and a networking strategy.",
       "image": "assets/tool-casey-career-plan.webp",
       "url": "https://casey-career-plan.netlify.app",
-      "story": false,
-      "archived": false
+      "story": true,
+      "archived": true
     },
     {
       "slug": "aussie-celebrity-quiz",
@@ -31,8 +31,8 @@
       "summary": "A demonstration of my AI content pipeline: research queue, drafting stages, planner, and knowledge vault. Sample data only, all actions disabled.",
       "image": "assets/tool-content-hub.webp",
       "url": "https://isaac-content-hub-demo.netlify.app",
-      "story": false,
-      "archived": false
+      "story": true,
+      "archived": true
     },
     {
       "slug": "hervey-bay-whats-on",
@@ -42,8 +42,8 @@
       "summary": "An automated local newsletter, researched, written, illustrated and sent by AI. Whale-season events, local history, and a crossword for Hervey Bay, QLD.",
       "image": "assets/tool-hervey-bay-newsletter.webp",
       "url": "https://hervey-bay-newsletter.netlify.app",
-      "story": false,
-      "archived": false
+      "story": true,
+      "archived": true
     },
     {
       "slug": "psychosocial-hazards-hub",
@@ -53,8 +53,8 @@
       "summary": "A national reference directory across all nine Australian jurisdictions for managing psychosocial hazards.",
       "image": "assets/tool-employer-hub.webp",
       "url": "https://psychosocial-hazard-hub.netlify.app/",
-      "story": false,
-      "archived": false
+      "story": true,
+      "archived": true
     },
     {
       "slug": "nsw-reform-navigator",
@@ -64,8 +64,8 @@
       "summary": "An interactive guide to navigating the 2024 NSW workers compensation reforms.",
       "image": "assets/tool-reform-navigator.webp",
       "url": "https://nsw-wc-reform-navigator.netlify.app",
-      "story": false,
-      "archived": false
+      "story": true,
+      "archived": true
     },
     {
       "slug": "psych-risk-model",
@@ -75,8 +75,8 @@
       "summary": "A conceptual model for mapping psychosocial risk across organisational, job, and individual dimensions.",
       "image": "assets/tool-risk-model.webp",
       "url": "https://psychologicalriskmetre.netlify.app",
-      "story": false,
-      "archived": false
+      "story": true,
+      "archived": true
     }
   ]
 }

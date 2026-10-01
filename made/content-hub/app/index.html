@@ -1,0 +1,536 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Content Hub — Dashboard (Demo)</title>
+  <link rel="stylesheet" href="public/style.css">
+  <script>try{var t=localStorage.getItem('ch-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head>
+<body>
+<div class="demo-ribbon"><strong>Demo</strong> Demonstration only — invented sample data, all actions disabled. <a href="https://isaacpeterson.au" target="_blank" rel="noopener">isaacpeterson.au</a></div>
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="./">
+        <div class="glyph">C</div>
+        <div>
+          <div class="name">Content Hub</div>
+          <div class="sub">Pipeline</div>
+        </div>
+      </a>
+      <nav class="nav">
+        <a class="active" href="./">
+          <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          Dashboard
+        </a>
+        <a class href='/feeds'>
+          <svg class="ico" viewBox="0 0 24 24"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg>
+          Feeds
+        </a>
+        <a class href='/planner'>
+          <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/></svg>
+          Planner
+        </a>
+        <a class href='/vault'>
+          <svg class="ico" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/><path d="M8 10h8M8 14h5"/></svg>
+          Vault
+        </a>
+      </nav>
+      <div class="side-foot">
+        <button class="themebtn" data-theme-toggle>
+          <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></svg>
+          <span id="theme-label">Theme</span>
+        </button>
+      </div>
+    </aside>
+    <main class="main">
+
+
+<div class="topline">
+  <h1>Dashboard</h1>
+  <div class="when">Thu, 9 July, 08:59 pm</div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="k">Research queue</div><div class="v">3</div><div class="d">awaiting your call</div></div>
+  <div class="stat"><div class="k">In pipeline</div><div class="v">3</div><div class="d">drafting &amp; review</div></div>
+  <div class="stat"><div class="k">Ready to publish</div><div class="v">3</div><div class="d">unposted</div></div>
+  <div class="stat"><div class="k">Posted · 7 days</div><div class="v">3</div><div class="d">recently shipped</div></div>
+</div>
+
+<details class="create">
+  <summary>
+    <span class="plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+    New content
+  </summary>
+  <div class="create-body">
+    <form onsubmit="return chDemo(event)" class="quick-form" method="POST" action="/research">
+      <h3>Research a topic</h3>
+      <div>
+        <label for="pillar_key">Pillar</label>
+        <select name="pillar_key" id="pillar_key" required>
+          <option value="workers_comp">Workers Comp</option><option value="psychosocial">Psychosocial Risk</option><option value="ai">AI &amp; Automation</option><option value="growth">Personal Growth</option>
+        </select>
+      </div>
+      <div>
+        <label for="text">Topic / notes</label>
+        <textarea name="text" id="text" required placeholder="What should the Researcher look into? (Or, with 'skip research' ticked, the text to draft from directly.)"></textarea>
+      </div>
+      <div>
+        <label for="url">Source URL (optional)</label>
+        <input type="text" name="url" id="url" placeholder="https://...">
+      </div>
+      <div>
+        <label for="intent">Intent</label>
+        <select name="intent" id="intent">
+          <option value="">Blog post (default)</option>
+          <option value="linkedin_post">LinkedIn post</option>
+          <option value="education">Educational post</option>
+          <option value="status_update">Status update</option>
+          <option value="share_commentary">Share with commentary</option>
+        </select>
+      </div>
+      <div>
+        <label for="style">Style (voice)</label>
+        <select name="style" id="style">
+          <option value="">Default (blog-post style)</option>
+          <option value="first_person_narrative">First-person narrative</option>
+          <option value="technical_breakdown">Technical breakdown</option>
+          <option value="x_thread">X thread style</option>
+        </select>
+      </div>
+      <label class="check"><input type="checkbox" name="skip_research" value="1"> Skip research — use my text as-is</label>
+      <div class="actions"><button type="submit" class="btn primary">Submit</button></div>
+    </form>
+
+    <form onsubmit="return chDemo(event)" class="quick-form" id="pdf-upload-form">
+      <h3>Upload a source PDF</h3>
+      <div>
+        <label for="pdf_pillar_key">Pillar</label>
+        <select name="pillar_key" id="pdf_pillar_key" required>
+          <option value="workers_comp">Workers Comp</option><option value="psychosocial">Psychosocial Risk</option><option value="ai">AI &amp; Automation</option><option value="growth">Personal Growth</option>
+        </select>
+      </div>
+      <div>
+        <label for="pdf_style">Style</label>
+        <select name="style" id="pdf_style">
+          <option value="">Default (blog-post style)</option>
+          <option value="first_person_narrative">First-person narrative</option>
+          <option value="technical_breakdown">Technical breakdown</option>
+          <option value="x_thread">X thread style</option>
+        </select>
+      </div>
+      <div>
+        <label for="pdf_file">PDF file</label>
+        <input type="file" name="pdf" id="pdf_file" accept="application/pdf" required>
+      </div>
+      <div class="actions"><button type="submit" class="btn primary">Upload &amp; draft</button></div>
+      <p id="pdf-upload-status" class="empty" style="display:none"></p>
+    </form>
+  </div>
+</details>
+
+
+<!-- READY -->
+<section class="section">
+  <div class="sec-head"><h2>Ready to publish</h2><span class="n">3</span><span class="rule"></span></div>
+  
+  <div class="ready-grid">
+  
+    <article class="ready-card">
+      <div class="thumb" style="background:linear-gradient(135deg,#5b647222,#2f56c722),radial-gradient(circle at 78% 18%,#5b647233,transparent 55%)">
+        
+        <span class="chip pillar tag">Psychosocial Risk</span>
+      </div>
+      <div class="card-body">
+        <h3><a href='/items/content_item/c4'>Five questions that surface hidden psychosocial risk</a></h3>
+        <div class="cmeta">
+          <span class="chip s-ready"><span class="dot"></span>text ready</span>
+          <span class="chip mono">technical breakdown</span>
+          <span class="t">36 words</span>
+        </div>
+        <div class="actionsbar">
+          <div class="actionrow">
+            <div class="menu-wrap grow">
+              <button class="btn block" style="justify-content:space-between" data-menu="menu-c4">
+                <span style="display:inline-flex;align-items:center;gap:8px"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3v12M8 11l4 4 4-4M5 20h14"/></svg>Export</span>
+                <svg class="caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="menu" id="menu-c4">
+                <button data-copy="md" data-id="c4">Copy as Markdown</button>
+                <button data-copy="txt" data-id="c4">Copy plain text</button>
+                <div class="div"></div>
+                <a href="#" data-demo="1">Download .md</a>
+                <a href="#" data-demo="1">Download .html</a>
+              </div>
+            </div>
+            <form onsubmit="return chDemo(event)" method="POST" action="/items/content_item/c4/posted" style="display:inline">
+              <input type="hidden" name="posted_channel" value="substack">
+              <button type="submit" class="btn primary sm">Mark posted</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+  
+    <article class="ready-card">
+      <div class="thumb" style="background:linear-gradient(135deg,#6d4bb322,#2f56c722),radial-gradient(circle at 78% 18%,#6d4bb333,transparent 55%)">
+        
+        <span class="chip pillar tag">Personal Growth</span>
+      </div>
+      <div class="card-body">
+        <h3><a href='/items/content_item/c5'>How I made an AI interview me for a career plan</a></h3>
+        <div class="cmeta">
+          <span class="chip s-ready"><span class="dot"></span>text ready</span>
+          <span class="chip mono">first person narrative</span>
+          <span class="t">38 words</span>
+        </div>
+        <div class="actionsbar">
+          <div class="actionrow">
+            <div class="menu-wrap grow">
+              <button class="btn block" style="justify-content:space-between" data-menu="menu-c5">
+                <span style="display:inline-flex;align-items:center;gap:8px"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3v12M8 11l4 4 4-4M5 20h14"/></svg>Export</span>
+                <svg class="caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="menu" id="menu-c5">
+                <button data-copy="md" data-id="c5">Copy as Markdown</button>
+                <button data-copy="txt" data-id="c5">Copy plain text</button>
+                <div class="div"></div>
+                <a href="#" data-demo="1">Download .md</a>
+                <a href="#" data-demo="1">Download .html</a>
+              </div>
+            </div>
+            <form onsubmit="return chDemo(event)" method="POST" action="/items/content_item/c5/posted" style="display:inline">
+              <input type="hidden" name="posted_channel" value="substack">
+              <button type="submit" class="btn primary sm">Mark posted</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+  
+    <article class="ready-card">
+      <div class="thumb" style="background:linear-gradient(135deg,#5b647222,#2f56c722),radial-gradient(circle at 78% 18%,#5b647233,transparent 55%)">
+        
+        <span class="chip pillar tag">AI &amp; Automation</span>
+      </div>
+      <div class="card-body">
+        <h3><a href='/items/content_item/c6'>A no-code psychosocial risk tool, start to finish</a></h3>
+        <div class="cmeta">
+          <span class="chip s-ready"><span class="dot"></span>text ready</span>
+          
+          <span class="t">39 words</span>
+        </div>
+        <div class="actionsbar">
+          <div class="actionrow">
+            <div class="menu-wrap grow">
+              <button class="btn block" style="justify-content:space-between" data-menu="menu-c6">
+                <span style="display:inline-flex;align-items:center;gap:8px"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3v12M8 11l4 4 4-4M5 20h14"/></svg>Export</span>
+                <svg class="caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="menu" id="menu-c6">
+                <button data-copy="md" data-id="c6">Copy as Markdown</button>
+                <button data-copy="txt" data-id="c6">Copy plain text</button>
+                <div class="div"></div>
+                <a href="#" data-demo="1">Download .md</a>
+                <a href="#" data-demo="1">Download .html</a>
+              </div>
+            </div>
+            <form onsubmit="return chDemo(event)" method="POST" action="/items/content_item/c6/posted" style="display:inline">
+              <input type="hidden" name="posted_channel" value="substack">
+              <button type="submit" class="btn primary sm">Mark posted</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+  
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section class="section">
+  <div class="sec-head"><h2>In pipeline</h2><span class="n">3</span><span class="rule"></span></div>
+  
+  <div class="rows">
+  
+    <div class="row">
+      <div>
+        <div class="title"><a href='/items/content_item/c1'>What trauma-informed care actually means for claims</a></div>
+        <div class="steps">
+          
+            <span class="step done"><span class="pip"></span><span class="lbl">research</span></span>
+            <span class="step done"><span class="bar"></span></span>
+          
+            <span class="step done"><span class="pip"></span><span class="lbl">architect</span></span>
+            <span class="step done"><span class="bar"></span></span>
+          
+            <span class="step now"><span class="pip"></span><span class="lbl">wordsmith</span></span>
+            <span class="step "><span class="bar"></span></span>
+          
+            <span class="step "><span class="pip"></span><span class="lbl">editor</span></span>
+            
+          
+        </div>
+        <div class="meta">
+          <span class="chip pillar">Workers Comp</span>
+          <span class="chip s-drafting"><span class="dot"></span>awaiting review</span>
+          <span class="chip mono">linkedin post</span>
+          <span class="chip mono">post</span>
+        </div>
+      </div>
+      <div class="rowacts">
+        <a class='btn sm' href='/items/content_item/c1'>Review</a>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/content_item/c1/advance" style="display:inline">
+          <input type="hidden" name="action" value="approved">
+          <button type="submit" class="btn primary sm">Approve</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/content_item/c1/advance" style="display:inline-flex;gap:6px;align-items:center">
+          <input type="hidden" name="action" value="rejected">
+          <select name="reason" class="btn sm" style="padding-right:6px" aria-label="Reject reason">
+            <option value="">reason…</option>
+            <option value="irrelevant">irrelevant</option>
+            <option value="low_quality">low quality</option>
+            <option value="hallucination">hallucination</option>
+            <option value="wrong_voice">wrong voice</option>
+            <option value="wrong_structure">wrong structure</option>
+            <option value="other">other</option>
+          </select>
+          <button type="submit" class="btn sm danger">Reject</button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div>
+        <div class="title"><a href='/items/content_item/c2'>The psychosocial hazards most employers still miss</a></div>
+        <div class="steps">
+          
+            <span class="step done"><span class="pip"></span><span class="lbl">research</span></span>
+            <span class="step done"><span class="bar"></span></span>
+          
+            <span class="step now"><span class="pip"></span><span class="lbl">architect</span></span>
+            <span class="step "><span class="bar"></span></span>
+          
+            <span class="step "><span class="pip"></span><span class="lbl">wordsmith</span></span>
+            <span class="step "><span class="bar"></span></span>
+          
+            <span class="step "><span class="pip"></span><span class="lbl">editor</span></span>
+            
+          
+        </div>
+        <div class="meta">
+          <span class="chip pillar">Psychosocial Risk</span>
+          <span class="chip s-drafting"><span class="dot"></span>awaiting review</span>
+          <span class="chip mono">education</span>
+          <span class="chip mono">post</span>
+        </div>
+      </div>
+      <div class="rowacts">
+        <a class='btn sm' href='/items/content_item/c2'>Review</a>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/content_item/c2/advance" style="display:inline">
+          <input type="hidden" name="action" value="approved">
+          <button type="submit" class="btn primary sm">Approve</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/content_item/c2/advance" style="display:inline-flex;gap:6px;align-items:center">
+          <input type="hidden" name="action" value="rejected">
+          <select name="reason" class="btn sm" style="padding-right:6px" aria-label="Reject reason">
+            <option value="">reason…</option>
+            <option value="irrelevant">irrelevant</option>
+            <option value="low_quality">low quality</option>
+            <option value="hallucination">hallucination</option>
+            <option value="wrong_voice">wrong voice</option>
+            <option value="wrong_structure">wrong structure</option>
+            <option value="other">other</option>
+          </select>
+          <button type="submit" class="btn sm danger">Reject</button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div>
+        <div class="title"><a href='/items/content_item/c3'>I automated my content pipeline with n8n and local models</a></div>
+        <div class="steps">
+          
+            <span class="step done"><span class="pip"></span><span class="lbl">research</span></span>
+            <span class="step done"><span class="bar"></span></span>
+          
+            <span class="step done"><span class="pip"></span><span class="lbl">architect</span></span>
+            <span class="step done"><span class="bar"></span></span>
+          
+            <span class="step done"><span class="pip"></span><span class="lbl">wordsmith</span></span>
+            <span class="step done"><span class="bar"></span></span>
+          
+            <span class="step now"><span class="pip"></span><span class="lbl">editor</span></span>
+            
+          
+        </div>
+        <div class="meta">
+          <span class="chip pillar">AI &amp; Automation</span>
+          <span class="chip s-drafting"><span class="dot"></span>awaiting review</span>
+          
+          <span class="chip mono">blog</span>
+        </div>
+      </div>
+      <div class="rowacts">
+        <a class='btn sm' href='/items/content_item/c3'>Review</a>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/content_item/c3/advance" style="display:inline">
+          <input type="hidden" name="action" value="approved">
+          <button type="submit" class="btn primary sm">Approve</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/content_item/c3/advance" style="display:inline-flex;gap:6px;align-items:center">
+          <input type="hidden" name="action" value="rejected">
+          <select name="reason" class="btn sm" style="padding-right:6px" aria-label="Reject reason">
+            <option value="">reason…</option>
+            <option value="irrelevant">irrelevant</option>
+            <option value="low_quality">low quality</option>
+            <option value="hallucination">hallucination</option>
+            <option value="wrong_voice">wrong voice</option>
+            <option value="wrong_structure">wrong structure</option>
+            <option value="other">other</option>
+          </select>
+          <button type="submit" class="btn sm danger">Reject</button>
+        </form>
+      </div>
+    </div>
+  
+  </div>
+</section>
+
+<!-- QUEUE -->
+<section class="section">
+  <div class="sec-head"><h2>Research queue</h2><span class="n">3</span><span class="rule"></span></div>
+  
+  <div class="rows">
+  
+    <div class="row">
+      <div>
+        <div class="title"><a href='/items/research_item/r1'>New psychosocial code of practice released for consultation</a></div>
+        <div class="meta">
+          <span class="chip pillar">Psychosocial Risk</span>
+          <span class="chip mono">rss · SafeWork AU</span>
+          
+            <span class="chip s-queued"><span class="dot"></span>triage 0.72</span>
+          
+          
+            <span class="chip s-ready">audit r0.8/g0.7</span>
+          
+          <span class="t">8 July</span>
+        </div>
+      </div>
+      <div class="rowacts">
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r1/advance" style="display:inline">
+          <input type="hidden" name="action" value="approved">
+          <button type="submit" class="btn primary sm">Approve</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r1/deeper" style="display:inline">
+          <button type="submit" class="btn sm">Search deeper</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r1/archive" style="display:inline">
+          <button type="submit" class="btn ghost sm">Archive</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r1/advance" style="display:inline-flex;gap:6px;align-items:center">
+          <input type="hidden" name="action" value="rejected">
+          <select name="reason" class="btn sm" style="padding-right:6px" aria-label="Reject reason">
+            <option value="">reason…</option>
+            <option value="irrelevant">irrelevant</option>
+            <option value="low_quality">low quality</option>
+            <option value="hallucination">hallucination</option>
+            <option value="duplicate">duplicate</option>
+            <option value="other">other</option>
+          </select>
+          <button type="submit" class="btn sm danger">Reject</button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div>
+        <div class="title"><a href='/items/research_item/r2'>Study: AI-assisted triage in injury management</a></div>
+        <div class="meta">
+          <span class="chip pillar">AI &amp; Automation</span>
+          <span class="chip mono">rss · arXiv cs.AI</span>
+          
+            <span class="chip s-queued"><span class="dot"></span>triage 0.41</span>
+          
+          
+            <span class="chip s-ready">audit r0.5/g0.6</span>
+          
+          <span class="t">8 July</span>
+        </div>
+      </div>
+      <div class="rowacts">
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r2/advance" style="display:inline">
+          <input type="hidden" name="action" value="approved">
+          <button type="submit" class="btn primary sm">Approve</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r2/deeper" style="display:inline">
+          <button type="submit" class="btn sm">Search deeper</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r2/archive" style="display:inline">
+          <button type="submit" class="btn ghost sm">Archive</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r2/advance" style="display:inline-flex;gap:6px;align-items:center">
+          <input type="hidden" name="action" value="rejected">
+          <select name="reason" class="btn sm" style="padding-right:6px" aria-label="Reject reason">
+            <option value="">reason…</option>
+            <option value="irrelevant">irrelevant</option>
+            <option value="low_quality">low quality</option>
+            <option value="hallucination">hallucination</option>
+            <option value="duplicate">duplicate</option>
+            <option value="other">other</option>
+          </select>
+          <button type="submit" class="btn sm danger">Reject</button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div>
+        <div class="title"><a href='/items/research_item/r3'>Return-to-work outcomes 2026 — annual report notes</a></div>
+        <div class="meta">
+          <span class="chip pillar">Workers Comp</span>
+          <span class="chip mono">manual</span>
+          
+          
+          <span class="t">7 July</span>
+        </div>
+      </div>
+      <div class="rowacts">
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r3/advance" style="display:inline">
+          <input type="hidden" name="action" value="approved">
+          <button type="submit" class="btn primary sm">Approve</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r3/deeper" style="display:inline">
+          <button type="submit" class="btn sm">Search deeper</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r3/archive" style="display:inline">
+          <button type="submit" class="btn ghost sm">Archive</button>
+        </form>
+        <form onsubmit="return chDemo(event)" method="POST" action="/items/research_item/r3/advance" style="display:inline-flex;gap:6px;align-items:center">
+          <input type="hidden" name="action" value="rejected">
+          <select name="reason" class="btn sm" style="padding-right:6px" aria-label="Reject reason">
+            <option value="">reason…</option>
+            <option value="irrelevant">irrelevant</option>
+            <option value="low_quality">low quality</option>
+            <option value="hallucination">hallucination</option>
+            <option value="duplicate">duplicate</option>
+            <option value="other">other</option>
+          </select>
+          <button type="submit" class="btn sm danger">Reject</button>
+        </form>
+      </div>
+    </div>
+  
+  </div>
+</section>
+
+    </main>
+  </div>
+  <div id="ch-toast"></div>
+  <script src="public/app.js"></script>
+</body>
+</html>
+
