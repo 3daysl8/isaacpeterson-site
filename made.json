@@ -2,6 +2,17 @@
   "_comment": "Everything Isaac has made. The homepage 'Latest' cell and the /made/ page read this file. Add new entries to the TOP. Fields: slug (folder name under /made/), title, kind (short label), date (YYYY-MM-DD, when it was built or first shipped), summary (one or two sentences), image (screenshot path), url (live version), story (true once /made/<slug>/ exists), archived (true once a copy lives at /made/<slug>/app/).",
   "made": [
     {
+      "slug": "deadlee",
+      "title": "Deadlee the Dinosaur",
+      "kind": "Virtual pet",
+      "date": "2026-10-11",
+      "summary": "A Tamagotchi-style pet for my son on an $89 ESP32 board. Feed it, play with it, and talk to it: it answers in a British voice, runs on a local AI and reads him stories.",
+      "image": "assets/tool-deadlee.webp",
+      "url": null,
+      "story": true,
+      "archived": true
+    },
+    {
       "slug": "career-plan-example",
       "title": "Career Interview: Example Plan",
       "kind": "AI-generated plan",

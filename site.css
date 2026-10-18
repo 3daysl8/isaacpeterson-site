@@ -241,6 +241,14 @@ a:hover { text-decoration-color: var(--pop); }
 .c-file dl div { display: flex; justify-content: space-between; border-bottom: 1px dotted var(--ink); padding: 0.16rem 0; }
 .c-file dd { font-weight: 700; }
 
+/* pet status card (deadlee) */
+.c-pet .screen { width: 7.2rem; height: 7.2rem; margin: 0.5rem auto 0.4rem; border-radius: 50%; background: #111114; border: 5px solid #3a3a40; box-shadow: inset 0 0 0 2px #000; display: grid; place-items: center; overflow: hidden; }
+.c-pet .screen img { width: 62%; image-rendering: pixelated; }
+.c-pet .big { text-align: center; }
+.c-pet .meter { display: grid; grid-template-columns: 4.2rem 1fr; align-items: center; gap: 0.4rem; margin: 0.32rem 0; }
+.c-pet .bar { height: 0.55rem; border: 2px solid var(--ink); position: relative; }
+.c-pet .bar i { position: absolute; inset: 0 auto 0 0; background: var(--pop); }
+
 /* ---------- footer ---------- */
 .wire { width: var(--rule); height: 2.5rem; background: var(--ink); margin: 0 auto; }
 .foot { text-align: center; font-size: 0.7rem; }

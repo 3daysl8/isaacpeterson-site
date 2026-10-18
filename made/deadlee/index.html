@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deadlee the Dinosaur · Made · Isaac Peterson</title>
+<meta name="description" content="How I built my son a Tamagotchi-style virtual pet that talks back, over a weekend, on an $89 ESP32 board, with no embedded development experience.">
+<link rel="canonical" href="https://isaacpeterson.au/made/deadlee/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deadlee the Dinosaur · Made · Isaac Peterson">
+<meta property="og:description" content="A Tamagotchi-style virtual pet that talks back, built over a weekend on an $89 ESP32 board.">
+<meta property="og:url" content="https://isaacpeterson.au/made/deadlee/">
+<meta property="og:image" content="https://isaacpeterson.au/assets/tool-deadlee.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="board">
+  <header class="grid">
+    <div class="cell-name"><a href="/" class="display">Isaac<br>Peterson</a></div>
+    <div class="cell-tag"><p>Things made, questions asked, and whatever I'm figuring out this week.</p></div>
+    <nav class="cell-nav" aria-label="Site">
+      <ul class="display">
+        <li><a href="/made/" aria-current="page">Made</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/skills.html">Skills</a></li>
+        <li><a href="/watch.html">Watch <span class="soon">soon</span></a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="grid">
+      <div class="story-head">
+        <p class="mono"><a href="/made/">Made</a> · No. 008 · Virtual pet · Oct 2026</p>
+        <h1 class="display">Deadlee the <span class="hl">Dinosaur</span></h1>
+        <p class="standfirst">A Tamagotchi-style pet that talks back, built for my son over a weekend on an $89 microcontroller, with no embedded development experience.</p>
+      </div>
+      <div class="costume-stage">
+        <div class="costume c-pet" role="img" aria-label="Pet status card: Deadlee the Dinosaur, a red pixel dinosaur on a round screen, fed, happy and charged">
+          <div class="row"><span>Pet No. 008</span><span>ESP32-S3</span></div>
+          <div class="screen"><img src="/assets/deadlee-pixel.png" alt=""></div>
+          <div class="big">Deadlee</div>
+          <hr>
+          <div class="meter"><span>Food</span><span class="bar"><i style="width:80%"></i></span></div>
+          <div class="meter"><span>Fun</span><span class="bar"><i style="width:92%"></i></span></div>
+          <div class="meter"><span>Battery</span><span class="bar"><i style="width:68%"></i></span></div>
+          <hr class="dash">
+          <div class="row"><span>13 stations</span><span>Voice: British</span></div>
+          <span class="stamp-mark blue">Alive!</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="grid story-row">
+      <div class="story-label"><h2 class="display">The itch</h2></div>
+      <div class="story-body">
+        <p>The idea came from an AI commentator, Logan Currie (@loganinthefuture), who mentioned an SDK that lets you wire an ESP32 board or a Raspberry Pi into the Muse app, and said she was going to build a Tamagotchi-style toy. I didn't know what an SDK was, and I still can't tell you. I figured if she could do it, so could I.</p>
+      </div>
+    </section>
+
+    <section class="grid story-row">
+      <div class="story-label"><h2 class="display">How it came together</h2></div>
+      <div class="story-body">
+        <p>I bought a Waveshare ESP32-S3 board for $89: a 1.85-inch round touchscreen, Wi-Fi, a speaker and a microphone. Once it arrived, I attached the battery, opened Claude and told it I wanted a Tamagotchi-style pet. It built 90% of what I wanted in the first pass: feed, play and sleep.</p>
+        <p>The only thing it didn't nail was the design. The UI was a yellow dot on a screen, not a pet. I gave photos of it to Gemini, which wrote a prompt and a mock-up of what the screen should look like. Claude turned that into seven changes and worked through them one at a time. Then came Wi-Fi and 13 local radio stations.</p>
+      </div>
+    </section>
+
+    <section class="grid story-row">
+      <div class="story-label"><h2 class="display">What broke</h2></div>
+      <div class="story-body">
+        <p>The memory on the board was nearly maxed out and the battery was draining fast. I'd read about refactoring but never done it, so I asked Claude to refactor the code anyway. It freed up space and set itself an overnight task to watch what was pulling power. By the next day, both problems were fixed.</p>
+        <p>The most recent fix: I told Deadlee to stop reading a story, he didn't hear it, and when I swiped out of talking mode he had no memory of what had happened. Claude reviewed the memory logs, and 10 minutes later it was resolved.</p>
+      </div>
+    </section>
+
+    <section class="grid story-row">
+      <div class="story-label"><h2 class="display">What happened next</h2></div>
+      <div class="story-body">
+        <p>I connected Deadlee to AI so he could talk back. Then I got paranoid about my son's data sitting on someone else's server, so he now runs on a local model on my own computer: Gemma 4, from Google DeepMind.</p>
+        <p>For his personality, I copied how Hermes handles memory: a Soul that tells him how to behave with my son, Family with details of close family and friends, and Memory for the things worth remembering. He has guardrails for my son's age and a British voice. He reads stories from a library of free books from Project Gutenberg, quizzes my son on countries, plays a maths game, sets reminders and makes up new stories that he saves and reads back.</p>
+      </div>
+    </section>
+
+    <section class="grid story-row">
+      <div class="story-label"><h2 class="display">What I'd tell myself</h2></div>
+      <div class="story-body">
+        <p>Building custom hardware no longer needs specialist expertise. All it takes is a curious mind and lots of questions.</p>
+      </div>
+    </section>
+
+    <div class="grid">
+      <div class="story-meta">
+        <span class="mono">Built with: Claude · Gemini · ESP-IDF + LVGL · Gemma 4 (local)</span>
+        <a class="mono" href="app/">Play with the screen mock-up →</a>
+        <a class="mono" href="https://github.com/3daysl8/dino-pet-s3" rel="noopener">Source code on GitHub</a>
+        <a class="mono" href="/writing/i-built-my-son-a-tamagotchi-dinosaur-that-talks-back/">Read the full story</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="wire"></div>
+<footer class="foot">
+  <p><a href="mailto:hello@isaacpeterson.au">hello@isaacpeterson.au</a> · <a href="https://www.linkedin.com/in/isaac-peterson-9b693722/" rel="noopener">LinkedIn</a> · <a href="https://isaacpetersonau.substack.com/" rel="noopener">Substack</a> · <a href="https://github.com/3daysl8" rel="noopener">GitHub</a></p>
+</footer>
+</body>
+</html>
