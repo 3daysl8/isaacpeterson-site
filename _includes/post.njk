@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include "head.njk" %}
+<link rel="stylesheet" href="/blog.css">
+{%- set url = page.url | absUrl %}
+{%- set img = image | ogImage %}
+<title>{{ title }} · Isaac Peterson</title>
+<meta name="description" content="{{ standfirst }}">
+<link rel="canonical" href="{{ url }}">
+{%- if status != "published" %}
+<meta name="robots" content="noindex, nofollow">
+{%- endif %}
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Isaac Peterson">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ standfirst }}">
+<meta property="og:url" content="{{ url }}">
+<meta property="og:image" content="{{ img }}">
+<meta property="og:locale" content="en_AU">
+<meta property="article:published_time" content="{{ page.date | isoDate }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ standfirst }}">
+<meta name="twitter:image" content="{{ img }}">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="board">
+{% set nav = "writing" %}{% include "header.njk" %}
+
+  <main id="main">
+    <article>
+      <div class="grid">
+        <div class="story-head">
+          {%- if status != "published" %}
+          <p class="draft-note">Draft. Not listed on the site, not in the feed, hidden from search.</p>
+          {%- endif %}
+          <p class="mono">{{ tag or "Writing" }} · <time datetime="{{ page.date | isoDate }}">{{ page.date | dateDisplay }}</time> · {{ content | readTime }}</p>
+          <h1 class="display">{{ title }}</h1>
+          {%- if standfirst %}
+          <p class="standfirst">{{ standfirst }}</p>
+          {%- endif %}
+        </div>
+        {%- if image %}
+        <div class="post-hero"><img src="/{{ image | replace(r/^\/+/, '') }}" alt=""></div>
+        {%- endif %}
+      </div>
+      <div class="grid">
+        <div class="post-body">
+{{ content | safe }}
+        </div>
+      </div>
+      <div class="grid">
+        <div class="story-meta">
+          <a class="mono" href="/writing.html">← All writing</a>
+          {%- if substack_url %}
+          <a class="mono" href="{{ substack_url }}" rel="noopener">Also on Substack →</a>
+          {%- endif %}
+          {%- if ai_label == "ai_written" %}
+          <span class="mono">Made with AI</span>
+          {%- elif ai_label == "mostly_ai" %}
+          <span class="mono">Mostly AI</span>
+          {%- endif %}
+        </div>
+      </div>
+    </article>
+  </main>
+</div>
+
+{% include "foot.njk" %}
+</body>
+</html>

@@ -1,0 +1,74 @@
+# Pages CMS (https://pagescms.org): browser editor for posts/*.md.
+# Sign in with GitHub, pick this repo. Saving commits, Netlify rebuilds.
+# Fields match the frontmatter that the content hub writes. Keep them in step.
+media:
+  input: assets/posts
+  output: /assets/posts
+
+content:
+  - name: posts
+    label: Posts
+    type: collection
+    path: posts
+    filename:
+      template: "{primary}.md"
+      field: create
+    view:
+      primary: title
+      fields: [title, status, date, tag]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: standfirst
+        label: Standfirst
+        description: One or two sentences. Shown under the title, on the writing page, and in link previews.
+        type: text
+      - name: tag
+        label: Topic tag
+        description: One short label, e.g. "AI & me". The writing page filters on it.
+        type: string
+      - name: status
+        label: Status
+        description: Drafts build at their URL for preview but are hidden everywhere else.
+        type: select
+        default: draft
+        options:
+          values: [draft, published]
+      - name: image
+        label: Hero / social preview image
+        description: 1200x630 works best for link previews.
+        type: image
+      - name: substack_url
+        label: Substack URL
+        description: Add once the Substack version is live. Shows "Also on Substack" on the post.
+        type: string
+      - name: ai_label
+        label: AI label
+        type: select
+        options:
+          values:
+            - { name: "", label: None }
+            - { name: ai_written, label: Made with AI }
+            - { name: mostly_ai, label: Mostly AI }
+      - name: hub_id
+        label: Content hub id
+        description: Set by the hub. Leave alone.
+        type: string
+        hidden: true
+      - name: body
+        label: Body
+        description: 'Use Source mode for callouts (::: callout Title … :::) and captioned images (![alt](/assets/posts/x.webp "Caption")).'
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true

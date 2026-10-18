@@ -1,0 +1,92 @@
+---
+permalink: /writing.html
+eleventyExcludeFromCollections: true
+---
+{%- set entries = collections.publishedPosts | feedEntries(external) -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include "head.njk" %}
+<title>Writing · Isaac Peterson</title>
+<meta name="description" content="Posts on workers comp, psychosocial risk, AI, and whatever I'm chewing on. Published as I figure it out.">
+<link rel="canonical" href="https://isaacpeterson.au/writing.html">
+<style>
+.filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+.filters button {
+  font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink); background: transparent; border: var(--rule) solid var(--ink);
+  padding: 0.3rem 0.6rem; cursor: pointer;
+}
+.filters button:hover { background: var(--pop); }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+
+.post-row > * { justify-content: flex-start; }
+.post-row[hidden] { display: none; }
+.post-text { flex-basis: 22rem; flex-grow: 4; gap: 0.45rem; }
+.post-text h2 { font-family: Georgia, serif; font-weight: 700; font-size: 1.05rem; line-height: 1.25; max-width: 48ch; }
+.post-text h2 a { text-decoration: none; }
+.post-text h2 a:hover { text-decoration: underline; text-decoration-color: var(--pop); }
+.post-thumb { flex-basis: 9rem; flex-grow: 1; padding: 0 !important; position: relative; min-height: 7rem; background: var(--paper); }
+.post-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.post-count { flex-basis: 100%; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="board">
+{% set nav = "writing" %}{% include "header.njk" %}
+
+  <main id="main">
+    <div class="grid">
+      <div class="page-intro">
+        <h1 class="display"><span class="hl">Thinking</span> out loud</h1>
+        <p>Posts on workers comp, psychosocial risk, AI, and whatever I'm chewing on. Published as I figure it out.</p>
+        <div class="filters" id="filters" role="group" aria-label="Filter posts by topic"></div>
+      </div>
+    </div>
+    <div id="post-list" aria-live="polite">
+      {%- for p in entries %}
+      <article class="grid post-row" data-tag="{{ p.tag }}">
+        <div class="post-text">
+          <p class="mono">{{ p.tag }} · {{ p.date | monthYear }}{% if p.readTime %} · {{ p.readTime }}{% endif %}</p>
+          <h2>{% if p.url %}<a href="{{ p.url }}"{% if not p.url.startsWith('/') %} rel="noopener"{% endif %}>{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</h2>
+        </div>
+        {%- if p.image %}
+        <div class="post-thumb"><img src="/{{ p.image }}" alt="" loading="lazy"></div>
+        {%- endif %}
+      </article>
+      {%- endfor %}
+    </div>
+    <div class="grid"><p class="post-count mono" id="post-count">{{ entries.length }} {{ "post" if entries.length == 1 else "posts" }}</p></div>
+  </main>
+</div>
+
+{% include "foot.njk" %}
+
+<script>
+// Topic filter. The list above is built at deploy time, so this only hides rows.
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.post-row'));
+  var tags = [], active = 'All';
+  rows.forEach(function (r) { var t = r.getAttribute('data-tag'); if (tags.indexOf(t) < 0) tags.push(t); });
+  var wrap = document.getElementById('filters');
+  if (tags.length < 2) return;
+  function render() {
+    wrap.innerHTML = '';
+    ['All'].concat(tags).forEach(function (t) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = t;
+      b.setAttribute('aria-pressed', t === active ? 'true' : 'false');
+      b.addEventListener('click', function () { active = t; render(); });
+      wrap.appendChild(b);
+    });
+    var n = 0;
+    rows.forEach(function (r) { var show = active === 'All' || r.getAttribute('data-tag') === active; r.hidden = !show; if (show) n++; });
+    document.getElementById('post-count').textContent = n + (n === 1 ? ' post' : ' posts');
+  }
+  render();
+})();
+</script>
+</body>
+</html>
