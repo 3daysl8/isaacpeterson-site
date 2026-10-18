@@ -7,6 +7,7 @@ standfirst: Over a single weekend, with an $89 ESP32 microcontroller dev board
 tag: AI & me
 status: published
 image: /assets/posts/1792305223353.jpg
+substack_url: https://isaacpetersonau.substack.com/p/i-built-my-son-a-tamagotchi-style?
 ai_label: ai_written
 hub_id: 22b73de4-2020-4a0e-bcd3-5c0f7ea598d3
 ---
