@@ -1,11 +1,12 @@
 ---
-title: "I Reviewed My Substack Workflow - Most of it didn't need fixing"
+title: I Reviewed My Substack Workflow - Most of it didn't need fixing
 date: 2026-07-26
-standfirst: "One question told me what to cut, leave and where my attention was needed"
-tag: "AI & me"
-status: draft
+standfirst: One question told me what to cut, leave and where my attention was needed
+tag: AI & me
+status: published
 image: assets/post-substack-workflow-review.webp
 substack_url: https://isaacpetersonau.substack.com/p/i-reviewed-my-substack-workflow-most
+ai_label: ai_written
 ---
 Today I sat down to sort out my whole Substack process. Not to write anything. Just to organise it. Templates, tidy folders, a checklist so nothing slips through. I’m only new to writing on Substack and wanted to know if what I’m doing is efficient or whether there was a better way to do things.
 
@@ -63,4 +64,4 @@ This is the third of the three ways I’ve been using AI to provide direction, f
 
 The last piece is this one, I turned it into two AI prompts, the first I call [the Lean Sensei](https://isaacpeterson.au/kit-lean-sensei). You describe something you are about to build or organise. The second is [Reversible or Not? Card](https://isaacpeterson.au/kit-lean-sensei) and help identify where you shoud stop planning and just try or slow down.
 
-_Thanks for reading! I build things with AI and share what I learn as I go. Subscribe. It’s Free. [Subscribe on Substack](https://isaacpetersonau.substack.com/subscribe)._
+*Thanks for reading! I build things with AI and share what I learn as I go. Subscribe. It’s Free. [Subscribe on Substack](https://isaacpetersonau.substack.com/subscribe).*
