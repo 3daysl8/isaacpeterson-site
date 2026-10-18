@@ -1,14 +1,16 @@
 ---
-title: "I Built My Son A Tamagotchi Dinosaur That Talks Back"
+title: I Built My Son A Tamagotchi Dinosaur That Talks Back
 date: 2026-10-18
-standfirst: ""
-tag: "Writing"
+standfirst: Over a single weekend, with an $89 ESP32 microcontroller dev board
+  off Amazon and zero embedded development experience, I vibe-coded a smart,
+  Tamagotchi-style toy for my son. He named him Deadlee the Dinosaur.
+tag: AI & me
 status: draft
-hub_id: "22b73de4-2020-4a0e-bcd3-5c0f7ea598d3"
+image: /assets/posts/1792305223353.jpg
+ai_label: ai_written
+hub_id: 22b73de4-2020-4a0e-bcd3-5c0f7ea598d3
 ---
 I vibe coded a retro modern toy for my son. It took a weekend, a $89 microcontroller and developer kit off Amazon, and a lot of prompts with Claude. My son named him Deadlee the Dinosaur.
-
-
 
 The idea came from an AI commentator named Logan Currie @loganinthefuture who mentioned Muse Gadgets and specifically an SDK that lets you wire an ESP32 board or a Raspberry Pi into the Muse app. It can be used to create a custom devices and she was going to build a Tamagotchi. Even though I didn't know what an SDK is and I still can't tell you, I figured if she could do it so could I. 
 
@@ -27,7 +29,6 @@ Once the core of the Tamagotchi was created, I used AI to brain strom different 
 ## The wall
 
 Then I hit a wall. It turns out memory on the board was nearly maxed out and the battery was draining fast. I'd read about refactoring but had never done it however, given the issues I asked Claude to refactor the code anyway. What happened next, it freed up space and set itself an overnight task to monitor what was actually pulling power. By the next day the memory problem and the battery drain were both resolved.
-
 
 ## Giving Deadlee a personality
 
