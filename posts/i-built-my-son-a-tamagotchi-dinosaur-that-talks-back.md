@@ -20,6 +20,8 @@ So, I bought a Waveshare ESP32-S3-LCD-1.85 for the grand price $89AUD. It's a sm
 
 Once it arrived, all I did was attach the battery, open Claude 5.5, told it I wanted it to create a Tamagotchi-style pet that was all. I saw it search Wikipedia and then built 90% of what I wanted basic feed, play and sleep mechanics in that first pass. The only thing it didn't nail was the design. The UI was a yellow dot on a screen, not a pet.
 
+![](/assets/posts/20261008_185856.jpg)
+
 ## Fixing the face
 
 I took photos of what Claude had built and gave them to Gemini asking it to write prompts describing what the interface should look like instead. Instead it created a prompt as well as a mock up image. I took both, gave them to Claude and asked it to consider the changes and it went ahead and updated the user interface UI. I ended up create 7 key changes that Claude created a project plan form and worked through each step at a time.
@@ -39,6 +41,10 @@ I asked Claude how to do it and in simple terms, over Wi-Fi I connect the Deadle
 To give Deadlee a personality I asked Claude to look at how Hermes, a model by Nous I already use for a content hub I run, handles memory. Claude told me that Hermes works off three memory folders, so I built the same folder structure, A Soul that tells memory how to behave and interact with my son, Family which provides Deadlee with details of close family and friends and Memory, which tells Deadlee thing that are happening, facts to remember. From there Claude put in guardrails based on my son's age, set a personality, gave Deadlee a voice, he's British, and walked me through wiring up voice output. 
 
 I then searched additional features I could add; Deadlee will read stories I've saved in a library, current books include Winnie the Pooh, Peter Rabbit and stories by Hans Christian Andersen all for free from Project Gutenberg. Deadlee can quiz my son on countries of the world, play a maths game, set timed reminders, tell me the weather and create short stories through conversation that it then saves to the library and can read it back.
+
+
+
+![](/assets/posts/20261011_142653~2.jpg)
 
 ## What it proves
 
