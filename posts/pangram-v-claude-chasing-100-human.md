@@ -1,17 +1,19 @@
 ---
 title: "Pangram v Claude: Chasing 100% Human Using AI"
 date: 2026-08-25
-standfirst: "Four rounds, one winner"
-tag: "AI & me"
-status: draft
+standfirst: Four rounds, one winner
+tag: AI & me
+status: published
 image: assets/post-pangram-v-claude.webp
 substack_url: https://isaacpetersonau.substack.com/p/pangram-v-claude-chasing-100-human
+ai_label: ai_written
 ---
 I went into this thinking that an AI frontier model, facilitating trillions of calculations per second, would easily write like a human. This is the fourth article I’ve written on this. My first article was generated from a single prompt with Claude, followed by passing it through an AI editor, a few tweaks, a couple of deletions, and the article was done. I posted it the draft and ran it through Pangram. It came back 100% AI. I didn’t publish it.
 
 ---
 
 ### Find 100% Human and Copy
+
 What did I do next? I decided to use Claude to assess and review 100% human-written articles, to create an actual formula for what makes writing read as human. I scraped a total of 56 articles, around 185,000 words. And from there, it developed a set of criteria to establish a formula that mimics human writing.
 
 The areas it looked at: **entity density,** which is proper nouns, acronyms, and alphanumeric product names per hundred words. The next thing it looked at was dash rate, em dashes, trying to have a balance of those throughout. **Transition density,** which is formal connectives: furthermore, moreover, in conclusion, so those within the three-hundred-word frameset. A **vocabulary rate** to make sure it matched against a list of overused machine writing words, to minimize that.
@@ -42,4 +44,4 @@ My conclusion: at present I can’t defeat Pangram based on my current use of AI
 
 With this article. I’ve had AI draft it based on my thoughts and intent. I’ve then dictated it back to Claude in my own words. I’ve had Claude correct spelling mistakes, remove ums and recurrences with no structural changes. I’ve then edited it twice across two different days. The result 100% human but it was touch and go there with Claude editing.
 
-_Thanks for reading! I build things with AI and share what I learn as I go. Subscribe. It’s Free. [Subscribe on Substack](https://isaacpetersonau.substack.com/subscribe)._
+*Thanks for reading! I build things with AI and share what I learn as I go. Subscribe. It’s Free. [Subscribe on Substack](https://isaacpetersonau.substack.com/subscribe).*
