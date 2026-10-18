@@ -1,15 +1,14 @@
 ---
-title: "I Used AI to Be Unproductive. Now So Can You."
+title: I Used AI to Be Unproductive. Now So Can You.
 date: 2026-07-15
-standfirst: "A party game built from five plain-English prompts in the AI my workplace already provides. Pointless, and the cheapest AI training you will ever get."
-tag: "AI & me"
-status: "draft"
-image: "assets/post-ai-unproductive.webp"
-substack_url: "https://isaacpetersonau.substack.com/p/i-used-ai-to-be-unproductive-now"
-ai_label: ""
-hub_id: ""
+standfirst: A party game built from five plain-English prompts in the AI my
+  workplace already provides. Pointless, and the cheapest AI training you will
+  ever get.
+tag: AI & me
+status: draft
+image: assets/post-ai-unproductive.webp
+substack_url: https://isaacpetersonau.substack.com/p/i-used-ai-to-be-unproductive-now
 ---
-
 This build will not save you a single minute. It won’t streamline a workflow or automate a report.
 
 But it’s fun, and it’s simple to make. It’s a party game, built from a handful of plain-English prompts, and what comes out the other side is a working interactive tool that runs in a browser, on your work computer or your mobile phone.
@@ -30,11 +29,9 @@ One person hosts. Everyone else shouts answers.
 
 ![The Aussie Celebrity Quiz on a phone](/assets/tool-aussie-celebrity-quiz.webp "The Aussie Celebrity Quiz")
 
-* The screen reveals clues about a famous Aussie, **hardest first**.
-
-* Guess on clue one, score 3 points. Wait until clue six, score 1.
-
-* First to call it gets the points. Highest score wins.
+- The screen reveals clues about a famous Aussie, **hardest first**.
+- Guess on clue one, score 3 points. Wait until clue six, score 1.
+- First to call it gets the points. Highest score wins.
 
 Eighteen celebrities, from Bradman to Margot Robbie. A lobby for player names, a live scoreboard, a winner’s screen. It runs off a phone in the middle of the table.
 
@@ -56,11 +53,9 @@ Think about what a build like this actually does:
 
 **Writing a spec.** You have to describe the game before the AI can build it.
 
-* **Iterating.** The first version is never right. You review, you correct, you resend.
-
-* **Quality judgement.** Clue three spoils the answer. A fact is wrong. You catch it.
-
-* **Shipping.** Getting a real thing in front of real people, even if the stakes are a laugh.
+- **Iterating.** The first version is never right. You review, you correct, you resend.
+- **Quality judgement.** Clue three spoils the answer. A fact is wrong. You catch it.
+- **Shipping.** Getting a real thing in front of real people, even if the stakes are a laugh.
 
 What it also shows is how much workplace software has changed. You are no longer stuck with what the tool ships with. Think a little outside the box, describe what you’ve imagined, and the AI your workplace already provides will build it for you: a one-of-a-kind presentation, a game, whatever the job actually needs.
 
