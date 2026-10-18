@@ -3,6 +3,7 @@
 // is copied through untouched: only .md and .njk are templates, so nothing in
 // made/*/app (which contains {{ }}) is ever parsed.
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
+import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import markdownIt from "markdown-it";
 import markdownItContainer from "markdown-it-container";
 
@@ -111,6 +112,21 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("isoDate", (d) => d.toISOString());
   eleventyConfig.addFilter("absUrl", (p) => `${SITE}/${stripSlash(p)}`);
   eleventyConfig.addFilter("ogImage", (p) => `${SITE}/${stripSlash(p) || DEFAULT_IMAGE}`);
+
+  // Images in generated pages (posts, writing page) are resized and converted at build time, so a
+  // raw phone photo uploaded through Pages CMS (4000x3000, several MB) ships as a small webp. The
+  // originals in assets/ are untouched and hand-written pages are not processed. fixOrientation is
+  // required: phone photos store rotation in EXIF, which the conversion strips, so without it a
+  // portrait photo comes out sideways. failOnError false: a missing image never breaks the build.
+  eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+    formats: ["webp"],
+    widths: [720, 1456],
+    fixOrientation: true,
+    failOnError: false,
+    htmlOptions: {
+      imgAttributes: { loading: "lazy", decoding: "async", sizes: "(min-width: 48rem) 37rem, 100vw" },
+    },
+  });
 
   eleventyConfig.addPlugin(feedPlugin, {
     type: "atom",
