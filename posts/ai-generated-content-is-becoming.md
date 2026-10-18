@@ -6,7 +6,7 @@ tag: AI & me
 status: published
 image: /assets/posts/ai-generated-content-is-becoming/hero.webp
 substack_url: https://isaacpetersonau.substack.com/p/ai-generated-content-is-becoming
-ai_label: ai_written
+ai_label: mostly_ai
 ---
 AI writing detection is becoming increasingly difficult, and for good reason: language models have grown remarkably sophisticated at mimicking human style. It's worth noting, however, that several factors are at play here, and the reality is likely more nuanced than either side of the debate suggests. On one hand, the fluency of these systems is genuinely impressive; on the other, that same fluency can obscure a lack of original thought. Ultimately, the question of authorship is complicated, and reasonable people can disagree about where to draw the line.
 
