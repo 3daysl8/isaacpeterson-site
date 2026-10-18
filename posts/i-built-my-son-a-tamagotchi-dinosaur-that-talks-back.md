@@ -5,7 +5,7 @@ standfirst: Over a single weekend, with an $89 ESP32 microcontroller dev board
   off Amazon and zero embedded development experience, I vibe-coded a smart,
   Tamagotchi-style toy for my son. He named him Deadlee the Dinosaur.
 tag: AI & me
-status: draft
+status: published
 image: /assets/posts/1792305223353.jpg
 ai_label: ai_written
 hub_id: 22b73de4-2020-4a0e-bcd3-5c0f7ea598d3
