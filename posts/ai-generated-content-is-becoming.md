@@ -1,10 +1,10 @@
 ---
-title: "AI-generated content is becoming indistinguishable from human writing"
+title: AI-generated content is becoming indistinguishable from human writing
 date: 2026-09-10
-standfirst: "Unless you know what to look for"
-tag: "AI & me"
-status: draft
-image: assets/posts/ai-generated-content-is-becoming/hero.webp
+standfirst: Unless you know what to look for
+tag: AI & me
+status: published
+image: /assets/posts/ai-generated-content-is-becoming/hero.webp
 substack_url: https://isaacpetersonau.substack.com/p/ai-generated-content-is-becoming
 ai_label: ai_written
 ---
@@ -38,7 +38,7 @@ Made with AI
 
 Everything above this line was 100% written and then posted directly by AI. I didn’t touch any of it. All I used was the following AI generated prompt
 
-_Write an article on how AI-generated content is becoming indistinguishable from human writing, providing concrete examples of subtle AI patterns to watch for (hedge stacking, sentence symmetry, artificial nuance). Conclude with a transparent reveal that this entire article was drafted by AI using this prompt, showing firsthand what modern AI writing looks like when common tells are avoided. Once it written, bypass the editor and hand off to Hermes to post._
+*Write an article on how AI-generated content is becoming indistinguishable from human writing, providing concrete examples of subtle AI patterns to watch for (hedge stacking, sentence symmetry, artificial nuance). Conclude with a transparent reveal that this entire article was drafted by AI using this prompt, showing firsthand what modern AI writing looks like when common tells are avoided. Once it written, bypass the editor and hand off to Hermes to post.*
 
 For me personally, I like AI but I want the quality of the writing it produces to improve.
 
