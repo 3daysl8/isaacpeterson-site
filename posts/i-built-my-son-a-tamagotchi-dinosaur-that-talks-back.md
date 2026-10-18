@@ -10,13 +10,13 @@ image: /assets/posts/1792305223353.jpg
 ai_label: ai_written
 hub_id: 22b73de4-2020-4a0e-bcd3-5c0f7ea598d3
 ---
-I vibe coded a retro modern toy for my son. It took a weekend, a $89 microcontroller and developer kit off Amazon, and a lot of prompts with Claude. My son named him Deadlee the Dinosaur.
+I vibe coded a retro modern toy for my son. It took a weekend, an $89 microcontroller and developer kit off Amazon, and a lot of prompts with Claude. My son named him Deadlee the Dinosaur.
 
-The idea came from an AI commentator named Logan Currie @loganinthefuture who mentioned Muse Gadgets and specifically an SDK that lets you wire an ESP32 board or a Raspberry Pi into the Muse app. It can be used to create a custom devices and she was going to build a Tamagotchi. Even though I didn't know what an SDK is and I still can't tell you, I figured if she could do it so could I. 
+The idea came from an AI commentator named Logan Currie @loganinthefuture who mentioned Muse Gadgets and specifically an SDK that lets you wire an ESP32 board or a Raspberry Pi into the Muse app. It can be used to create a custom device, and she was going to build a Tamagotchi. Even though I didn't know what an SDK is and I still can't tell you, I figured if she could do it so could I. 
 
 ## The board and the dinosaur
 
-So, I bought a Waveshare ESP32-S3-LCD-1.85 for the grand price $89AUD. It's a small development board with a 1.85-inch 360x360 touchscreen, Wi-Fi, Bluetooth 5, a six-axis sensor, a real-time clock chip, a speaker interface and a microphone. 8MB of PSRAM, 16MB of flash, 512KB of SRAM. The reason I chose this board because it was what Logan was going to buy and it was the perfrect choice as it came with all the bells and whistles
+So, I bought a Waveshare ESP32-S3-LCD-1.85 for the grand price $89AUD. It's a small development board with a 1.85-inch 360x360 touchscreen, Wi-Fi, Bluetooth 5, a six-axis sensor, a real-time clock chip, a speaker interface and a microphone. 8MB of PSRAM, 16MB of flash, 512KB of SRAM. The reason I chose this board because it was what Logan was going to buy and it was the perfect choice as it came with all the bells and whistles
 
 Once it arrived, all I did was attach the battery, open Claude 5.5, told it I wanted it to create a Tamagotchi-style pet that was all. I saw it search Wikipedia and then built 90% of what I wanted basic feed, play and sleep mechanics in that first pass. The only thing it didn't nail was the design. The UI was a yellow dot on a screen, not a pet.
 
@@ -24,7 +24,7 @@ Once it arrived, all I did was attach the battery, open Claude 5.5, told it I wa
 
 ## Fixing the face
 
-I took photos of what Claude had built and gave them to Gemini asking it to write prompts describing what the interface should look like instead. Instead it created a prompt as well as a mock up image. I took both, gave them to Claude and asked it to consider the changes and it went ahead and updated the user interface UI. I ended up create 7 key changes that Claude created a project plan form and worked through each step at a time.
+I took photos of what Claude had built and gave them to Gemini asking it to write prompts describing what the interface should look like instead. Instead, it created a prompt as well as a mock up image. I took both, gave them to Claude and asked it to consider the changes and it went ahead and updated the user interface UI. I ended up create 7 key changes that Claude created a project plan form and worked through each step at a time.
 
 Once the core of the Tamagotchi was created, I used AI to brain strom different ideas. First cab of the rank was connecting it to Wi-Fi and adding digital radio stations. Once again, Claude to the rescue, it researched local stations and provided a list of 13. All of them were added to Deadlee.
 
@@ -48,7 +48,7 @@ I then searched additional features I could add; Deadlee will read stories I've 
 
 ## What it proves
 
-The moat between technology, hardware and deployment no longer requires specific expertise and anyone can build a custom toy with its own personality, memory and voice. All it takes is a curious mind and lost of questions. 
+The moat between technology, hardware and deployment no longer requires specific expertise and anyone can build a custom toy with its own personality, memory and voice. All it takes is a curious mind and lots of questions. 
 
 The moment Claude refactored Deadlee's code and fixed the battery drain overnight and set follow up tasks to make sure it ran smoothly was the moment I understood the breadth of what creators who build have to go through and it me that now capable of doing it. I'm still doing little tweaks here and there, the most recent was when Deadlee reads a story and I said stop and he didn't hear it and then I swiped out of talking mode and he had no recollection of what happened. I resolved it by plugging it into Claude and had it review the memory logs, 5 minutes later issue resolved. 
 
