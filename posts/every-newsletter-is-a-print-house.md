@@ -1,11 +1,12 @@
 ---
-title: "Every Newsletter is a Print House"
+title: Every Newsletter is a Print House
 date: 2026-07-31
-standfirst: "Every Writer Is a Paperboy Throwing Notes"
-tag: "AI & me"
-status: draft
+standfirst: Every Writer Is a Paperboy Throwing Notes
+tag: AI & me
+status: published
 image: assets/post-every-newsletter-print-house.webp
 substack_url: https://isaacpetersonau.substack.com/p/every-newsletter-is-a-print-house
+ai_label: ai_written
 ---
 I used AI and studied [1000 notes](/writing/i-analysed-1000-substack-notes-looking/) looking to find an algorithm: a mechanism I could understand and use to grow my profile. This follow-up article is high-level insight on the data and the outcome of that analysis. The finding is simple and annoying:
 
@@ -87,4 +88,4 @@ Both layers matter, and their effects compound. Being on the right street is wha
 
 At small scale, you are the main reason anyone walks in. That changes only when enough readers return, subscribe and overlap with adjacent audience for your Newsletter to start generating traffic on its own.
 
-_Thanks for reading! I build things with AI and share what I learn as I go. Subscribe. Its Free. [Subscribe on Substack](https://isaacpetersonau.substack.com/subscribe)._
+*Thanks for reading! I build things with AI and share what I learn as I go. Subscribe. Its Free. [Subscribe on Substack](https://isaacpetersonau.substack.com/subscribe).*
