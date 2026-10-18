@@ -20,7 +20,7 @@ So, I bought a Waveshare ESP32-S3-LCD-1.85 for the grand price $89AUD. It's a sm
 
 Once it arrived, all I did was attach the battery, open Claude 5.5, told it I wanted it to create a Tamagotchi-style pet that was all. I saw it search Wikipedia and then built 90% of what I wanted basic feed, play and sleep mechanics in that first pass. The only thing it didn't nail was the design. The UI was a yellow dot on a screen, not a pet.
 
-![](/assets/posts/20261008_185856.jpg)
+![Deadlee's first screen](/assets/posts/20261008_185856.jpg)
 
 ## Fixing the face
 
@@ -44,7 +44,7 @@ I then searched additional features I could add; Deadlee will read stories I've 
 
 
 
-![](/assets/posts/20261011_142653~2.jpg)
+![Deadlee in radio mode](/assets/posts/20261011_142653~2.jpg)
 
 ## What it proves
 
