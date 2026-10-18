@@ -5,7 +5,7 @@ standfirst: A party game built from five plain-English prompts in the AI my
   workplace already provides. Pointless, and the cheapest AI training you will
   ever get.
 tag: AI & me
-status: draft
+status: published
 image: assets/post-ai-unproductive.webp
 substack_url: https://isaacpetersonau.substack.com/p/i-used-ai-to-be-unproductive-now
 ---
