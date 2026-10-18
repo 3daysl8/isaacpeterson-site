@@ -29,7 +29,10 @@ function feedEntries(posts, external) {
     url: p.url,
     image: stripSlash(p.data.image) || null,
   }));
-  const ext = (external || []).map((e) => ({ sort: e.date, ...e }));
+  // A post now hosted here replaces its old off-site entry: drop any external
+  // link that matches a site post's substack_url.
+  const hosted = new Set((posts || []).map((p) => p.data.substack_url).filter(Boolean));
+  const ext = (external || []).filter((e) => !hosted.has(e.url)).map((e) => ({ sort: e.date, ...e }));
   return [...own, ...ext].sort((a, b) => b.sort.localeCompare(a.sort));
 }
 
