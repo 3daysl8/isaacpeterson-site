@@ -4,7 +4,7 @@ date: 2026-10-20
 standfirst: Most businesses automate before they understand the problem. The
   best automation starts with a measurable outcome, not a new tool.
 tag: AI & the Profession
-status: draft
+status: published
 image: /assets/posts/automating-your-business-with-ai-read-this-first/hero.png
 ai_label: ai_written
 hub_id: 28691b74-58a3-48da-9ddf-539c35597d1a
