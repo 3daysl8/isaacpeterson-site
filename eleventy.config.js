@@ -29,6 +29,7 @@ function feedEntries(posts, external) {
     readTime: readTime(p.content),
     url: p.url,
     image: stripSlash(p.data.image) || null,
+    standfirst: p.data.standfirst || null,
   }));
   // A post now hosted here replaces its old off-site entry: drop any external
   // link that matches a site post's substack_url.

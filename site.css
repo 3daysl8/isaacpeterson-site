@@ -25,7 +25,9 @@ html {
   color: var(--ink);
   background: var(--ground);
 }
-body { background: var(--ground); padding: 1.25rem; min-height: 100vh; }
+body { background: var(--ground); padding: 1.25rem; min-height: 100vh; min-height: 100dvh; }
+h1, h2, h3 { text-wrap: balance; }
+p, li, blockquote { text-wrap: pretty; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 a:hover { text-decoration-color: var(--pop); }
@@ -92,7 +94,8 @@ a:hover { text-decoration-color: var(--pop); }
   transition: background 0.12s;
 }
 .cell-nav a::after { content: '→'; font-family: Georgia, serif; font-size: 0.9rem; opacity: 0; transition: opacity 0.12s, transform 0.12s; }
-.cell-nav a:hover, .cell-nav a:focus-visible { background: var(--pop); outline: none; }
+.cell-nav a:hover, .cell-nav a:focus-visible { background: var(--pop); }
+.cell-nav a:focus-visible { outline-offset: -5px; outline-color: var(--ink); } /* kept visible for forced-colours mode */
 .cell-nav a:hover::after, .cell-nav a:focus-visible::after { opacity: 1; transform: translateX(3px); }
 .cell-nav a[aria-current="page"] { background: var(--ink); color: var(--ground); }
 .soon {
@@ -267,4 +270,8 @@ a:hover { text-decoration-color: var(--pop); }
   .soon { margin-right: 0; }
 }
 
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+/* Page-to-page crossfade where the browser supports it; instant navigation everywhere else. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

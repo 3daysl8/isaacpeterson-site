@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Isaac Peterson</title>
 <meta name="description" content="Isaac Peterson's public workshop. Things made, questions asked, and whatever I'm figuring out this week.">
+<link rel="canonical" href="https://isaacpeterson.au/">
+<meta name="theme-color" content="#faf7f4">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Isaac Peterson">
+<meta property="og:title" content="Isaac Peterson">
+<meta property="og:description" content="My public workshop. Things made, questions asked, and whatever I'm figuring out this week.">
+<meta property="og:url" content="https://isaacpeterson.au/">
+<meta property="og:image" content="https://isaacpeterson.au/assets/hero-illustration.png">
+<link rel="alternate" type="application/atom+xml" title="Isaac Peterson" href="/feed.xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16">
@@ -16,11 +25,35 @@
 <style>
 /* ---------- homepage: middle row ---------- */
 .cell-draw { flex-basis: 12rem; align-items: center; background: var(--paper); }
-.cell-draw img {
-  width: 100%; max-width: 11rem; max-height: 17rem; object-fit: contain;
+.cell-draw { position: relative; }
+
+/* The drawing is three poses stacked in one grid cell: thinking, looking up, looking at you.
+   JS flips data-pose on the parent like a three-frame flipbook. Without JS it is the first pose. */
+.poser {
+  display: grid; width: 100%; max-width: 11rem;
+  border: 0; padding: 0; background: none; cursor: pointer;
   mix-blend-mode: multiply;
-  transform: scaleX(-1); /* faces the workshop */
+  -webkit-tap-highlight-color: transparent;
 }
+.cell-draw .poser { transform: scaleX(-1); } /* faces the workshop */
+.poser img { grid-area: 1 / 1; width: 100%; height: auto; max-height: 17rem; object-fit: contain; }
+.poser .p2, .poser .p3 { visibility: hidden; }
+[data-pose="2"] > .poser .p1, [data-pose="3"] > .poser .p1 { visibility: hidden; }
+[data-pose="2"] > .poser .p2, [data-pose="3"] > .poser .p3 { visibility: visible; }
+/* each new frame lands with a two-step wobble, like a hand-drawn cel */
+@keyframes cel { 0% { rotate: -1.6deg; translate: 0 2px; } 50% { rotate: 1.1deg; translate: 0 -1px; } 100% { rotate: 0deg; translate: 0 0; } }
+.poser.cel { animation: cel 0.28s steps(1, end); }
+
+.hi {
+  position: absolute; top: 1.1rem; right: 0.9rem; z-index: 2;
+  font-family: var(--display); font-size: 0.95rem; text-transform: uppercase; line-height: 1;
+  padding: 0.28rem 0.5rem 0.18rem;
+  background: var(--pop); color: var(--ink);
+  rotate: 5deg; scale: 0; transform-origin: 20% 100%;
+  transition: scale 0.18s cubic-bezier(0.3, 1.6, 0.6, 1);
+  pointer-events: none;
+}
+[data-pose="3"] > .hi { scale: 1; }
 
 .cell-statement {
   flex-basis: 24rem; flex-grow: 4;
@@ -62,14 +95,15 @@
 .cell-intent.accent { background: var(--pop); }
 .cell-intent.accent p:not(.n) { font-family: var(--display); font-style: normal; font-size: 1.28rem; line-height: 1; text-transform: uppercase; }
 
-.name-draw { display: none; }
+.name-draw { display: none !important; }
 
 @media (max-width: 640px) {
   /* the drawing moves up beside the name, so the workshop lands on the first screen */
   .cell-draw { display: none !important; }
   .cell-name { flex-direction: row !important; align-items: center; justify-content: space-between; gap: 0.8rem; padding-top: 0.6rem !important; padding-bottom: 0.6rem !important; }
   .cell-name a { font-size: 2.1rem; }
-  .name-draw { display: block; height: 7.5rem; width: auto; mix-blend-mode: multiply; }
+  .name-draw { display: grid !important; width: auto; flex: none; }
+  .name-draw img { height: 7.5rem; width: auto; max-height: none; }
   .cell-statement { min-height: 22rem; }
   .collage { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; }
   .c-streetart { grid-column: 1; grid-row: 1; }
@@ -85,7 +119,13 @@
 
 <div class="board">
   <header class="grid">
-    <div class="cell-name"><a href="/" class="display">Isaac<br>Peterson</a><img class="name-draw" src="assets/hero-illustration.webp" alt=""></div>
+    <div class="cell-name" data-pose="1"><a href="/" class="display">Isaac<br>Peterson</a>
+      <button class="poser name-draw" type="button" aria-label="Line drawing of Isaac, chin in hand, thinking. Press to change his pose.">
+        <img class="p1" src="assets/hero-illustration.webp" alt="" width="572" height="977">
+        <img class="p2" src="assets/hero-pose-2.webp" alt="" width="572" height="977" fetchpriority="low">
+        <img class="p3" src="assets/hero-pose-3.webp" alt="" width="572" height="977" fetchpriority="low">
+      </button>
+    </div>
     <div class="cell-tag"><p>Things made, questions asked, and whatever I'm figuring out this week.</p></div>
     <nav class="cell-nav" aria-label="Site">
       <ul class="display">
@@ -99,14 +139,21 @@
   </header>
 
   <main id="main" class="grid">
-    <div class="cell-draw"><img src="assets/hero-illustration.webp" alt="Line drawing of Isaac, chin in hand, thinking"></div>
+    <div class="cell-draw" data-pose="1">
+      <button class="poser" type="button" aria-label="Line drawing of Isaac, chin in hand, thinking. Press to change his pose.">
+        <img class="p1" src="assets/hero-illustration.webp" alt="" width="572" height="977">
+        <img class="p2" src="assets/hero-pose-2.webp" alt="" width="572" height="977" fetchpriority="low">
+        <img class="p3" src="assets/hero-pose-3.webp" alt="" width="572" height="977" fetchpriority="low">
+      </button>
+      <span class="hi" aria-hidden="true">Oh, hi.</span>
+    </div>
     <div class="cell-statement">
       <div class="collage" aria-hidden="true">
-        <figure class="c-streetart"><img src="assets/collage/streetart.webp" alt=""></figure>
-        <figure class="c-bridge"><img src="assets/collage/bridge.webp" alt=""></figure>
-        <figure class="c-bourke"><img src="assets/collage/bourke-st.webp" alt=""></figure>
-        <figure class="c-laneway"><img src="assets/collage/laneway.webp" alt=""></figure>
-        <figure class="c-trams"><img src="assets/collage/trams.webp" alt=""></figure>
+        <figure class="c-streetart"><img src="assets/collage/streetart.webp" alt="" width="1000" height="666" decoding="async"></figure>
+        <figure class="c-bridge"><img src="assets/collage/bridge.webp" alt="" width="1000" height="750" decoding="async"></figure>
+        <figure class="c-bourke"><img src="assets/collage/bourke-st.webp" alt="" width="750" height="1000" decoding="async" fetchpriority="high"></figure>
+        <figure class="c-laneway"><img src="assets/collage/laneway.webp" alt="" width="1000" height="750" decoding="async"></figure>
+        <figure class="c-trams"><img src="assets/collage/trams.webp" alt="" width="1000" height="667" decoding="async"></figure>
       </div>
       <h1 class="display"><span class="hl">My public</span><br><span class="hl-paper">workshop</span></h1>
     </div>
@@ -153,6 +200,31 @@
     var p = newest((d.posts || d).filter(function (x) { return x.url; }));
     fill('latest-post', 'Wrote', p, p && p.url);
   }).catch(function () {});
+})();
+</script>
+<script>
+// The drawing: a three-frame flipbook. On landing he is thinking, looks up, then notices you.
+// After that it only moves when asked: hover makes him look at you, a press steps to the next pose.
+(function () {
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  Array.prototype.forEach.call(document.querySelectorAll('.poser'), function (btn) {
+    var host = btn.parentElement, rest = 1, timers = [];
+    function show(n) {
+      if (host.getAttribute('data-pose') === String(n)) return;
+      host.setAttribute('data-pose', n);
+      if (still) return;
+      btn.classList.remove('cel'); void btn.offsetWidth; btn.classList.add('cel');
+    }
+    function cancel() { timers.forEach(clearTimeout); timers = []; }
+    btn.addEventListener('click', function () { cancel(); rest = rest % 3 + 1; show(rest); });
+    btn.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { cancel(); show(3); } });
+    btn.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') show(rest); });
+    if (still || !btn.offsetParent) return; // reduced motion, or this copy is hidden at this width
+    var imgs = Array.prototype.slice.call(btn.querySelectorAll('img'));
+    Promise.all(imgs.map(function (i) { return i.decode ? i.decode() : Promise.resolve(); })).then(function () {
+      [[900, 2], [1700, 3], [4200, 1]].forEach(function (s) { timers.push(setTimeout(function () { show(s[1]); }, s[0])); });
+    }).catch(function () {});
+  });
 })();
 </script>
 </body>

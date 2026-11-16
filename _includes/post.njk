@@ -46,7 +46,7 @@
           {%- endif %}
         </div>
         {%- if image %}
-        <div class="post-hero"><img src="/{{ image | replace(r/^\/+/, '') }}" alt=""></div>
+        <div class="post-hero"><img src="/{{ image | replace(r/^\/+/, '') }}" alt="" loading="eager" fetchpriority="high" sizes="(min-width: 48rem) 50vw, 100vw"></div>
         {%- endif %}
       </div>
       <div class="grid">

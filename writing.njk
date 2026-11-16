@@ -10,25 +10,152 @@ eleventyExcludeFromCollections: true
 <title>Writing · Isaac Peterson</title>
 <meta name="description" content="Posts on workers comp, psychosocial risk, AI, and whatever I'm chewing on. Published as I figure it out.">
 <link rel="canonical" href="https://isaacpeterson.au/writing.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Isaac Peterson">
+<meta property="og:title" content="Writing · Isaac Peterson">
+<meta property="og:description" content="Posts on workers comp, psychosocial risk, AI, and whatever I'm chewing on. Published as I figure it out.">
+<meta property="og:url" content="https://isaacpeterson.au/writing.html">
+<meta property="og:image" content="https://isaacpeterson.au/assets/hero-illustration.png">
 <style>
-.filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+/* ============================================================
+   Writing page: a magazine front. Same puzzle rules as the rest
+   of the site (cells grow to fill their row), but each piece gets
+   a role: one cover, six features in mixed sizes, then a numbered
+   back catalogue. The filter script re-deals the roles, so the
+   newest visible piece is always the cover.
+   ============================================================ */
+
+/* ---------- masthead ---------- */
+.mast { gap: 0.7rem; }
+.mast-line {
+  align-self: stretch; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.3rem 1.2rem;
+  padding-bottom: 0.55rem; border-bottom: var(--rule) solid var(--ink);
+}
+.mast .mast-line { max-width: none; }
+.mast h1 { font-size: min(4.4rem, 12.5vw); }
+.filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
 .filters button {
-  font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase;
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--ink); background: transparent; border: var(--rule) solid var(--ink);
-  padding: 0.3rem 0.6rem; cursor: pointer;
+  padding: 0.4rem 0.7rem; cursor: pointer;
 }
 .filters button:hover { background: var(--pop); }
 .filters button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
 
-.post-row > * { justify-content: flex-start; }
-.post-row[hidden] { display: none; }
-.post-text { flex-basis: 22rem; flex-grow: 4; gap: 0.45rem; }
-.post-text h2 { font-family: Georgia, serif; font-weight: 700; font-size: 1.05rem; line-height: 1.25; max-width: 48ch; }
-.post-text h2 a { text-decoration: none; }
-.post-text h2 a:hover { text-decoration: underline; text-decoration-color: var(--pop); }
-.post-thumb { flex-basis: 9rem; flex-grow: 1; padding: 0 !important; position: relative; min-height: 7rem; background: var(--paper); }
-.post-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* ---------- the spread: ink shows through the gaps as rules ---------- */
+.mag {
+  display: flex; flex-wrap: wrap; gap: var(--rule);
+  background: var(--ink); border-block: var(--rule) solid var(--ink);
+}
+.piece {
+  --bg: var(--ground); --fg: var(--ink);
+  flex: 1 1 14rem; min-width: 0; display: flex; position: relative; overflow: hidden;
+  container-type: inline-size;
+  background: var(--bg); color: var(--fg);
+}
+.piece[hidden], .back-head[hidden] { display: none; }
+.piece-in { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.piece-img { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--paper); border-bottom: var(--rule) solid var(--ink); }
+.piece-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: filter 0.25s, scale 0.4s; }
+.piece-text { flex: 1; display: flex; flex-direction: column; gap: 0.55rem; padding: 1.15rem 1.25rem 1.2rem; position: relative; }
+.piece .mono { font-size: 0.62rem; }
+.piece h2 { font-family: Georgia, serif; font-weight: 700; font-size: 1.1rem; line-height: 1.2; }
+.piece h2 a { text-decoration: none; }
+.piece h2 a::after { content: ''; position: absolute; inset: 0; z-index: 3; } /* the whole cell is the link */
+.piece .std { display: none; font-style: italic; font-size: 0.85rem; line-height: 1.4; max-width: 46ch; }
+.piece .go { margin-top: auto; padding-top: 0.5rem; }
+.piece .go b { display: inline-block; transition: translate 0.15s; }
+
+/* issue number: a page tab on picture cells, a ghost numeral on posters, a margin figure in the catalogue */
+.num {
+  position: absolute; top: 0; right: 0; z-index: 2;
+  font-family: var(--display); font-size: 0.85rem; line-height: 1;
+  background: var(--ink); color: var(--ground); padding: 0.45rem 0.55rem 0.35rem;
+}
+
+/* focus ring on the whole cell; the plain link outline stays where :has() is missing */
+@supports selector(:has(a)) {
+  .piece h2 a:focus-visible { outline: none; }
+  .piece:has(a:focus-visible) { outline: 4px solid var(--mark); outline-offset: -4px; }
+}
+
+@media (hover: hover) {
+  .feature .piece-img img { filter: grayscale(1) contrast(1.08); }
+  .piece:hover .piece-img img { filter: none; scale: 1.04; }
+  .piece:hover h2 a { text-decoration: underline; text-decoration-color: var(--pop); text-decoration-thickness: 3px; }
+  .piece:hover .go b { translate: 0.3rem 0; }
+  .poster:hover h2 a { text-decoration-color: currentColor; }
+}
+
+/* ---------- cover ---------- */
+.cover { flex-basis: 100%; }
+.cover::before {
+  content: 'Cover story';
+  position: absolute; top: 0.9rem; left: 0.9rem; z-index: 2;
+  font-family: var(--display); font-size: 1rem; text-transform: uppercase; line-height: 1;
+  padding: 0.3rem 0.55rem 0.2rem; background: var(--pop); color: var(--ink);
+  rotate: -3deg; box-shadow: 3px 3px 0 var(--ink);
+}
+.cover .piece-text { gap: 0.8rem; padding: 1.6rem 1.5rem 1.5rem; }
+.cover h2 {
+  font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em;
+  font-size: clamp(1.5rem, 4.2cqi, 2.5rem); line-height: 1;
+}
+.cover .std { display: block; font-size: 1rem; }
+@container (min-width: 44rem) {
+  .cover .piece-in { flex-direction: row; }
+  .cover .piece-img { flex: 1.35 1 0; aspect-ratio: auto; min-height: 21rem; border-bottom: 0; border-right: var(--rule) solid var(--ink); }
+  .cover .piece-text { flex: 1 1 0; justify-content: center; padding: 2.2rem 2rem; }
+  .cover .go { margin-top: 0; }
+}
+
+/* ---------- features: two wide picture cells, three type-only posters, one standard ---------- */
+.feature[data-slot="1"], .feature[data-slot="5"] { flex: 3 1 22rem; }
+.feature[data-slot="1"] h2, .feature[data-slot="5"] h2 { font-size: 1.4rem; }
+@container (min-width: 24rem) { .feature .std { display: block; } }
+@container (min-width: 34rem) {
+  .feature[data-slot="5"] .piece-in { flex-direction: row-reverse; }
+  .feature[data-slot="5"] .piece-img { flex: 1 1 0; aspect-ratio: auto; min-height: 13rem; border-bottom: 0; border-left: var(--rule) solid var(--ink); }
+  .feature[data-slot="5"] .piece-text { flex: 1.15 1 0; }
+  .feature[data-slot="5"] .num { right: auto; left: 0; }
+}
+
+.feature[data-slot="2"] { --bg: var(--pop); }
+.feature[data-slot="4"] { --bg: var(--ink); --fg: var(--ground); }
+.feature[data-slot="6"] { --bg: var(--mark); --fg: #fff; }
+.feature[data-slot="2"] .piece-img, .feature[data-slot="4"] .piece-img, .feature[data-slot="6"] .piece-img { display: none; }
+.feature[data-slot="2"] h2, .feature[data-slot="4"] h2, .feature[data-slot="6"] h2 {
+  font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em;
+  font-size: clamp(0.95rem, 8.5cqi, 1.3rem); line-height: 1.02; overflow-wrap: anywhere;
+}
+.feature[data-slot="2"] .piece-text, .feature[data-slot="4"] .piece-text, .feature[data-slot="6"] .piece-text { padding-bottom: 3.2rem; }
+.feature[data-slot="2"] .num, .feature[data-slot="4"] .num, .feature[data-slot="6"] .num {
+  top: auto; right: -0.04em; bottom: -0.2em; z-index: 0;
+  background: none; padding: 0; font-size: 6.5rem; letter-spacing: -0.04em;
+  color: transparent; -webkit-text-stroke: 2px color-mix(in srgb, var(--fg) 38%, transparent);
+}
+
+/* ---------- back catalogue ---------- */
+.back-head {
+  flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.3rem 1rem;
+  background: var(--ink); color: var(--ground); padding: 0.7rem 1.25rem 0.6rem;
+}
+.back-head h2 { font-size: 1.15rem; }
+.brief { flex: 1 1 20rem; }
+.brief .piece-in { flex-direction: row; align-items: baseline; gap: 1rem; padding: 0.95rem 1.25rem; }
+.brief .piece-img, .brief .std, .brief .go { display: none; }
+.brief .piece-text { padding: 0; gap: 0.3rem; position: static; }
+.brief h2 { font-size: 0.98rem; }
+.brief .num { position: static; background: none; padding: 0; color: var(--pop); font-size: 1.5rem; min-width: 2.3ch; transition: color 0.12s; }
+@media (hover: hover) {
+  .brief { transition: background 0.12s; }
+  .brief:hover { --bg: var(--pop); }
+  .brief:hover .num { color: var(--ink); }
+  .brief:hover h2 a { text-decoration: none; }
+}
+
 .post-count { flex-basis: 100%; }
+::view-transition-group(*) { animation-duration: 0.3s; }
 </style>
 </head>
 <body>
@@ -39,53 +166,87 @@ eleventyExcludeFromCollections: true
 
   <main id="main">
     <div class="grid">
-      <div class="page-intro">
+      <div class="page-intro mast">
+        <p class="mono mast-line"><span>The written record</span><span>{{ entries.length }} pieces to date</span><span>Latest · {{ entries[0].date | monthYear }}</span></p>
         <h1 class="display"><span class="hl">Thinking</span> out loud</h1>
         <p>Posts on workers comp, psychosocial risk, AI, and whatever I'm chewing on. Published as I figure it out.</p>
         <div class="filters" id="filters" role="group" aria-label="Filter posts by topic"></div>
       </div>
     </div>
-    <div id="post-list" aria-live="polite">
+    <div class="mag" id="post-list">
       {%- for p in entries %}
-      <article class="grid post-row" data-tag="{{ p.tag }}">
-        <div class="post-text">
-          <p class="mono">{{ p.tag }} · {{ p.date | monthYear }}{% if p.readTime %} · {{ p.readTime }}{% endif %}</p>
-          <h2>{% if p.url %}<a href="{{ p.url }}"{% if not p.url.startsWith('/') %} rel="noopener"{% endif %}>{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</h2>
+      {%- if loop.index == 8 %}
+      <div class="back-head" id="back-head"><h2 class="display">Back catalogue</h2><p class="mono">Older pieces, still standing</p></div>
+      {%- endif %}
+      {%- set external = p.url and not p.url.startsWith('/') %}
+      <article class="piece {% if loop.first %}cover{% elif loop.index <= 7 %}feature{% else %}brief{% endif %}" data-tag="{{ p.tag }}"{% if loop.index <= 7 %} data-slot="{{ loop.index0 }}"{% endif %}>
+        <div class="piece-in">
+          {%- if p.image %}
+          <div class="piece-img"><img src="/{{ p.image }}" alt=""{% if loop.first %} loading="eager" fetchpriority="high" sizes="(min-width: 48rem) 55vw, 100vw"{% else %} loading="lazy" sizes="(min-width: 48rem) 45vw, 100vw"{% endif %}></div>
+          {%- endif %}
+          <span class="num" aria-hidden="true">{{ loop.revindex }}</span>
+          <div class="piece-text">
+            <p class="mono">{{ p.tag }} · {{ p.date | monthYear }}{% if p.readTime %} · {{ p.readTime }}{% endif %}</p>
+            <h2>{% if p.url %}<a href="{{ p.url }}"{% if external %} rel="noopener"{% endif %}>{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</h2>
+            {%- if p.standfirst %}
+            <p class="std">{{ p.standfirst }}</p>
+            {%- endif %}
+            {%- if p.url %}
+            <p class="mono go" aria-hidden="true">{% if external %}Read off-site <b>↗</b>{% else %}Read it <b>→</b>{% endif %}</p>
+            {%- endif %}
+          </div>
         </div>
-        {%- if p.image %}
-        <div class="post-thumb"><img src="/{{ p.image }}" alt="" loading="lazy"></div>
-        {%- endif %}
       </article>
       {%- endfor %}
     </div>
-    <div class="grid"><p class="post-count mono" id="post-count">{{ entries.length }} {{ "post" if entries.length == 1 else "posts" }}</p></div>
+    <div class="grid"><p class="post-count mono" id="post-count" role="status">{{ entries.length }} {{ "post" if entries.length == 1 else "posts" }}</p></div>
   </main>
 </div>
 
 {% include "foot.njk" %}
 
 <script>
-// Topic filter. The list above is built at deploy time, so this only hides rows.
+// Topic filter. The spread above is built at deploy time and reads fine without this.
+// Filtering hides pieces and re-deals the roles, so the newest match becomes the cover.
 (function () {
-  var rows = Array.prototype.slice.call(document.querySelectorAll('.post-row'));
-  var tags = [], active = 'All';
-  rows.forEach(function (r) { var t = r.getAttribute('data-tag'); if (tags.indexOf(t) < 0) tags.push(t); });
+  var list = document.getElementById('post-list');
+  var rows = Array.prototype.slice.call(list.querySelectorAll('.piece'));
+  var backHead = document.getElementById('back-head');
+  var count = document.getElementById('post-count');
   var wrap = document.getElementById('filters');
+  var tags = [], active = 'All', buttons = [];
+  // Tags are matched case-insensitively: "AI & the Profession" and "AI & The Profession" are one topic.
+  function key(r) { return (r.getAttribute('data-tag') || '').trim().toLowerCase(); }
+  var seen = {};
+  rows.forEach(function (r) { if (!seen[key(r)]) { seen[key(r)] = 1; tags.push(r.getAttribute('data-tag').trim()); } });
   if (tags.length < 2) return;
-  function render() {
-    wrap.innerHTML = '';
-    ['All'].concat(tags).forEach(function (t) {
-      var b = document.createElement('button');
-      b.type = 'button'; b.textContent = t;
-      b.setAttribute('aria-pressed', t === active ? 'true' : 'false');
-      b.addEventListener('click', function () { active = t; render(); });
-      wrap.appendChild(b);
+
+  function deal() {
+    var shown = rows.filter(function (r) { return active === 'All' || key(r) === active.toLowerCase(); });
+    rows.forEach(function (r) { r.hidden = shown.indexOf(r) < 0; });
+    shown.forEach(function (r, i) {
+      r.className = 'piece ' + (i === 0 ? 'cover' : i <= 6 ? 'feature' : 'brief');
+      if (i <= 6) r.setAttribute('data-slot', i); else r.removeAttribute('data-slot');
     });
-    var n = 0;
-    rows.forEach(function (r) { var show = active === 'All' || r.getAttribute('data-tag') === active; r.hidden = !show; if (show) n++; });
-    document.getElementById('post-count').textContent = n + (n === 1 ? ' post' : ' posts');
+    if (backHead) {
+      backHead.hidden = shown.length <= 7;
+      if (shown[7]) list.insertBefore(backHead, shown[7]);
+    }
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.textContent === active ? 'true' : 'false'); });
+    count.textContent = shown.length + (shown.length === 1 ? ' post' : ' posts');
   }
-  render();
+
+  ['All'].concat(tags).forEach(function (t) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = t;
+    b.setAttribute('aria-pressed', t === active ? 'true' : 'false');
+    b.addEventListener('click', function () {
+      active = t;
+      var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (document.startViewTransition && !calm) document.startViewTransition(deal); else deal();
+    });
+    wrap.appendChild(b); buttons.push(b);
+  });
 })();
 </script>
 </body>
